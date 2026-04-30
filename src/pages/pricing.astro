@@ -1,0 +1,313 @@
+---
+import { Icon } from "astro-icon/components";
+import MainLayout from "../layouts/main-layout.astro";
+import CtaCard from "../components/CTA.astro";
+
+const plans = [
+    {
+        name: "Standard Node",
+        target: "For localized fleets requiring foundational telemetry.",
+        price: "Custom",
+        period: "Contact for Pricing",
+        features: [
+            "Sub-second GPS telemetry pinging",
+            "Standard route optimization logic",
+            "Basic compliance & hours logging",
+            "30-day historical data retention",
+            "Standard API access (100 req/min)",
+        ],
+    },
+    {
+        name: "Intelligence Node",
+        target: "For scaled operations requiring predictive safety and AI routing.",
+        price: "Custom",
+        period: "Contact for Pricing",
+        features: [
+            "Everything in Standard Node",
+            "Real-time ADAS camera synchronization",
+            "Predictive maintenance & failure alerts",
+            "Algorithmic driver safety scoring",
+            "1-year historical data retention",
+            "Advanced API access (1000 req/min)",
+        ],
+    },
+];
+
+const faqs = [
+    {
+        id: "01",
+        question: "How is an active node defined?",
+        answer: "A node is defined as any single hardware unit (vehicle tracker, ADAS camera, or cold-chain sensor) actively transmitting telemetry to the Trackora servers within a billing cycle.",
+    },
+    {
+        id: "02",
+        question: "Can we switch infrastructure tiers mid-cycle?",
+        answer: "Yes. Tier upgrades are prorated and applied instantly, unlocking predictive features across your fleet without requiring hardware restarts. Downgrades take effect at the next billing cycle.",
+    },
+    {
+        id: "03",
+        question: "Are there baseline hardware requirements?",
+        answer: "Trackora is hardware-agnostic and interfaces with 98% of modern OBD-II and CAN bus tracking devices. For ADAS sync, specific camera architectures are required. Check our documentation for the supported hardware matrix.",
+    },
+    {
+        id: "04",
+        question: "How does enterprise custom pricing work?",
+        answer: "Enterprise pricing is determined by concurrent connection volume, custom machine learning model training requirements, and private cloud deployment architectures. It is a flat annual contract, not per-vehicle.",
+    },
+];
+
+const pricingIllustration =
+    "https://cdn.dribbble.com/userupload/45315141/file/8ec9281656b7a5ce128ccc8184d7243d.png?resize=1504x1128&vertical=center";
+---
+
+<MainLayout
+    title="Pricing | Trackora"
+    description="Transparent and scalable pricing for Trackora's GPS tracking, ADAS, and fleet management solutions."
+>
+    <main
+        class="bg-[#FAFAFA] dark:bg-[#09090B] text-[#09090B] dark:text-white"
+    >
+        <section
+            class="relative w-full pt-24 pb-20 lg:pt-32 lg:pb-32 border-b border-[#E4E4E7] dark:border-white/10 overflow-hidden"
+        >
+            <div
+                class="absolute inset-0 z-0 opacity-20 pointer-events-none hidden md:block"
+            >
+                <div
+                    class="absolute inset-0 bg-[linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] opacity-[0.05]"
+                >
+                </div>
+            </div>
+
+            <div
+                class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10"
+            >
+                <div
+                    class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end animate-fade-in-up"
+                >
+                    <div class="lg:col-span-7">
+                        <div
+                            class="flex items-center gap-2.5 px-3 py-1.5 border border-[#E4E4E7] dark:border-white/10 bg-white dark:bg-[#121214] rounded-full w-max mb-8 shadow-sm"
+                        >
+                            <span
+                                class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#52525B] dark:text-[#C4C4CE]"
+                                >Licensing & Scale</span
+                            >
+                        </div>
+
+                        <h1
+                            class="text-[36px] md:text-[56px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.04em] text-[#09090B] dark:text-white"
+                        >
+                            Predictable scale. <br class="hidden sm:block" /> Absolute
+                            clarity.
+                        </h1>
+                    </div>
+
+                    <div
+                        class="lg:col-span-5 flex flex-col justify-end lg:pb-3"
+                    >
+                        <p
+                            class="text-[17px] md:text-[19px] leading-[1.65] text-[#71717A] dark:text-[#A1A1AA] font-normal max-w-[480px]"
+                        >
+                            Customized telemetry plans tailored for your fleet
+                            size. Contact our team to draft an architecture and
+                            pricing contract suitable for your active nodes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section
+            class="relative w-full py-20 lg:py-32 bg-[#FAFAFA] dark:bg-[#09090B] border-b border-[#E4E4E7] dark:border-white/10"
+        >
+            <div
+                class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10"
+            >
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#E4E4E7] dark:bg-white/10 border border-[#E4E4E7] dark:border-white/10 rounded-3xl overflow-hidden mb-8 lg:mb-12 animate-fade-in-up"
+                    style="animation-delay: 0.1s;"
+                >
+                    {
+                        plans.map((plan) => (
+                            <div class="bg-white dark:bg-[#121214] p-10 lg:p-16 flex flex-col group hover:bg-[#FDFDFD] transition-colors duration-500">
+                                <div class="border-b border-[#E4E4E7] dark:border-white/10 pb-10 mb-10">
+                                    <h3 class="text-[28px] font-bold tracking-tight text-[#09090B] dark:text-white mb-3">
+                                        {plan.name}
+                                    </h3>
+                                    <p class="text-[14px] text-[#71717A] dark:text-[#A1A1AA] h-10 max-w-[320px]">
+                                        {plan.target}
+                                    </p>
+
+                                    <div class="mt-10 flex items-baseline gap-2 text-[#09090B] dark:text-white">
+                                        <span class="text-[48px] font-medium leading-none tracking-[-0.04em]">
+                                            {plan.price}
+                                        </span>
+                                    </div>
+                                    <span class="text-[11px] font-bold tracking-[0.1em] uppercase text-[#A1A1AA] dark:text-[#71717A] mt-3 block">
+                                        {plan.period}
+                                    </span>
+                                </div>
+
+                                <ul class="flex flex-col gap-5 flex-1 mb-12">
+                                    {plan.features.map((feature) => (
+                                        <li class="flex items-start gap-4 text-[15px] text-[#3F3F46] dark:text-[#D4D4D8]">
+                                            <div class="w-1.5 h-1.5 rounded-full bg-[#09090B] dark:bg-[#121214] mt-2 shrink-0" />
+                                            <span>{feature}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                <button
+                                    onclick="window.dispatchEvent(new CustomEvent('openDemoModal'))"
+                                    class="w-full py-4 border border-[#09090B] dark:border-white/10 text-[#09090B] dark:text-white text-[14px] font-bold tracking-wide text-center rounded-full hover:bg-[#09090B] dark:bg-[#121214] hover:text-white dark:text-[#09090B] transition-all duration-300"
+                                >
+                                    Contact Sales
+                                </button>
+                            </div>
+                        ))
+                    }
+                </div>
+
+                <div
+                    class="w-full bg-[#09090B] dark:bg-[#121214] rounded-3xl p-10 lg:p-16 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center animate-fade-in-up"
+                    style="animation-delay: 0.2s;"
+                >
+                    <div class="lg:col-span-7 flex flex-col">
+                        <span
+                            class="text-[11px] font-bold tracking-[0.2em] uppercase text-white dark:text-[#09090B]/50 mb-4"
+                            >Scale Architecture</span
+                        >
+                        <h3
+                            class="text-[28px] md:text-[36px] font-medium tracking-tight text-white dark:text-[#09090B] mb-4"
+                        >
+                            Enterprise Custom
+                        </h3>
+                        <p
+                            class="text-[16px] leading-[1.6] text-slate-400 max-w-[480px] mb-8"
+                        >
+                            Dedicated private cloud instances, raw data firehose
+                            access, custom machine learning model deployment,
+                            and a 99.999% SLA guarantee.
+                        </p>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <li
+                                class="flex items-center gap-3 text-[14px] text-white dark:text-[#09090B]/80"
+                            >
+                                <Icon
+                                    name="mdi:check"
+                                    class="w-4 h-4 text-white dark:text-[#09090B]"
+                                /> VPC Deployment
+                            </li>
+                            <li
+                                class="flex items-center gap-3 text-[14px] text-white dark:text-[#09090B]/80"
+                            >
+                                <Icon
+                                    name="mdi:check"
+                                    class="w-4 h-4 text-white dark:text-[#09090B]"
+                                /> V2X Municipal Sync
+                            </li>
+                            <li
+                                class="flex items-center gap-3 text-[14px] text-white dark:text-[#09090B]/80"
+                            >
+                                <Icon
+                                    name="mdi:check"
+                                    class="w-4 h-4 text-white dark:text-[#09090B]"
+                                /> Direct Engineer Access
+                            </li>
+                            <li
+                                class="flex items-center gap-3 text-[14px] text-white dark:text-[#09090B]/80"
+                            >
+                                <Icon
+                                    name="mdi:check"
+                                    class="w-4 h-4 text-white dark:text-[#09090B]"
+                                /> Unlimited Node Retention
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div
+                        class="lg:col-span-5 flex justify-start lg:justify-end"
+                    >
+                        <a
+                            href="#contact-sales"
+                            class="w-full sm:w-auto px-10 py-5 bg-white dark:bg-[#121214] text-[#09090B] dark:text-white text-[14px] font-bold tracking-wide text-center rounded-full hover:scale-[1.02] active:scale-95 transition-all duration-300"
+                        >
+                            Draft Enterprise SLA
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section
+            class="relative w-full py-20 lg:py-32 bg-white dark:bg-[#121214] border-b border-[#E4E4E7] dark:border-white/10"
+        >
+            <div class="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
+                <div
+                    class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start"
+                >
+                    <div class="lg:col-span-5 sticky top-32 animate-fade-in-up">
+                        <h2
+                            class="text-[32px] md:text-[48px] font-medium tracking-tight leading-[1] mb-6"
+                        >
+                            Technical <br /> Appendix.
+                        </h2>
+                        <p
+                            class="text-[17px] text-[#71717A] dark:text-[#A1A1AA] max-w-[380px]"
+                        >
+                            Details regarding deployment, billing cycles, and
+                            hardware synchronization.
+                        </p>
+                    </div>
+
+                    <div
+                        class="lg:col-span-7 flex flex-col border-t border-[#09090B] dark:border-white/10"
+                    >
+                        {
+                            faqs.map((faq, index) => (
+                                <div
+                                    class="group py-8 lg:py-10 border-b border-[#E4E4E7] dark:border-white/10 flex flex-col gap-4 animate-fade-in-up cursor-pointer"
+                                    style={`animation-delay: ${0.1 * index}s;`}
+                                >
+                                    <div class="flex items-start justify-between gap-6">
+                                        <div class="flex gap-6 items-start">
+                                            <span class="text-[14px] font-mono font-medium text-[#A1A1AA] dark:text-[#71717A] pt-1">
+                                                // {faq.id}
+                                            </span>
+                                            <h4 class="text-[20px] lg:text-[24px] font-medium text-[#09090B] dark:text-white group-hover:text-slate-600 transition-colors">
+                                                {faq.question}
+                                            </h4>
+                                        </div>
+                                        <Icon
+                                            name="mdi:plus"
+                                            class="w-6 h-6 text-[#A1A1AA] dark:text-[#71717A] shrink-0 mt-1"
+                                        />
+                                    </div>
+                                    <div class="pl-16 pr-10">
+                                        <p class="text-[16px] leading-[1.65] text-[#71717A] dark:text-[#A1A1AA]">
+                                            {faq.answer}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <CtaCard
+            badgeText="System Initialization"
+            title="Deploy your <br/> Infrastructure."
+            description="Join the industry leaders transitioning to Trackora. Experience absolute visibility and precision at any scale."
+            primaryBtnText="Initialize Deployment"
+            primaryBtnHref="#deploy"
+            secondaryBtnText="Review Documentation"
+            secondaryBtnHref="#docs"
+            illustrationUrl={pricingIllustration}
+            trustHighlight="Top 1%"
+            trustText="of global logistics networks."
+        />
+    </main>
+</MainLayout>

@@ -1,0 +1,168 @@
+---
+import Navbar from "../components/navbar.tsx";
+import Footer from "../components/footer.astro";
+import { DemoModal } from "../components/DemoModal.tsx";
+import "../styles/global.css";
+
+export interface LayoutProps {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  canonicalUrl?: string;
+  structuredData?: Record<string, unknown> | null;
+}
+
+const {
+  title,
+  description = "Trackora provides safety products and services to transportation companies.",
+  ogImage = "https://trackora.tech/assets/logo.png",
+  canonicalUrl,
+  structuredData = null,
+} = Astro.props as LayoutProps;
+
+const resolvedCanonical = canonicalUrl || Astro.url.toString();
+const baseSchemaGraph = [
+  {
+    "@type": "WebSite",
+    "@id": "https://trackora.tech/#website",
+    url: "https://trackora.tech/",
+    name: "Trackora",
+    description:
+      "Trackora provides safety products and services to transportation companies.",
+    publisher: {
+      "@id": "https://trackora.tech/#organization",
+    },
+  },
+  {
+    "@type": "Organization",
+    "@id": "https://trackora.tech/#organization",
+    name: "Trackora",
+    url: "https://trackora.tech/",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://trackora.tech/assets/logo.png",
+      width: 512,
+      height: 512,
+    },
+    image: "https://trackora.tech/assets/logo.png",
+    description:
+      "Next-Gen Intel For Modern Fleet Logistics. Real-time GPS tracking and analytics.",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Sector 33, Subhash Chowk, Near Chokat Showroom",
+      addressLocality: "Gurugram",
+      addressRegion: "Haryana",
+      postalCode: "122001",
+      addressCountry: "IN",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+917206617045",
+      contactType: "customer support",
+      areaServed: "Global",
+      availableLanguage: ["English", "Hindi"],
+    },
+    sameAs: ["https://www.linkedin.com/company/trackora"],
+  },
+];
+const schemaPayload = {
+  "@context": "https://schema.org",
+  "@graph": structuredData
+    ? [...baseSchemaGraph, structuredData]
+    : baseSchemaGraph,
+};
+---
+
+<html lang="en">
+  <head>
+    <!-- Core Meta Tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#FAFAFA" />
+    <meta name="color-scheme" content="light" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="fleet logistics, GPS tracking, vehicle tracking, fleet management, logistics software, Trackora, transportation safety, real-time tracking, telematics" />
+    <meta name="author" content="Trackora Infrastructure" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={resolvedCanonical} />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:site_name" content="Trackora" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={resolvedCanonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="Trackora - Next-Gen Intel For Modern Fleet Logistics" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@TrackoraTech" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Trackora Logo" />
+
+    <!-- Schema.org JSON-LD -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaPayload)}>
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-[#FAFAFA] text-[#09090B]" style="font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100000] focus:bg-white focus:text-[#09090B] focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg">
+      Skip to main content
+    </a>
+    <main id="main-content" class="bg-[#FAFAFA] bg-no-repeat bg-cover bg-center">
+      <Navbar client:load pathname={Astro.url.pathname} />
+      <slot />
+      <!-- All different pages to be rendered here -->
+      <Footer />
+      <DemoModal client:load />
+    </main>
+
+    <script>
+      import Lenis from "lenis";
+
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (!prefersReducedMotion) {
+        new Lenis({ autoRaf: true });
+      }
+    </script>
+    <script>
+      // @ts-nocheck
+      window.dataLayer = window.dataLayer || [];
+      window.trackEvent = (name, payload = {}) => {
+        window.dataLayer.push({
+          event: name,
+          page: window.location.pathname,
+          ts: Date.now(),
+          ...payload,
+        });
+      };
+      window.__trackoraDemoReady = false;
+      window.openDemoWithFallback = () => {
+        if (window.__trackoraDemoReady) {
+          window.dispatchEvent(new CustomEvent("openDemoModal"));
+          return;
+        }
+        window.location.href = "/contact";
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+---
+import { getHomeSettings } from "../lib/home-settings";
+
+const settings = await getHomeSettings();
+const stats = settings.stats;
+---
+
+<section class="relative w-full py-16 lg:py-24 bg-white border-t border-[#E4E4E7] overflow-hidden">
+  <div class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10">
+    <div class="text-center mb-10 lg:mb-12">
+      <p class="text-[11px] font-bold tracking-[0.2em] uppercase text-[#71717A] mb-3">{stats.badgeText}</p>
+      <h2 class="text-[26px] sm:text-[30px] md:text-[44px] font-semibold tracking-tight text-[#09090B] mb-4">{stats.title}</h2>
+      <p class="text-[15px] text-[#71717A] max-w-[760px] mx-auto">{stats.subtitle}</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {stats.items.map((item) => (
+        <div class="rounded-2xl border border-[#E4E4E7] bg-[#FAFAFA] p-6 sm:p-8">
+          <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#71717A] mb-2">{item.label}</p>
+          <p class="text-[34px] sm:text-[42px] font-bold tracking-tight text-[#09090B] mb-3">
+            <span class="counter" data-target={item.value} data-suffix={item.suffix}>0</span>
+            {item.suffix}
+          </p>
+          <p class="text-sm text-[#71717A]">{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const counters = document.querySelectorAll(".counter");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = Number(el.getAttribute("data-target") || 0);
+        let count = 0;
+        const step = Math.max(1, Math.round(target / 40));
+        const timer = setInterval(() => {
+          count += step;
+          if (count >= target) {
+            count = target;
+            clearInterval(timer);
+          }
+          el.textContent = String(count);
+        }, 20);
+        observer.unobserve(el);
+      });
+    },
+    { threshold: 0.6 },
+  );
+
+  counters.forEach((c) => observer.observe(c));
+</script>

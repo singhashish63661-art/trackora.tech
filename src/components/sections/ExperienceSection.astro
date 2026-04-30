@@ -1,0 +1,43 @@
+---
+import Experience from "../experience.tsx";
+
+const experiences = [
+    {
+        num: 12,
+        text: "Years Of Experiance",
+    },
+    {
+        num: 85,
+        text: "Success Project",
+    },
+    {
+        num: 15,
+        text: "Active Project",
+    },
+    {
+        num: 95,
+        text: "Happy Customers",
+    },
+];
+---
+
+<section
+    class="w-full bg-primary-300 px-12 xl:px-0 mx-auto mt-[100px] lg:mt-[200px] py-[151px]"
+>
+    <div
+        class="w-full max-w-[1200px] mx-auto flex lg:justify-center items-center overflow-x-scroll no-scrollbar"
+    >
+        {
+            experiences.map((exp, i) => {
+                return (
+                    <Experience
+                        text={exp.text}
+                        num={exp.num}
+                        i={i}
+                        client:visible
+                    />
+                );
+            })
+        }
+    </div>
+</section>

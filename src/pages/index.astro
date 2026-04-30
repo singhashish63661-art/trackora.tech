@@ -1,0 +1,68 @@
+---
+import MainLayout from "../layouts/main-layout.astro";
+import HeroSection from "../components/sections/HeroSection.astro";
+import StatsBar from "../components/StatsBar.astro";
+import SolutionsSection from "../components/sections/SolutionsSection.astro";
+import TestimonialsSection from "../components/sections/TestimonialsSection.astro";
+import CTA from "../components/CTA.astro";
+import CoreFeatures from "../components/sections/CoreFeatures.astro";
+import Steps from "../components/Steps.astro";
+import Future from "../components/sections/Future.astro";
+import Benefits from "../components/sections/Benefits.astro";
+
+const illustrationUrl = "/assets/images/rocket.png";
+const homepageSchema = {
+	"@type": "Service",
+	name: "Trackora Fleet Intelligence Platform",
+	serviceType: "Fleet management and telematics",
+	provider: { "@id": "https://trackora.tech/#organization" },
+	areaServed: "Global",
+	description:
+		"Real-time GPS tracking, fleet safety monitoring, and fuel intelligence for logistics operators.",
+};
+---
+
+<MainLayout
+	title="Trackora | Safety Products & Services"
+	description="Trackora provides safety products and services to transportation companies."
+	structuredData={homepageSchema}
+	ogImage="https://trackora.tech/assets/images/adas-dms-device.png"
+>
+	<HeroSection />
+	<section class="w-full border-y border-[#E4E4E7] bg-white">
+		<div class="w-full max-w-[1440px] mx-auto px-6 lg:px-12 py-5">
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+				<div class="rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] px-4 py-3">
+					<p class="text-[10px] font-bold tracking-[0.18em] uppercase text-[#71717A]">Deployment Speed</p>
+					<p class="text-sm font-semibold text-[#09090B] mt-1">Live onboarding in days, not months.</p>
+				</div>
+				<div class="rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] px-4 py-3">
+					<p class="text-[10px] font-bold tracking-[0.18em] uppercase text-[#71717A]">Ops Visibility</p>
+					<p class="text-sm font-semibold text-[#09090B] mt-1">Unified GPS, safety, and route control.</p>
+				</div>
+				<div class="rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] px-4 py-3">
+					<p class="text-[10px] font-bold tracking-[0.18em] uppercase text-[#71717A]">Enterprise Support</p>
+					<p class="text-sm font-semibold text-[#09090B] mt-1">Dedicated implementation + success team.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<StatsBar />
+	<SolutionsSection />
+	<CoreFeatures />
+	<Steps />
+	<Future />
+	<Benefits />
+	<TestimonialsSection />
+	<!-- <ProjectsSection /> -->
+	<!-- <ClientLogosSection /> -->
+	<!-- <ExperienceSection /> -->
+	<CTA
+		badgeText="Connect"
+		title="Join the <br/> Mission."
+		description="Whether you are an enterprise logistics partner demanding operational excellence or engineering talent looking to scale infrastructure."
+		primaryBtnText="Contact Leadership"
+		primaryBtnHref="/contact"
+		illustrationUrl={illustrationUrl}
+	/>
+</MainLayout>

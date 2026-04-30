@@ -1,0 +1,105 @@
+{
+  "hero": {
+    "videoUrl": "https://cdn.dribbble.com/userupload/28751475/file/original-3579e6afca91a0da24722f70c96f3b2e.mp4",
+    "badgeText": "Real-time Fleet Intelligence",
+    "titleLine1": "Track Every Vehicle.",
+    "titleLine2": "Protect Every Route.",
+    "description": "Trackora unifies live GPS, safety events, and fuel visibility in one command center for logistics teams.",
+    "ctaText": "Book Demo",
+    "ctaHref": "#",
+    "viewDemoText": "Watch Platform Tour",
+    "viewDemoHref": "#command-center",
+    "pressLogos": [
+      {
+        "text": "Apex Logistics",
+        "icon": "mdi:truck-fast",
+        "fontStyle": "font-bold text-[13px] lg:text-[15px]"
+      },
+      {
+        "text": "Global Freight",
+        "icon": "mdi:earth",
+        "fontStyle": "font-semibold tracking-tight text-[13px] lg:text-[15px]"
+      },
+      {
+        "text": "Nexus Transport",
+        "icon": "mdi:road-variant",
+        "fontStyle": "font-medium text-[13px] lg:text-[15px]"
+      }
+    ]
+  },
+  "solutions": {
+    "headerBadgeText": "Our Solutions",
+    "headerTitleLine1": "Start with GPS.",
+    "headerTitleLine2": "Scale to everything.",
+    "headerSubtitle": "Trackora today delivers precision GPS tracking and powerful fleet software. Advanced IoT, ADAS, and TMS modules are arriving soon — subscribe to be first.",
+    "live": [
+      {
+        "title": "GPS Vehicle Tracking",
+        "icon": "mdi:map-marker-path",
+        "description": "Real-time location of every asset with 5-second refresh, geo-fencing alerts, trip replay, and driver behaviour scoring — all in one dashboard.",
+        "href": "/products",
+        "features": [
+          "Live map with 5-sec refresh",
+          "Geo-fence violations & alerts",
+          "Route replay & trip history",
+          "Driver scorecards"
+        ]
+      },
+      {
+        "title": "Fleet Command Software",
+        "icon": "mdi:monitor-dashboard",
+        "description": "Enterprise-grade web & mobile dashboard. Manage your entire fleet, drivers, and assets from a single pane of glass with real-time data.",
+        "href": "/products",
+        "features": [
+          "Unified fleet dashboard",
+          "Driver & vehicle management",
+          "Custom alerts & reports",
+          "Mobile app for field teams"
+        ]
+      }
+    ],
+    "soon": [
+      {
+        "title": "Fuel Management",
+        "icon": "mdi:fuel",
+        "description": "IoT fuel rod sensors with litre-level tracking, drain detection, and per-trip cost analysis."
+      },
+      {
+        "title": "ADAS Video Telematics",
+        "icon": "mdi:car-emergency",
+        "description": "AI dashcam with collision warnings, lane departure detection, and driver fatigue monitoring."
+      },
+      {
+        "title": "Predictive Maintenance",
+        "icon": "mdi:wrench-clock",
+        "description": "OBD-II diagnostics that predict brake, engine, and tyre failures before they happen."
+      },
+      {
+        "title": "Freight & TMS",
+        "icon": "mdi:truck-delivery-outline",
+        "description": "End-to-end transport management: dispatch, consignments, e-way bills, and freight audit."
+      },
+      {
+        "title": "AI Analytics",
+        "icon": "mdi:chart-bell-curve-cumulative",
+        "description": "Fleet-wide intelligence that optimises routes, predicts disruptions and benchmarks drivers."
+      }
+    ]
+  },
+  "services": {
+    "dashboardVideoUrl": "https://cdn.dribbble.com/userupload/45849695/file/b31bb91fdfb6436a0cad72b0b0b3bdc2.mp4",
+    "operationalBadgeText": "Operational Intelligence",
+    "headingLine1": "Total control.",
+    "headingLine2": "Zero clutter.",
+    "description": "Experience the industry's most advanced logistics interface. Deep analytics, real-time tracking, and predictive insights—all centralized on one pristine pane of glass.",
+    "exploreDashboardText": "Explore the dashboard",
+    "exploreDashboardHref": "#demo",
+    "routeOptimizedTitle": "Route Optimized",
+    "routeOptimizedSubtitle": "Saving 42 mins",
+    "activeFleetTitle": "Active Fleet Intel",
+    "activeFleetSubtitle": "Scanning 1,402 nodes",
+    "activeFleetIcon": "mdi:radar",
+    "routeOptimizedIcon": "mdi:check-all",
+    "appLabel": "app.trackora.tech"
+  }
+}

@@ -1,0 +1,126 @@
+---
+import { Icon } from "astro-icon/components";
+
+import { getHomeSettings } from "../../lib/home-settings";
+
+const homeSettings = await getHomeSettings();
+const solutions = homeSettings.solutions;
+
+const live = solutions.live;
+const soon = solutions.soon;
+---
+
+<section
+    id="solutions"
+    class="relative w-full py-20 lg:py-32 bg-white font-sans text-[#09090B] border-t border-[#E4E4E7] overflow-hidden"
+>
+    <!-- ambient -->
+    <div class="absolute top-[-10%] right-[10%] w-[50vw] h-[50vw] bg-slate-100/60 rounded-full blur-[140px] pointer-events-none z-0"></div>
+
+    <div class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10">
+
+        <!-- header -->
+        <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 mb-16 lg:mb-24 animate-fade-in-up">
+            <div class="lg:col-span-7">
+                <div class="flex items-center gap-2.5 px-3 py-1.5 border border-[#E4E4E7] bg-white rounded-full w-max mb-8 shadow-sm">
+                    <span class="relative flex h-1.5 w-1.5 ml-1">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-500"></span>
+                    </span>
+                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#52525B]">{solutions.headerBadgeText}</span>
+                </div>
+                <h2 class="text-[40px] md:text-[56px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.04em] text-[#09090B]">
+                    {solutions.headerTitleLine1}
+                    <br class="hidden sm:block" />
+                    {solutions.headerTitleLine2}
+                </h2>
+            </div>
+            <div class="lg:col-span-5 flex flex-col justify-end lg:pb-3">
+                <p class="text-[16px] md:text-[17px] leading-[1.65] text-[#71717A] font-normal max-w-[480px]">
+                    {solutions.headerSubtitle}
+                </p>
+            </div>
+        </div>
+
+        <!-- LIVE: 2-column dark cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            {live.map((s, i) => (
+                <div
+                    class="group relative bg-[#09090B] rounded-[2rem] p-8 lg:p-10 border border-white/[0.07] overflow-hidden flex flex-col hover:shadow-2xl hover:border-white/20 transition-all duration-500 animate-fade-in-up"
+                    style={`animation-delay: ${i * 0.1}s;`}
+                >
+                    <!-- light ray background -->
+                    <div class="absolute inset-0 rounded-[2rem] overflow-hidden pointer-events-none">
+                        <!-- crepuscular white ray fan from top-center -->
+                        <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[200%] h-[500px]"
+                            style="background: conic-gradient(from 255deg at 50% 0%, transparent 0deg, rgba(255,255,255,0) 12deg, rgba(255,255,255,0.07) 16deg, rgba(255,255,255,0) 20deg, transparent 26deg, rgba(255,255,255,0.05) 30deg, rgba(255,255,255,0) 34deg, transparent 40deg, rgba(255,255,255,0.04) 44deg, rgba(255,255,255,0) 48deg, transparent 55deg, rgba(255,255,255,0.03) 58deg, rgba(255,255,255,0) 62deg, transparent 310deg);"
+                        ></div>
+                        <!-- soft top glow bloom -->
+                        <div class="absolute -top-16 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-[radial-gradient(ellipse,rgba(255,255,255,0.08)_0%,transparent_65%)]"></div>
+                        <!-- subtle corner glow -->
+                        <div class="absolute -top-10 -right-10 w-72 h-72 bg-[radial-gradient(circle,rgba(255,255,255,0.05)_0%,transparent_70%)]"></div>
+                    </div>
+
+                    <!-- live pill -->
+                    <div class="flex items-center gap-2 mb-8 w-max">
+                        <span class="relative flex h-1.5 w-1.5">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-400"></span>
+                        </span>
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-blue-400">Available Now</span>
+                    </div>
+
+                    <div class="relative z-10 w-14 h-14 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center mb-8 group-hover:bg-white/20 transition-colors">
+                        <Icon name={s.icon} class="w-7 h-7 text-white" />
+                    </div>
+
+                    <h3 class="text-[24px] lg:text-[28px] font-semibold tracking-tight text-white mb-4 relative z-10">{s.title}</h3>
+                    <p class="text-[15px] leading-[1.65] text-white/60 mb-8 flex-1 relative z-10">{s.description}</p>
+
+                    <ul class="flex flex-col gap-2 mb-8 relative z-10">
+                        {s.features.map(f => (
+                            <li class="flex items-center gap-3 text-[13px] text-white/80 font-medium">
+                                <div class="w-4 h-4 rounded-full bg-blue-400/20 border border-blue-400/30 flex items-center justify-center flex-shrink-0">
+                                    <Icon name="mdi:check" class="w-2.5 h-2.5 text-blue-400" />
+                                </div>
+                                {f}
+                            </li>
+                        ))}
+                    </ul>
+
+                    <a href="/contact" onclick="window.trackEvent?.('cta_click', { location: 'solutions_live', target: '/contact' })" class="relative z-10 inline-flex items-center gap-2 text-[13px] font-bold tracking-wide text-white border-b border-white/30 pb-0.5 w-max group-hover:border-white transition-colors">
+                        Schedule Demo <Icon name="mdi:arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </a>
+                </div>
+            ))}
+        </div>
+
+        <!-- COMING SOON: 5-column light cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {soon.map((s, i) => (
+                <div
+                    class="group relative bg-[#FAFAFA] rounded-[1.5rem] p-6 border border-[#E4E4E7] overflow-hidden flex flex-col transition-all duration-300 hover:border-[#D4D4D8] animate-fade-in-up"
+                    style={`animation-delay: ${0.2 + i * 0.07}s;`}
+                >
+                    <span class="text-[9px] font-bold tracking-[0.2em] uppercase text-[#A1A1AA] bg-[#F4F4F5] px-2 py-1 rounded-full border border-[#E4E4E7] self-start mb-6">
+                        Coming Soon
+                    </span>
+
+                    <div class="w-10 h-10 rounded-xl bg-[#F1F1F1] border border-[#E4E4E7] flex items-center justify-center mb-5">
+                        <Icon name={s.icon} class="w-5 h-5 text-[#A1A1AA]" />
+                    </div>
+
+                    <h3 class="text-[15px] font-semibold tracking-tight text-[#09090B] mb-2">{s.title}</h3>
+                    <p class="text-[13px] leading-[1.6] text-[#71717A] flex-1">{s.description}</p>
+
+                    <div class="mt-5 pt-4 border-t border-[#F1F1F1]">
+                        <a href="/contact" onclick="window.trackEvent?.('cta_click', { location: 'solutions_soon', target: '/contact' })" class="text-[11px] font-bold tracking-widest uppercase text-[#A1A1AA] hover:text-[#09090B] transition-colors flex items-center gap-1.5 focus:outline-none">
+                            Schedule Demo <Icon name="mdi:arrow-right" class="w-3 h-3" />
+                        </a>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+    </div>
+</section>

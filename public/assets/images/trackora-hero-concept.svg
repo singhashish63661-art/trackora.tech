@@ -1,0 +1,50 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#030C22"/>
+      <stop offset="1" stop-color="#020817"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+
+  <g opacity="0.23" stroke="#103B63" stroke-width="1">
+    <path d="M0 70H1600M0 140H1600M0 210H1600M0 280H1600M0 350H1600M0 420H1600M0 490H1600M0 560H1600M0 630H1600M0 700H1600M0 770H1600M0 840H1600"/>
+    <path d="M70 0V900M140 0V900M210 0V900M280 0V900M350 0V900M420 0V900M490 0V900M560 0V900M630 0V900M700 0V900M770 0V900M840 0V900M910 0V900M980 0V900M1050 0V900M1120 0V900M1190 0V900M1260 0V900M1330 0V900M1400 0V900M1470 0V900M1540 0V900"/>
+  </g>
+
+  <!-- left block -->
+  <g transform="translate(105 150)">
+    <rect x="0" y="0" width="545" height="50" rx="25" fill="#082A3D" stroke="#0D6E95"/>
+    <circle cx="24" cy="25" r="6" fill="#20D9FF"/>
+    <text x="43" y="33" fill="#53DFFF" font-family="Arial, sans-serif" font-size="28" letter-spacing="1.2">FLEET INTELLIGENCE PLATFORM</text>
+
+    <text x="0" y="150" fill="#EDF4FF" font-family="Arial Black, Arial, sans-serif" font-size="84" font-weight="900">Beyond</text>
+    <text x="0" y="232" fill="#EDF4FF" font-family="Arial Black, Arial, sans-serif" font-size="84" font-weight="900">simple</text>
+    <text x="0" y="314" fill="#1EDBFF" font-family="Arial Black, Arial, sans-serif" font-size="84" font-weight="900">tracking.</text>
+
+    <text x="0" y="380" fill="#A4B6D2" font-family="Arial, sans-serif" font-size="41">GPS baselines. IoT fuel sensors. Driver monitoring.</text>
+    <text x="0" y="430" fill="#A4B6D2" font-family="Arial, sans-serif" font-size="41">AI-driven ADAS telematics — unified in one dashboard.</text>
+
+    <g transform="translate(0 545)">
+      <line x1="0" y1="0" x2="0" y2="96" stroke="#1792D4" stroke-width="4"/>
+      <text x="26" y="48" fill="#F5F9FF" font-family="Arial Black, Arial, sans-serif" font-size="58">10M+</text>
+      <text x="26" y="88" fill="#7D96B9" font-family="Arial, sans-serif" font-size="28">SENSOR NODES/SEC</text>
+    </g>
+    <g transform="translate(355 545)">
+      <line x1="0" y1="0" x2="0" y2="96" stroke="#1792D4" stroke-width="4"/>
+      <text x="26" y="48" fill="#F5F9FF" font-family="Arial Black, Arial, sans-serif" font-size="58">99.9%</text>
+      <text x="26" y="88" fill="#7D96B9" font-family="Arial, sans-serif" font-size="28">UPTIME SLA</text>
+    </g>
+    <g transform="translate(690 545)">
+      <line x1="0" y1="0" x2="0" y2="96" stroke="#1792D4" stroke-width="4"/>
+      <text x="26" y="48" fill="#F5F9FF" font-family="Arial Black, Arial, sans-serif" font-size="58">Real-time</text>
+      <text x="26" y="88" fill="#7D96B9" font-family="Arial, sans-serif" font-size="28">FLEET VISIBILITY</text>
+    </g>
+  </g>
+
+</svg>

@@ -1,0 +1,113 @@
+---
+// @ts-nocheck
+import { Icon } from "astro-icon/components";
+
+import { getCollection } from "astro:content";
+
+const allProjects = await getCollection("projects");
+const projectFilter = allProjects.filter((p) => p.data.showinhome);
+const selectedProjects =
+    projectFilter.length > 0 ? projectFilter : allProjects.slice(0, 2);
+
+const featuredProjects = selectedProjects.map((proj) => ({
+    img: proj.data.img,
+    name: proj.data.title,
+    text: proj.data.category,
+    link: `/projects/${proj.slug}`,
+}));
+---
+
+<section class="w-full bg-white dark:bg-[#121214] py-20 lg:py-32 px-6 font-jost">
+    <div class="max-w-[1200px] mx-auto">
+        <div class="text-center mb-16">
+            <span
+                class="uppercase tracking-[0.3em] text-[12px] font-bold text-accent mb-4 block"
+            >
+                OUR LATEST WORK
+            </span>
+            <h2
+                class="text-[32px] md:text-[48px] font-bold text-dark leading-tight mb-4"
+            >
+                Executing Excellence Nationwide
+            </h2>
+            <p
+                class="text-textMain text-base md:text-[18px] max-w-[600px] mx-auto leading-relaxed"
+            >
+                From massive warehouses to intricate industrial sheds, verify
+                our track record of on-time, highly engineered project delivery.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {
+                featuredProjects.map((proj) => (
+                    <div class="group flex flex-col border border-gray-100 dark:border-[#27272A] p-6 hover:shadow-xl transition-all duration-300">
+                        <div class="relative overflow-hidden mb-6 h-[250px] bg-gray-50">
+                            {proj.img ? (
+                                <img
+                                    loading="lazy" decoding="async" src={proj.img}
+                                    alt={proj.name}
+                                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                />
+                            ) : (
+                                <div class="w-full h-full flex items-center justify-center">
+                                    <Icon
+                                        name="mdi:image-off"
+                                        class="w-16 h-16 text-gray-300"
+                                    />
+                                </div>
+                            )}
+                        </div>
+
+                        <div class="flex flex-col flex-grow">
+                            <h3 class="text-[22px] font-bold text-dark mb-1">
+                                {proj.name}
+                            </h3>
+                            <span class="text-accent text-[14px] uppercase tracking-wider font-semibold mb-6">
+                                {proj.text}
+                            </span>
+
+                            <a
+                                href={proj.link}
+                                class="mt-auto flex items-center gap-2 font-bold text-dark hover:text-primary transition-colors"
+                            >
+                                View Case Study <span class="text-xl">→</span>
+                            </a>
+                        </div>
+                    </div>
+                ))
+            }
+
+            <div
+                class="border border-gray-100 dark:border-[#27272A] p-8 flex flex-col justify-center items-center text-center bg-gray-50 shadow-sm"
+            >
+                <div class="text-primary mb-6">
+                    <Icon
+                        name="mdi:hammer-wrench"
+                        class="w-12 h-12 opacity-20"
+                    />
+                </div>
+                <h3 class="text-[24px] font-bold text-dark mb-6">
+                    Want to see our full portfolio?
+                </h3>
+
+                <div class="flex flex-col gap-4 w-full">
+                    <a
+                        href="/projects"
+                        class="w-full py-4 border-2 border-dark text-dark font-bold text-[15px] hover:bg-dark hover:text-white dark:text-[#09090B] transition-all text-center"
+                    >
+                        Explore All Projects
+                    </a>
+
+                    <a
+                        href="tel:+919560809281"
+                        class="w-full py-4 bg-primary text-white dark:text-[#09090B] font-bold text-[15px] flex items-center justify-center gap-2 hover:brightness-110 transition-all shadow-lg shadow-orange-100"
+                    >
+                        <Icon name="mdi:phone" class="w-5 h-5" />
+                        +91 95608 09281
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,264 @@
+---
+import { Icon } from "astro-icon/components";
+import MainLayout from "../layouts/main-layout.astro";
+import CTA from "../components/CTA.astro";
+import { getCollection } from "astro:content";
+
+const allProducts = await getCollection("products");
+console.log("---- ALL PRODUCTS LENGTH ----: ", allProducts.length);
+const liveProducts = allProducts.filter((p) => p.data.live);
+const soonProducts = allProducts.filter((p) => !p.data.live);
+
+const ctaIllustration =
+    "https://cdn.dribbble.com/userupload/45315141/file/8ec9281656b7a5ce128ccc8184d7243d.png?resize=1504x1128&vertical=center";
+---
+
+<MainLayout
+    title="Products | Trackora"
+    description="Explore Trackora's GPS tracking and fleet management products."
+>
+    <main
+        class="bg-[#FAFAFA] dark:bg-[#09090B] text-[#09090B] dark:text-white"
+    >
+        <!-- HERO -->
+        <section
+            class="relative w-full pt-24 pb-16 lg:pt-32 lg:pb-24 border-b border-[#E4E4E7] dark:border-white/10 overflow-hidden"
+        >
+            <div
+                class="absolute inset-0 z-0 pointer-events-none hidden md:block"
+            >
+                <div
+                    class="absolute inset-0 bg-[linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] opacity-[0.04]"
+                >
+                </div>
+            </div>
+
+            <div
+                class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10"
+            >
+                <div
+                    class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end animate-fade-in-up"
+                >
+                    <div class="lg:col-span-8">
+                        <div
+                            class="flex items-center gap-2.5 px-3 py-1.5 border border-[#E4E4E7] dark:border-white/10 bg-white dark:bg-[#121214] rounded-full w-max mb-8 shadow-sm"
+                        >
+                            <span class="relative flex h-1.5 w-1.5 ml-1">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
+                                ></span>
+                                <span
+                                    class="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-500"
+                                ></span>
+                            </span>
+                            <span
+                                class="text-[10px] font-bold tracking-[0.15em] uppercase text-[#52525B] dark:text-[#C4C4CE]"
+                                >GPS Tracking — Live Now</span
+                            >
+                        </div>
+
+                        <h1
+                            class="text-[36px] md:text-[56px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.04em] text-[#09090B] dark:text-white"
+                        >
+                            Every tool your<br class="hidden sm:block" /> fleet needs.
+                        </h1>
+                        <p
+                            class="text-[17px] md:text-[19px] leading-[1.65] text-[#71717A] dark:text-[#A1A1AA] font-normal max-w-[480px]"
+                        >
+                            Start with live GPS tracking and fleet management.
+                            Scale to fuel monitoring, video telematics, TMS, and
+                            more — all from one platform.
+                        </p>
+                    </div>
+
+                    <div class="lg:col-span-4 flex flex-col gap-3 lg:pb-3">
+                        <a
+                            href="/contact"
+                            class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#09090B] dark:bg-[#121214] text-white dark:text-[#09090B] text-[14px] font-semibold rounded-full hover:bg-slate-800 transition-colors w-full"
+                        >
+                            Request a Demo <Icon
+                                name="mdi:arrow-right"
+                                class="w-4 h-4"
+                            />
+                        </a>
+                        <a
+                            href="/pricing"
+                            class="inline-flex items-center justify-center gap-2 px-6 py-3.5 border border-[#E4E4E7] dark:border-white/10 bg-white dark:bg-[#121214] text-[#09090B] dark:text-white text-[14px] font-semibold rounded-full hover:border-[#09090B] dark:border-white/10 transition-colors w-full"
+                        >
+                            See Pricing <Icon
+                                name="mdi:tag-outline"
+                                class="w-4 h-4"
+                            />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LIVE PRODUCTS -->
+        <section
+            class="w-full py-20 lg:py-28 bg-white dark:bg-[#121214] border-b border-[#E4E4E7] dark:border-white/10"
+        >
+            <div class="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
+                <div
+                    class="flex items-center gap-2.5 px-3 py-1.5 border border-[#E4E4E7] dark:border-white/10 bg-[#FAFAFA] dark:bg-[#09090B] rounded-full w-max mb-10 shadow-sm"
+                >
+                    <span class="relative flex h-1.5 w-1.5 ml-1">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
+                        ></span>
+                        <span
+                            class="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-500"
+                        ></span>
+                    </span>
+                    <span
+                        class="text-[10px] font-bold tracking-[0.15em] uppercase text-[#52525B] dark:text-[#C4C4CE]"
+                        >Available Now</span
+                    >
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {
+                        liveProducts.map((p, i) => (
+                            <a
+                                href={`/products/${p.slug}`}
+                                class="group bg-white dark:bg-[#121214] border border-[#E4E4E7] dark:border-white/10 rounded-[2.25rem] overflow-hidden flex flex-col hover:border-[#D4D4D8] hover:shadow-xl transition-all duration-500 animate-fade-in-up"
+                                style={`animation-delay: ${i * 0.1}s;`}
+                            >
+                                {/* image */}
+                                {p.data.img ? (
+                                    <div class="relative w-full aspect-[16/9] overflow-hidden border-b border-[#E4E4E7] dark:border-white/10 bg-[#F8FAFC] dark:bg-[#18181A]">
+                                        <div class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#000_1px,transparent_1px)] bg-[size:15px_15px]" />
+                                        <img
+                                            loading="lazy"
+                                            decoding="async"
+                                            src={p.data.img}
+                                            alt={p.data.title}
+                                            class={`relative z-10 w-full h-full transition-transform duration-700 group-hover:scale-105 ${
+                                                p.slug === "fleet-management" ||
+                                                p.slug === "realtime-visibility"
+                                                    ? "object-contain p-2 bg-white"
+                                                    : "object-cover"
+                                            }`}
+                                        />
+                                    </div>
+                                ) : (
+                                    <div class="relative w-full h-48 bg-[#F4F4F5] dark:bg-white/5 border-b border-[#E4E4E7] dark:border-white/10 flex items-center justify-center">
+                                        <Icon
+                                            name={p.data.icon}
+                                            class="w-12 h-12 text-[#A1A1AA] dark:text-[#71717A] opacity-50"
+                                        />
+                                    </div>
+                                )}
+
+                                <div class="relative z-10 p-8 lg:p-10 flex flex-col flex-1">
+                                    <div class="flex items-center gap-2 mb-6 w-max">
+                                        <span class="relative flex h-1.5 w-1.5">
+                                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+                                            <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-500" />
+                                        </span>
+                                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-blue-600">
+                                            Available Now
+                                        </span>
+                                    </div>
+
+                                    <h3 class="text-[22px] lg:text-[26px] font-semibold tracking-tight text-[#09090B] dark:text-white mb-3">
+                                        {p.data.title}
+                                    </h3>
+                                    <p class="text-[15px] leading-[1.65] text-[#71717A] dark:text-[#A1A1AA] flex-1">
+                                        {p.data.excerpt}
+                                    </p>
+
+                                    <div class="mt-8 pt-6 border-t border-[#F1F5F9] flex items-center justify-between">
+                                        <span class="text-[12px] font-bold tracking-widest uppercase text-[#A1A1AA] dark:text-[#71717A] group-hover:text-[#09090B] dark:text-white transition-colors flex items-center gap-2">
+                                            Explore Product
+                                            <Icon
+                                                name="mdi:arrow-right"
+                                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                                            />
+                                        </span>
+                                        <div class="w-10 h-10 rounded-full bg-[#F4F4F5] dark:bg-white/5 flex items-center justify-center group-hover:bg-[#09090B] dark:bg-[#121214] group-hover:text-white dark:text-[#09090B] transition-colors">
+                                            <Icon
+                                                name={p.data.icon}
+                                                class="w-5 h-5"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        <!-- COMING SOON -->
+        <section
+            class="w-full py-20 lg:py-28 bg-[#FAFAFA] dark:bg-[#09090B] border-b border-[#E4E4E7] dark:border-white/10"
+        >
+            <div class="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
+                <div
+                    class="flex items-center gap-2 px-3 py-1.5 border border-[#E4E4E7] dark:border-white/10 bg-white dark:bg-[#121214] rounded-full w-max mb-10 shadow-sm"
+                >
+                    <span
+                        class="text-[10px] font-bold tracking-[0.15em] uppercase text-[#52525B] dark:text-[#C4C4CE]"
+                        >Coming Soon</span
+                    >
+                </div>
+
+                <div
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+                >
+                    {
+                        soonProducts.map((p, i) => (
+                            <a
+                                href={`/products/${p.slug}`}
+                                class="group bg-white dark:bg-[#121214] border border-[#E4E4E7] dark:border-white/10 rounded-[1.75rem] p-7 flex flex-col hover:border-[#D4D4D8] hover:shadow-md transition-all duration-300 animate-fade-in-up"
+                                style={`animation-delay: ${0.05 * i}s;`}
+                            >
+                                <div class="w-10 h-10 rounded-xl bg-[#F4F4F5] dark:bg-white/5 border border-[#E4E4E7] dark:border-white/10 flex items-center justify-center mb-6">
+                                    <Icon
+                                        name={p.data.icon}
+                                        class="w-5 h-5 text-[#A1A1AA] dark:text-[#71717A]"
+                                    />
+                                </div>
+                                <div class="flex items-start justify-between gap-3 mb-3">
+                                    <h3 class="text-[17px] font-semibold tracking-tight text-[#09090B] dark:text-white leading-snug">
+                                        {p.data.title}
+                                    </h3>
+                                    <span class="shrink-0 text-[9px] font-bold tracking-[0.15em] uppercase text-[#A1A1AA] dark:text-[#71717A] bg-[#F4F4F5] dark:bg-white/5 border border-[#E4E4E7] dark:border-white/10 px-2 py-1 rounded-full mt-0.5">
+                                        Soon
+                                    </span>
+                                </div>
+                                <p class="text-[13px] leading-[1.65] text-[#71717A] dark:text-[#A1A1AA] flex-1">
+                                    {p.data.description}
+                                </p>
+                                <div class="mt-6 pt-5 border-t border-[#F1F5F9] flex items-center justify-between">
+                                    <span class="text-[11px] font-bold tracking-widest uppercase text-[#A1A1AA] dark:text-[#71717A] group-hover:text-[#09090B] dark:text-white transition-colors flex items-center gap-1.5">
+                                        Learn More{" "}
+                                        <Icon
+                                            name="mdi:arrow-right"
+                                            class="w-3 h-3 group-hover:translate-x-0.5 transition-transform"
+                                        />
+                                    </span>
+                                </div>
+                            </a>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <CTA
+            title="Start with GPS.<br/>Scale to everything."
+            description="Get live GPS tracking and fleet management today. All other modules are being built — get early access."
+            badgeText="Get Started"
+            primaryBtnText="Request a Demo"
+            primaryBtnHref="/contact"
+            secondaryBtnText="See Pricing"
+            secondaryBtnHref="/pricing"
+            illustrationUrl={ctaIllustration}
+        />
+    </main>
+</MainLayout>

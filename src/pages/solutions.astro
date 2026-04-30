@@ -1,0 +1,259 @@
+---
+import MainLayout from "../layouts/main-layout.astro";
+import CtaCard from "../components/CTA.astro";
+
+const solutionsIllustration =
+  "https://cdn.dribbble.com/userupload/45315141/file/8ec9281656b7a5ce128ccc8184d7243d.png?resize=1504x1128&vertical=center";
+
+const illustrationUrl =
+  "/assets/images/custom-sector-requirements.png";
+
+const solutions = [
+  {
+    id: "01",
+    sector: "Core GPS Tracking",
+    problem:
+      "Legacy tracking systems provide delayed pings that make accurate dispatch and security monitoring impossible.",
+    solution:
+      "Enterprise-grade GPS hardware providing real-time, sub-millisecond locational data for absolute fleet visibility.",
+  },
+  {
+    id: "02",
+    sector: "Advanced IoT Fuel Sensors",
+    problem:
+      "Unpredictable fuel theft and inefficient routing steadily erode margins and shorten overall asset lifespans.",
+    solution:
+      "Predictive AI models and calibrated IoT fuel rods that detect sudden drops and optimize consumption through precision routing.",
+  },
+  {
+    id: "03",
+    sector: "ADAS Video Telematics",
+    problem:
+      "Low transparency in driver safety leads to uncontrollable insurance premiums and difficult compliance management.",
+    solution:
+      "AI-driven dual dashcams and ADAS integration providing mathematical, undeniable proof of driver safety and operational excellence.",
+  },
+  {
+    id: "04",
+    sector: "Enterprise Scaling",
+    problem:
+      "Scaling logistics infrastructure globally introduces extreme complexity in regulatory data compliance and V2X connectivity.",
+    solution:
+      "Enterprise-grade API architecture designed for massive, concurrent scale, deep security, and seamless integration with existing ERPs.",
+  },
+];
+---
+
+<MainLayout
+    title="Solutions | Trackora"
+    description="Discover how Trackora's fleet intelligence platform provides modern logistics solutions to eliminate blind spots and secure every route."
+>
+  <main
+    class="bg-[#FAFAFA] dark:bg-[#09090B] text-[#09090B] dark:text-white"
+  >
+    <section
+      class="relative w-full pt-24 pb-20 lg:pt-32 lg:pb-32 border-b border-[#E4E4E7] dark:border-white/10 overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 z-0 opacity-20 pointer-events-none hidden md:block"
+      >
+        <div
+          class="absolute inset-0 bg-[linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] opacity-[0.05]"
+        >
+        </div>
+      </div>
+
+      <div class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10">
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end animate-fade-in-up"
+        >
+          <div class="lg:col-span-7">
+            <div
+              class="flex items-center gap-2.5 px-3 py-1.5 border border-[#E4E4E7] dark:border-white/10 bg-white dark:bg-[#121214] rounded-full w-max mb-8 shadow-sm"
+            >
+              <span class="relative flex h-1.5 w-1.5 ml-1">
+                <span
+                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-400 opacity-75"
+                ></span>
+                <span
+                  class="relative inline-flex rounded-full h-1.5 w-1.5 bg-slate-600"
+                ></span>
+              </span>
+              <span
+                class="text-[10px] font-bold tracking-[0.15em] uppercase text-[#52525B] dark:text-[#C4C4CE]"
+                >Ecosystem Solutions</span
+              >
+            </div>
+
+            <h1
+              class="text-[36px] md:text-[56px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.04em] text-[#09090B] dark:text-white"
+            >
+              Precision engineering <br class="hidden sm:block" /> for every sector.
+            </h1>
+          </div>
+
+          <div class="lg:col-span-5 flex flex-col justify-end lg:pb-3">
+            <p
+              class="text-[17px] md:text-[19px] leading-[1.65] text-[#71717A] dark:text-[#A1A1AA] font-normal max-w-[480px]"
+            >
+              Trackora provides a modular infrastructure designed to solve
+              specific operational friction across the entire supply chain.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="relative w-full py-20 lg:py-32 bg-white dark:bg-[#121214] border-b border-[#E4E4E7] dark:border-white/10"
+    >
+      <div class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10">
+        <div
+          class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-20 animate-fade-in-up"
+        >
+            <h2
+              class="text-[32px] md:text-[48px] font-medium tracking-tight leading-[1.05]"
+            >
+            Sector <br /> Analysis.
+          </h2>
+        </div>
+
+        <div
+          class="flex flex-col border-t border-[#09090B] dark:border-white/10"
+        >
+          <div
+            class="hidden lg:grid grid-cols-12 gap-10 py-6 border-b border-[#E4E4E7] dark:border-white/10"
+          >
+            <div class="col-span-4">
+              <span
+                class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#A1A1AA] dark:text-[#71717A]"
+                >Target Sector</span
+              >
+            </div>
+            <div class="col-span-4">
+              <span
+                class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#A1A1AA] dark:text-[#71717A]"
+                >Structural Friction</span
+              >
+            </div>
+            <div class="col-span-4">
+              <span
+                class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#09090B] dark:text-white"
+                >Engineered Response</span
+              >
+            </div>
+          </div>
+
+          {
+            solutions.map((item, index) => (
+              <div
+                class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 py-12 lg:py-16 border-b border-[#E4E4E7] dark:border-white/10 group hover:bg-[#FAFAFA] dark:bg-[#09090B] transition-colors duration-500 animate-fade-in-up"
+                style={`animation-delay: ${0.1 * index}s;`}
+              >
+                <div class="lg:col-span-4 flex flex-col">
+                  <span class="text-[14px] font-mono font-medium text-[#A1A1AA] dark:text-[#71717A] mb-4 group-hover:text-[#09090B] dark:text-white transition-colors">
+                    // {item.id}
+                  </span>
+                  <h3 class="text-[28px] md:text-[32px] font-medium tracking-tight text-[#09090B] dark:text-white">
+                    {item.sector}
+                  </h3>
+                </div>
+
+                <div class="lg:col-span-4 flex flex-col">
+                  <span class="lg:hidden text-[10px] font-bold tracking-[0.2em] uppercase text-[#A1A1AA] dark:text-[#71717A] mb-3">
+                    Structural Friction
+                  </span>
+                  <p class="text-[16px] md:text-[17px] leading-[1.65] text-[#71717A] dark:text-[#A1A1AA] max-w-[400px]">
+                    {item.problem}
+                  </p>
+                </div>
+
+                <div class="lg:col-span-4 flex flex-col border-l-2 border-transparent lg:border-[#E4E4E7] dark:border-white/10 lg:pl-10 group-hover:border-[#09090B] dark:border-white/10 transition-colors duration-500">
+                  <span class="lg:hidden text-[10px] font-bold tracking-[0.2em] uppercase text-[#09090B] dark:text-white mb-3">
+                    Engineered Response
+                  </span>
+                  <p class="text-[16px] md:text-[17px] leading-[1.65] text-[#09090B] dark:text-white font-medium max-w-[400px]">
+                    {item.solution}
+                  </p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="relative w-full py-20 lg:py-32 bg-[#FAFAFA] dark:bg-[#09090B] border-b border-[#E4E4E7] dark:border-white/10"
+    >
+      <div class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10">
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center"
+        >
+          <div class="lg:col-span-5 flex flex-col animate-fade-in-up">
+            <h2
+              class="text-[28px] md:text-[36px] font-semibold tracking-tight text-[#09090B] dark:text-white mb-8 leading-[1.1]"
+            >
+              Custom sector requirements?
+            </h2>
+            <div
+              class="flex flex-col gap-6 text-[16px] md:text-[17px] leading-[1.7] text-[#71717A] dark:text-[#A1A1AA]"
+            >
+              <p>
+                We understand that off-the-shelf software fails at the
+                enterprise level. Our engineering team specializes in building
+                custom telemetry adapters and private cloud instances for highly
+                specialized fleet operations.
+              </p>
+            </div>
+            <a
+              href="#contact"
+              class="inline-flex items-center gap-2 mt-10 text-[13px] font-bold tracking-wide text-[#09090B] dark:text-white border-b-2 border-[#09090B] dark:border-white/10 pb-1 w-max hover:opacity-60 transition-opacity"
+            >
+              Speak with Systems Engineering
+            </a>
+          </div>
+
+          <div
+            class="lg:col-span-7 relative animate-fade-in-up"
+            style="animation-delay: 0.2s;"
+          >
+            <div
+              class="relative w-full aspect-[4/3] bg-[#F8FAFC] dark:bg-[#18181A] rounded-[2rem] border border-[#E2E8F0] dark:border-white/10 flex items-center justify-center overflow-hidden"
+            >
+              <div
+                class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(241,245,249,1)_0%,transparent_70%)] z-0"
+              >
+              </div>
+              <div
+                class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#000_1px,transparent_1px)] bg-[size:20px_20px]"
+              >
+              </div>
+
+              <img
+                loading="lazy"
+                decoding="async"
+                src={illustrationUrl}
+                alt="Architecture Setup"
+                class="relative z-10 w-[70%] h-auto object-contain filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.08)]"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <CtaCard
+      badgeText="Final Deployment"
+      title="Deploy your <br/> Infrastructure."
+      description="Join the industry leaders transitioning to Trackora. Experience absolute visibility and precision at any scale."
+      primaryBtnText="Request Full Access"
+      primaryBtnHref="#demo"
+      secondaryBtnText="Speak with Engineering"
+      secondaryBtnHref="#contact"
+      illustrationUrl={solutionsIllustration}
+      trustHighlight="400+"
+      trustText="global fleets."
+    />
+  </main>
+</MainLayout>

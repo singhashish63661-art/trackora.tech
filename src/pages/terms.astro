@@ -1,0 +1,60 @@
+---
+import MainLayout from "../layouts/main-layout.astro";
+---
+
+<MainLayout title="Terms of Service | Trackora" description="Terms of service for Trackora website and services.">
+  <main class="bg-[#FAFAFA] text-[#09090B]">
+    <section class="w-full pt-24 pb-20 lg:pt-32 lg:pb-24 border-b border-[#E4E4E7]">
+      <div class="w-full max-w-[900px] mx-auto px-6 lg:px-12">
+        <h1 class="text-[36px] md:text-[52px] font-medium leading-[1.05] tracking-[-0.03em] mb-6">
+          Terms of Service
+        </h1>
+        <p class="text-[16px] leading-[1.7] text-[#52525B]">
+          Effective date: {new Date().toLocaleDateString("en-IN")}
+        </p>
+      </div>
+    </section>
+
+    <section class="w-full py-16 lg:py-20">
+      <div class="w-full max-w-[900px] mx-auto px-6 lg:px-12 prose prose-zinc max-w-none">
+        <h2>1. Acceptance of Terms</h2>
+        <p>
+          By using this website, you agree to these terms and all applicable laws.
+        </p>
+
+        <h2>2. Service Scope</h2>
+        <p>
+          Trackora provides fleet safety products and related information. Specific commercial
+          terms are governed by separate customer agreements.
+        </p>
+
+        <h2>3. Website Use</h2>
+        <p>
+          You agree not to misuse this website, attempt unauthorized access, or disrupt platform
+          operations.
+        </p>
+
+        <h2>4. Intellectual Property</h2>
+        <p>
+          All content, trademarks, logos, and product materials are owned by Trackora or licensed
+          to Trackora.
+        </p>
+
+        <h2>5. Disclaimer</h2>
+        <p>
+          Website content is provided on an "as is" basis without warranties of any kind.
+        </p>
+
+        <h2>6. Limitation of Liability</h2>
+        <p>
+          Trackora is not liable for indirect or consequential damages arising from website usage.
+        </p>
+
+        <h2>7. Contact</h2>
+        <p>
+          For legal questions, email <a href="mailto:careers@trackora.tech">careers@trackora.tech</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+</MainLayout>

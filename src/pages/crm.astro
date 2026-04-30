@@ -1,0 +1,2091 @@
+---
+import MainLayout from "../layouts/main-layout.astro";
+---
+
+<MainLayout
+  title="Trackora CMS Panel"
+  description="Internal CMS panel to manage website content and incoming enquiries."
+>
+  <section class="min-h-screen cms-bg cms-dashboard-root w-full py-6 sm:py-8 lg:py-10">
+    <div class="cms-shell w-full max-w-[1580px] mx-auto px-4 sm:px-6 lg:px-8">
+      <header class="cms-dash-header mb-6 lg:mb-8 rounded-2xl border border-slate-200/90 bg-white/95 backdrop-blur-md px-5 py-4 sm:px-7 sm:py-5 shadow-[0_4px_24px_rgba(15,23,42,0.06)]">
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div class="flex items-start gap-4">
+            <div class="cms-brand-mark flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 text-sm font-bold text-white shadow-md shadow-blue-600/25">
+              T
+            </div>
+            <div class="min-w-0">
+              <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                Trackora · Internal
+              </p>
+              <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
+                Content dashboard
+              </h1>
+              <p class="text-sm text-slate-600 mt-1 max-w-xl">
+                Manage enquiries, blog, social links, and homepage content from one place.
+              </p>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <span class="cms-header-chip">Live content edits</span>
+                <span class="cms-header-chip">Blog publishing</span>
+                <span class="cms-header-chip">Media + social control</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <a
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cms-btn-secondary inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-800 shadow-sm hover:bg-slate-50"
+            >
+              View site
+            </a>
+            <button
+              id="crm-logout"
+              type="button"
+              class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-slate-800"
+            >
+              Log out
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div class="cms-dash-layout lg:grid lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-8 xl:gap-10 lg:items-start">
+        <aside class="cms-dash-sidebar mb-6 lg:mb-0 hidden lg:flex lg:flex-col rounded-2xl border border-slate-800/60 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 p-4 shadow-xl shadow-slate-900/25 lg:sticky lg:top-6">
+          <p class="px-2 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
+            Modules
+          </p>
+          <nav class="mt-3 flex flex-col gap-1" aria-label="CMS sections">
+            <a href="#leads-manager" class="cms-side-nav">
+              <span class="cms-side-nav-icon" aria-hidden="true">◉</span>
+              <span>
+                <span class="block font-medium text-slate-100">Leads</span>
+                <span class="block text-[11px] text-slate-500">Enquiry pipeline</span>
+              </span>
+            </a>
+            <a href="#blog-manager" class="cms-side-nav">
+              <span class="cms-side-nav-icon" aria-hidden="true">✎</span>
+              <span>
+                <span class="block font-medium text-slate-100">Blog</span>
+                <span class="block text-[11px] text-slate-500">Posts &amp; media</span>
+              </span>
+            </a>
+            <a href="#social-manager" class="cms-side-nav">
+              <span class="cms-side-nav-icon" aria-hidden="true">◎</span>
+              <span>
+                <span class="block font-medium text-slate-100">Social</span>
+                <span class="block text-[11px] text-slate-500">Footer links</span>
+              </span>
+            </a>
+            <a href="#home-manager" class="cms-side-nav">
+              <span class="cms-side-nav-icon" aria-hidden="true">⌂</span>
+              <span>
+                <span class="block font-medium text-slate-100">Homepage</span>
+                <span class="block text-[11px] text-slate-500">Sections &amp; media</span>
+              </span>
+            </a>
+          </nav>
+          <p class="mt-auto pt-6 px-2 text-[11px] leading-relaxed text-slate-600">
+            Tip: use <strong class="text-slate-400 font-medium">Save</strong> in each module after edits.
+          </p>
+        </aside>
+
+        <div class="lg:hidden -mx-1 mb-6 overflow-x-auto pb-1">
+          <div class="flex min-w-min gap-2 px-1">
+            <a href="#leads-manager" class="cms-mnav-chip">Leads</a>
+            <a href="#blog-manager" class="cms-mnav-chip">Blog</a>
+            <a href="#social-manager" class="cms-mnav-chip">Social</a>
+            <a href="#home-manager" class="cms-mnav-chip">Homepage</a>
+          </div>
+        </div>
+
+        <div class="cms-dash-main min-w-0 space-y-8 lg:space-y-10">
+      <div id="leads-manager" class="cms-card cms-module rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 lg:p-7 shadow-[0_8px_30px_rgba(15,23,42,0.06)]">
+        <div class="cms-module-head mb-6">
+          <div class="cms-module-icon bg-blue-50 text-blue-700 ring-blue-100">📥</div>
+          <div>
+            <p class="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">Leads</p>
+            <h2 class="text-lg sm:text-xl font-bold tracking-tight text-slate-900 mt-0.5">
+              Enquiry pipeline
+            </h2>
+            <p class="text-sm text-slate-600 mt-1">Incoming contact, career, and demo requests.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
+          <article class="cms-kpi cms-kpi--total">
+            <p class="cms-kpi-label">Total</p>
+            <p id="stat-total" class="cms-kpi-value">0</p>
+          </article>
+          <article class="cms-kpi cms-kpi--new">
+            <p class="cms-kpi-label">New</p>
+            <p id="stat-new" class="cms-kpi-value">0</p>
+          </article>
+          <article class="cms-kpi cms-kpi--progress">
+            <p class="cms-kpi-label">In progress</p>
+            <p id="stat-progress" class="cms-kpi-value">0</p>
+          </article>
+          <article class="cms-kpi cms-kpi--closed">
+            <p class="cms-kpi-label">Closed / won</p>
+            <p id="stat-closed" class="cms-kpi-value">0</p>
+          </article>
+        </div>
+
+        <div class="cms-table-shell overflow-x-auto rounded-xl border border-slate-200 bg-white">
+          <table class="cms-table min-w-full text-sm">
+            <thead>
+              <tr>
+                <th class="text-left px-4 py-3 font-semibold">Type</th>
+                <th class="text-left px-4 py-3 font-semibold">Name</th>
+                <th class="text-left px-4 py-3 font-semibold">Email</th>
+                <th class="text-left px-4 py-3 font-semibold">Company/Phone</th>
+                <th class="text-left px-4 py-3 font-semibold">Message</th>
+                <th class="text-left px-4 py-3 font-semibold">Status</th>
+              </tr>
+            </thead>
+            <tbody id="leads-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+    <!-- Blog Manager -->
+    <div id="blog-manager" class="cms-card cms-module rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 lg:p-7 shadow-[0_8px_30px_rgba(15,23,42,0.06)]">
+      <div class="cms-module-head mb-6">
+        <div class="cms-module-icon bg-violet-50 text-violet-700 ring-violet-100">✎</div>
+        <div>
+          <p class="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">Blog</p>
+          <h2 class="text-lg sm:text-xl font-bold tracking-tight text-slate-900 mt-0.5">Posts &amp; media</h2>
+          <p class="text-sm text-slate-600 mt-1">Add or update posts and cover images.</p>
+        </div>
+      </div>
+
+      <div class="cms-table-shell overflow-x-auto rounded-xl border border-slate-200 bg-white">
+        <table class="cms-table min-w-full text-sm">
+          <thead>
+            <tr>
+              <th class="text-left px-4 py-3 font-semibold">Title</th>
+              <th class="text-left px-4 py-3 font-semibold">Category</th>
+              <th class="text-left px-4 py-3 font-semibold">Date</th>
+              <th class="text-left px-4 py-3 font-semibold">Featured</th>
+              <th class="text-left px-4 py-3 font-semibold">Image</th>
+              <th class="text-left px-4 py-3 font-semibold">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="blog-table-body"></tbody>
+        </table>
+      </div>
+
+      <div class="mt-8 rounded-xl border border-slate-200 bg-slate-50/80 p-5 sm:p-6">
+        <h3 class="text-base font-bold text-slate-900 mb-5 flex items-center gap-2">
+          <span class="h-1.5 w-1.5 rounded-full bg-violet-500"></span>
+          Add / update post
+        </h3>
+
+        <form
+          id="blog-form"
+          class="grid grid-cols-1 md:grid-cols-2 gap-4"
+          enctype="multipart/form-data"
+        >
+          <div class="flex flex-col gap-2">
+            <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">Title</label>
+            <input
+              name="title"
+              required
+              class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+              placeholder="Post title"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">Slug (optional)</label>
+            <input
+              name="slug"
+              class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+              placeholder="my-post-slug"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2 md:col-span-2">
+            <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">Excerpt</label>
+            <input
+              name="excerpt"
+              required
+              class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+              placeholder="Short summary shown in blog cards"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">Category</label>
+            <input
+              name="category"
+              required
+              class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+              placeholder="Research / Case Studies"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">Date</label>
+            <input
+              name="date"
+              required
+              class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+              placeholder='e.g. "AUG 12, 2025"'
+            />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">Read Time</label>
+            <input
+              name="readTime"
+              required
+              class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+              placeholder='e.g. "5 MIN"'
+            />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">Featured</label>
+            <label class="flex items-center gap-2 border border-[#E4E4E7] rounded-lg px-3 py-2 cursor-pointer">
+              <input name="featured" type="checkbox" value="true" />
+              <span class="text-sm text-[#09090B]">Mark as featured</span>
+            </label>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">Cover Image</label>
+            <label class="flex items-center gap-2 border border-[#E4E4E7] rounded-lg px-3 py-2 cursor-pointer">
+              <input name="removeCoverImage" type="checkbox" value="true" />
+              <span class="text-sm text-[#09090B]">Remove cover image</span>
+            </label>
+          </div>
+
+          <div class="flex flex-col gap-2 md:col-span-2">
+            <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">Cover Image (upload)</label>
+            <input
+              name="coverImage"
+              type="file"
+              accept="image/*"
+              class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2 md:col-span-2">
+            <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">Cover Image URL (optional)</label>
+            <input
+              name="coverImageUrl"
+              class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+              placeholder="https://example.com/image.jpg"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2 md:col-span-2">
+            <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">Markdown Body</label>
+            <textarea
+              name="body"
+              required
+              rows="8"
+              class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+              placeholder="Write markdown content..."
+            ></textarea>
+          </div>
+
+          <div class="md:col-span-2 flex items-center justify-end gap-3">
+            <button
+              type="submit"
+              class="px-5 py-3 rounded-lg bg-[#09090B] text-white font-semibold text-sm hover:opacity-90 transition-opacity"
+            >
+              Save Post
+            </button>
+          </div>
+
+          <p id="blog-feedback" class="md:col-span-2 text-sm text-[#71717A]"></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Social Links Manager -->
+    <div id="social-manager" class="cms-card cms-module rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 lg:p-7 shadow-[0_8px_30px_rgba(15,23,42,0.06)]">
+      <div class="cms-module-head mb-6">
+        <div class="cms-module-icon bg-sky-50 text-sky-700 ring-sky-100">◎</div>
+        <div>
+          <p class="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">Social</p>
+          <h2 class="text-lg sm:text-xl font-bold tracking-tight text-slate-900 mt-0.5">Footer social links</h2>
+          <p class="text-sm text-slate-600 mt-1">LinkedIn, Instagram, and YouTube URLs.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-slate-200 bg-slate-50/80 p-5 sm:p-6">
+        <form id="social-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-2">
+            <label
+              class="text-xs font-bold tracking-wide text-[#71717A] uppercase"
+              >LinkedIn URL</label
+            >
+            <input
+              id="social-linkedin"
+              name="linkedin"
+              class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+              placeholder="https://linkedin.com/company/your-page"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label
+              class="text-xs font-bold tracking-wide text-[#71717A] uppercase"
+              >Instagram URL</label
+            >
+            <input
+              id="social-instagram"
+              name="instagram"
+              class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+              placeholder="https://instagram.com/your-handle"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2 md:col-span-2">
+            <label
+              class="text-xs font-bold tracking-wide text-[#71717A] uppercase"
+              >YouTube URL</label
+            >
+            <input
+              id="social-youtube"
+              name="youtube"
+              class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+              placeholder="https://youtube.com/@your-channel"
+            />
+          </div>
+
+          <div class="md:col-span-2 flex items-center justify-end gap-3 mt-2">
+            <button
+              type="submit"
+              class="px-5 py-3 rounded-lg bg-[#09090B] text-white font-semibold text-sm hover:opacity-90 transition-opacity"
+            >
+              Save Social Links
+            </button>
+          </div>
+
+          <p id="social-feedback" class="md:col-span-2 text-sm text-[#71717A]"></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Home Sections Manager -->
+    <div id="home-manager" class="cms-card cms-module rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 lg:p-7 shadow-[0_8px_30px_rgba(15,23,42,0.06)]">
+      <div class="cms-module-head mb-6">
+        <div class="cms-module-icon bg-emerald-50 text-emerald-700 ring-emerald-100">⌂</div>
+        <div>
+          <p class="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">Homepage</p>
+          <h2 class="text-lg sm:text-xl font-bold tracking-tight text-slate-900 mt-0.5">Site sections &amp; media</h2>
+          <p class="text-sm text-slate-600 mt-1">
+            Hero, solutions, services, stats, features, benefits, testimonials, and roadmap.
+          </p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-slate-200 bg-slate-50/50 p-4 sm:p-6">
+        <form id="home-sections-form" class="space-y-10">
+          <div id="home-hero" class="space-y-6 rounded-2xl border border-[#E4E4E7] bg-[#FCFCFD] p-4">
+            <div>
+              <p class="text-xs uppercase tracking-[0.2em] text-[#71717A] mb-2">
+                Hero
+              </p>
+              <h3 class="text-lg font-semibold tracking-tight text-[#09090B]">
+                Hero Video, Headlines & CTA
+              </h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Badge Text
+                </label>
+                <input
+                  id="hero-badge-text"
+                  name="hero-badge-text"
+                  class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+                />
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Video URL
+                </label>
+                <input
+                  id="hero-video-url"
+                  name="hero-video-url"
+                  class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+                  placeholder="/assets/..."
+                />
+              </div>
+
+              <div class="flex flex-col gap-2 md:col-span-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Upload Video (replaces URL)
+                </label>
+                <input
+                  id="hero-video-file"
+                  name="hero-video-file"
+                  type="file"
+                  accept="video/*"
+                  class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white"
+                />
+                <label class="mt-2 flex items-center gap-2 text-sm text-[#71717A]">
+                  <input
+                    id="remove-hero-video"
+                    type="checkbox"
+                    class="rounded border-[#E4E4E7]"
+                  />
+                  Remove current hero video
+                </label>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Title Line 1
+                </label>
+                <input
+                  id="hero-title-line-1"
+                  name="hero-title-line-1"
+                  class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+                />
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Title Line 2
+                </label>
+                <input
+                  id="hero-title-line-2"
+                  name="hero-title-line-2"
+                  class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+                />
+              </div>
+
+              <div class="flex flex-col gap-2 md:col-span-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Description
+                </label>
+                <textarea
+                  id="hero-description"
+                  name="hero-description"
+                  rows="3"
+                  class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+                ></textarea>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  CTA Text
+                </label>
+                <input
+                  id="hero-cta-text"
+                  name="hero-cta-text"
+                  class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+                />
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Demo View Text
+                </label>
+                <input
+                  id="hero-view-demo-text"
+                  name="hero-view-demo-text"
+                  class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+                />
+              </div>
+
+              <div class="flex flex-col gap-2 md:col-span-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Demo View Href
+                </label>
+                <input
+                  id="hero-view-demo-href"
+                  name="hero-view-demo-href"
+                  class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+                  placeholder="/demo"
+                />
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <p class="text-xs uppercase tracking-[0.2em] text-[#71717A]">
+                Press Logos (3)
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                    Logo 1 Text
+                  </label>
+                  <input id="press-0-text" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                    Logo 1 Icon
+                  </label>
+                  <input id="press-0-icon" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" placeholder="mdi:..." />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                    Logo 1 Font Style
+                  </label>
+                  <input id="press-0-fontStyle" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" placeholder="font-semibold text-sm" />
+                </div>
+
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                    Logo 2 Text
+                  </label>
+                  <input id="press-1-text" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                    Logo 2 Icon
+                  </label>
+                  <input id="press-1-icon" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" placeholder="mdi:..." />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                    Logo 2 Font Style
+                  </label>
+                  <input id="press-1-fontStyle" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" placeholder="font-semibold text-sm" />
+                </div>
+
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                    Logo 3 Text
+                  </label>
+                  <input id="press-2-text" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                    Logo 3 Icon
+                  </label>
+                  <input id="press-2-icon" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" placeholder="mdi:..." />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                    Logo 3 Font Style
+                  </label>
+                  <input id="press-2-fontStyle" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" placeholder="font-semibold text-sm" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="home-solutions" class="space-y-6 rounded-2xl border border-[#E4E4E7] bg-[#FCFCFD] p-4">
+            <div>
+              <p class="text-xs uppercase tracking-[0.2em] text-[#71717A] mb-2">
+                Solutions
+              </p>
+              <h3 class="text-lg font-semibold tracking-tight text-[#09090B]">
+                Solutions Cards
+              </h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Header Badge Text
+                </label>
+                <input
+                  id="solutions-badge-text"
+                  class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+                />
+              </div>
+              <div class="flex flex-col gap-2 md:col-span-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Header Title Lines
+                </label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <input id="solutions-title-line-1" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                  <input id="solutions-title-line-2" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                </div>
+              </div>
+              <div class="flex flex-col gap-2 md:col-span-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Header Subtitle
+                </label>
+                <textarea
+                  id="solutions-subtitle"
+                  rows="2"
+                  class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <p class="text-sm font-semibold text-[#09090B]">Live Solutions (2)</p>
+
+              <div class="grid grid-cols-1 gap-4">
+                <div class="rounded-xl border border-[#E4E4E7] p-4 bg-[#FAFAFA]">
+                  <p class="text-xs uppercase tracking-[0.2em] text-[#71717A] mb-3">Live 1</p>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <input id="live-0-title" placeholder="Title" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                    <input id="live-0-icon" placeholder="Icon (mdi:...)" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                    <textarea id="live-0-description" rows="2" placeholder="Description" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none md:col-span-2"></textarea>
+                    <input id="live-0-href" placeholder="Href" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none md:col-span-2" />
+                    <textarea id="live-0-features" rows="4" placeholder="Features (one per line)" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none md:col-span-2"></textarea>
+                  </div>
+                </div>
+                <div class="rounded-xl border border-[#E4E4E7] p-4 bg-[#FAFAFA]">
+                  <p class="text-xs uppercase tracking-[0.2em] text-[#71717A] mb-3">Live 2</p>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <input id="live-1-title" placeholder="Title" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                    <input id="live-1-icon" placeholder="Icon (mdi:...)" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                    <textarea id="live-1-description" rows="2" placeholder="Description" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none md:col-span-2"></textarea>
+                    <input id="live-1-href" placeholder="Href" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none md:col-span-2" />
+                    <textarea id="live-1-features" rows="4" placeholder="Features (one per line)" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none md:col-span-2"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <p class="text-sm font-semibold text-[#09090B]">Soon Solutions (5)</p>
+              <div class="grid grid-cols-1 gap-4">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <div class="rounded-xl border border-[#E4E4E7] p-4 bg-[#FAFAFA]" data-soon-card={i}>
+                    <p class="text-xs uppercase tracking-[0.2em] text-[#71717A] mb-3">Soon {i + 1}</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <input id={`soon-${i}-title`} placeholder="Title" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                      <input id={`soon-${i}-icon`} placeholder="Icon (mdi:...)" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                      <textarea id={`soon-${i}-description`} rows="2" placeholder="Description" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none md:col-span-2"></textarea>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div id="home-services" class="space-y-6 rounded-2xl border border-[#E4E4E7] bg-[#FCFCFD] p-4">
+            <div>
+              <p class="text-xs uppercase tracking-[0.2em] text-[#71717A] mb-2">
+                Services
+              </p>
+              <h3 class="text-lg font-semibold tracking-tight text-[#09090B]">
+                Dashboard Video & Labels
+              </h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="flex flex-col gap-2 md:col-span-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Dashboard Video URL
+                </label>
+                <input
+                  id="services-video-url"
+                  class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"
+                  placeholder="/assets/..."
+                />
+              </div>
+
+              <div class="flex flex-col gap-2 md:col-span-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Upload Dashboard Video (replaces URL)
+                </label>
+                <input
+                  id="services-video-file"
+                  type="file"
+                  accept="video/*"
+                  class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white"
+                />
+                <label class="mt-2 flex items-center gap-2 text-sm text-[#71717A]">
+                  <input
+                    id="remove-services-video"
+                    type="checkbox"
+                    class="rounded border-[#E4E4E7]"
+                  />
+                  Remove current dashboard video
+                </label>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Operational Badge Text
+                </label>
+                <input id="services-operational-badge" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  App Label
+                </label>
+                <input id="services-app-label" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+              </div>
+
+              <div class="flex flex-col gap-2 md:col-span-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Heading Line 1 / Line 2
+                </label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <input id="services-heading-1" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                  <input id="services-heading-2" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-2 md:col-span-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Description
+                </label>
+                <textarea id="services-description" rows="3" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none"></textarea>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Explore Dashboard Text
+                </label>
+                <input id="services-explore-text" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Explore Dashboard Href
+                </label>
+                <input id="services-explore-href" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Route Optimized Title
+                </label>
+                <input id="services-route-title" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+              </div>
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Route Optimized Subtitle
+                </label>
+                <input id="services-route-subtitle" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+              </div>
+              <div class="flex flex-col gap-2 md:col-span-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Route Optimized Icon (mdi:...)
+                </label>
+                <input id="services-route-icon" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Active Fleet Title
+                </label>
+                <input id="services-active-title" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+              </div>
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Active Fleet Subtitle
+                </label>
+                <input id="services-active-subtitle" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+              </div>
+              <div class="flex flex-col gap-2 md:col-span-2">
+                <label class="text-xs font-bold tracking-wide text-[#71717A] uppercase">
+                  Active Fleet Icon (mdi:...)
+                </label>
+                <input id="services-active-icon" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+              </div>
+            </div>
+          </div>
+
+          <div id="home-additional" class="space-y-6 rounded-2xl border border-[#E4E4E7] bg-[#FCFCFD] p-4">
+            <div>
+              <p class="text-xs uppercase tracking-[0.2em] text-[#71717A] mb-2">
+                Additional Homepage Sections
+              </p>
+              <h3 class="text-lg font-semibold tracking-tight text-[#09090B]">
+                Stats, features, proof & roadmap
+              </h3>
+              <p class="text-sm text-[#71717A] mt-2">
+                Edit each block below—no JSON required.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4">
+              <!-- 1. Stats bar -->
+              <div id="home-stats" class="rounded-xl border border-[#E4E4E7] p-4 bg-white space-y-4">
+                <p class="text-sm font-semibold text-[#09090B]">1. Stats bar (homepage proof row)</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <input id="stats-badge-text" placeholder="Badge text" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                  <input id="stats-title" placeholder="Title" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                  <textarea id="stats-subtitle" rows="2" placeholder="Subtitle" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none md:col-span-2"></textarea>
+                </div>
+                <p class="text-xs uppercase tracking-[0.2em] text-[#71717A]">Three metrics</p>
+                <div class="grid grid-cols-1 gap-3">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <div class="rounded-lg border border-[#E4E4E7] p-3 bg-[#FAFAFA] grid grid-cols-1 md:grid-cols-2 gap-2">
+                      <p class="text-xs font-semibold text-[#71717A] md:col-span-2">Metric {i + 1}</p>
+                      <input id={`stats-item-${i}-label`} placeholder="Label" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white" />
+                      <input id={`stats-item-${i}-value`} type="number" step="any" placeholder="Value (e.g. 98)" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white" />
+                      <input id={`stats-item-${i}-suffix`} placeholder="Suffix (e.g. % or sec)" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white" />
+                      <textarea id={`stats-item-${i}-description`} rows="2" placeholder="Description" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white md:col-span-2"></textarea>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <!-- 2. Core features -->
+              <div id="home-core-features" class="rounded-xl border border-[#E4E4E7] p-4 bg-white space-y-4">
+                <p class="text-sm font-semibold text-[#09090B]">2. Core features grid</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <input id="core-badge-text" placeholder="Badge text" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                  <input id="core-title" placeholder="Title" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                  <textarea id="core-subtitle" rows="2" placeholder="Subtitle" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none md:col-span-2"></textarea>
+                </div>
+                <p class="text-xs uppercase tracking-[0.2em] text-[#71717A]">Six feature cards</p>
+                <div class="grid grid-cols-1 gap-3">
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <div class="rounded-lg border border-[#E4E4E7] p-3 bg-[#FAFAFA] grid grid-cols-1 md:grid-cols-2 gap-2">
+                      <p class="text-xs font-semibold text-[#71717A] md:col-span-2">Feature {i + 1}</p>
+                      <input id={`core-item-${i}-id`} placeholder="Id (slug, e.g. automation)" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white" />
+                      <input id={`core-item-${i}-icon`} placeholder="Icon (mdi:...)" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white" />
+                      <input id={`core-item-${i}-title`} placeholder="Title" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white md:col-span-2" />
+                      <textarea id={`core-item-${i}-description`} rows="2" placeholder="Description" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white md:col-span-2"></textarea>
+                      <input id={`core-item-${i}-colSpan`} placeholder="Tailwind col span classes" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white md:col-span-2" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <!-- 3. Benefits -->
+              <div id="home-benefits" class="rounded-xl border border-[#E4E4E7] p-4 bg-white space-y-4">
+                <p class="text-sm font-semibold text-[#09090B]">3. Benefits section</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <input id="benefits-badge-text" placeholder="Badge text" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                  <input id="benefits-title" placeholder="Title" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                  <textarea id="benefits-subtitle" rows="2" placeholder="Subtitle" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none md:col-span-2"></textarea>
+                  <input id="benefits-cta-title" placeholder="CTA title" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                  <input id="benefits-cta-subtitle" placeholder="CTA subtitle" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                  <input id="benefits-cta-button" placeholder="CTA button text" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none md:col-span-2" />
+                </div>
+                <p class="text-xs uppercase tracking-[0.2em] text-[#71717A]">Three benefit cards</p>
+                <div class="grid grid-cols-1 gap-3">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <div class="rounded-lg border border-[#E4E4E7] p-3 bg-[#FAFAFA] grid grid-cols-1 md:grid-cols-2 gap-2">
+                      <p class="text-xs font-semibold text-[#71717A] md:col-span-2">Benefit {i + 1}</p>
+                      <input id={`benefits-item-${i}-category`} placeholder="Category" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white" />
+                      <input id={`benefits-item-${i}-title`} placeholder="Title" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white" />
+                      <textarea id={`benefits-item-${i}-description`} rows="2" placeholder="Description" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white md:col-span-2"></textarea>
+                      <input id={`benefits-item-${i}-metric`} placeholder="Metric (e.g. 22% ROI)" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white" />
+                      <input id={`benefits-item-${i}-detail`} placeholder="Detail line" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <!-- 4. Testimonials -->
+              <div id="home-testimonials" class="rounded-xl border border-[#E4E4E7] p-4 bg-white space-y-4">
+                <p class="text-sm font-semibold text-[#09090B]">4. Testimonials & case studies</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <input id="testi-badge-text" placeholder="Badge text" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                  <input id="testi-title" placeholder="Title" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                  <textarea id="testi-subtitle" rows="2" placeholder="Subtitle" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none md:col-span-2"></textarea>
+                </div>
+                <p class="text-xs uppercase tracking-[0.2em] text-[#71717A]">Quotes (3)</p>
+                <div class="grid grid-cols-1 gap-3">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <div class="rounded-lg border border-[#E4E4E7] p-3 bg-[#FAFAFA] grid grid-cols-1 md:grid-cols-2 gap-2">
+                      <p class="text-xs font-semibold text-[#71717A] md:col-span-2">Quote {i + 1}</p>
+                      <input id={`testi-item-${i}-name`} placeholder="Name" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white" />
+                      <input id={`testi-item-${i}-role`} placeholder="Role" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white" />
+                      <input id={`testi-item-${i}-rating`} type="number" min="1" max="5" step="1" placeholder="Rating 1–5" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white" />
+                      <textarea id={`testi-item-${i}-quote`} rows="2" placeholder="Quote" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white md:col-span-2"></textarea>
+                    </div>
+                  ))}
+                </div>
+                <p class="text-xs uppercase tracking-[0.2em] text-[#71717A]">Case studies (2)</p>
+                <div class="grid grid-cols-1 gap-3">
+                  {Array.from({ length: 2 }).map((_, i) => (
+                    <div class="rounded-lg border border-[#E4E4E7] p-3 bg-[#FAFAFA] grid grid-cols-1 md:grid-cols-2 gap-2">
+                      <p class="text-xs font-semibold text-[#71717A] md:col-span-2">Case {i + 1}</p>
+                      <input id={`case-${i}-title`} placeholder="Title" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white md:col-span-2" />
+                      <input id={`case-${i}-metric`} placeholder="Metric (e.g. 18%)" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white" />
+                      <input id={`case-${i}-detail`} placeholder="Detail" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none bg-white" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-[#E4E4E7] p-4 bg-[#FAFAFA] space-y-4">
+                <p class="text-sm font-semibold text-[#09090B]">5. Future / Roadmap (structured)</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <input id="future-badge-text" placeholder="Badge text" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                  <input id="future-title" placeholder="Title" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                  <textarea id="future-subtitle" rows="2" placeholder="Subtitle" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none md:col-span-2"></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 gap-4">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <div class="rounded-xl border border-[#E4E4E7] p-4 bg-white">
+                      <p class="text-xs uppercase tracking-[0.2em] text-[#71717A] mb-3">Phase {i + 1}</p>
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <input id={`future-item-${i}-phase`} placeholder="Phase label (e.g. Phase 01)" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                        <input id={`future-item-${i}-status`} placeholder="Status (Live Now / Planned)" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                        <input id={`future-item-${i}-title`} placeholder="Title" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none md:col-span-2" />
+                        <textarea id={`future-item-${i}-description`} rows="2" placeholder="Description" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none md:col-span-2"></textarea>
+                        <input id={`future-item-${i}-icon`} placeholder="Icon (mdi:...)" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                        <input id={`future-item-${i}-offset`} placeholder="Offset class (e.g. lg:translate-y-12)" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none" />
+                        <input id={`future-item-${i}-image-url`} placeholder="Image URL (/assets/...)" class="border border-[#E4E4E7] rounded-lg px-3 py-2 outline-none md:col-span-2" />
+                        <label class="flex items-center gap-2 text-sm text-[#71717A] md:col-span-2">
+                          <input id={`future-item-${i}-status-live`} type="checkbox" class="rounded border-[#E4E4E7]" />
+                          Mark as live status
+                        </label>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-end gap-3">
+            <button
+              type="button"
+              id="home-sections-load-defaults"
+              class="px-4 py-3 rounded-lg border border-[#E4E4E7] text-sm font-medium text-[#09090B] hover:bg-[#FAFAFA]"
+            >
+              Reload from Server
+            </button>
+            <button
+              type="submit"
+              class="px-5 py-3 rounded-lg bg-[#09090B] text-white font-semibold text-sm hover:opacity-90 transition-opacity"
+            >
+              Save Home Sections
+            </button>
+          </div>
+
+          <p id="home-sections-feedback" class="text-sm text-[#71717A]"></p>
+        </form>
+      </div>
+    </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // @ts-nocheck
+    async function ensureAuth() {
+      const response = await fetch("/api/crm/session", { method: "POST" });
+      const payload = await response.json();
+      if (!payload.authenticated) {
+        window.location.href = "/crm-login";
+        return false;
+      }
+      return true;
+    }
+
+    const statusOptions = ["new", "in_progress", "won", "closed"];
+    let leads = [];
+
+    function countByStatus(status) {
+      return leads.filter((lead) => lead.status === status).length;
+    }
+
+    function updateStats() {
+      document.getElementById("stat-total").textContent = String(leads.length);
+      document.getElementById("stat-new").textContent = String(countByStatus("new"));
+      document.getElementById("stat-progress").textContent = String(countByStatus("in_progress"));
+      document.getElementById("stat-closed").textContent = String(
+        countByStatus("won") + countByStatus("closed")
+      );
+    }
+
+    async function updateStatus(id, status) {
+      const response = await fetch(`/api/crm/lead-status`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, status }),
+      });
+      if (response.status === 401) {
+        window.location.href = "/crm-login";
+        return;
+      }
+      leads = leads.map((lead) => (lead.id === id ? { ...lead, status } : lead));
+      updateStats();
+    }
+
+    function renderRows() {
+      const tbody = document.getElementById("leads-table-body");
+      tbody.innerHTML = "";
+
+      if (!leads.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="px-4 py-8 text-center text-[#71717A]">No leads yet.</td></tr>';
+        return;
+      }
+
+      for (const lead of leads) {
+        const tr = document.createElement("tr");
+        tr.className = "border-b border-[#F4F4F5] align-top";
+
+        const company = (lead.company || "").trim();
+        const phone = (lead.phone || "").trim();
+        const companyPhone =
+          company && phone
+            ? `${company} • ${phone}`
+            : company
+              ? company
+              : phone
+                ? phone
+                : "-";
+
+        tr.innerHTML = `
+          <td class="px-4 py-3 capitalize">${lead.type}</td>
+          <td class="px-4 py-3">
+            <div class="font-medium">${lead.name || "-"}</div>
+            <div class="text-xs text-[#71717A]">${new Date(lead.createdAt).toLocaleString()}</div>
+          </td>
+          <td class="px-4 py-3">${lead.email || "-"}</td>
+          <td class="px-4 py-3">${companyPhone}</td>
+          <td class="px-4 py-3 max-w-[280px]">${lead.message || lead.subject || "-"}</td>
+          <td class="px-4 py-3">
+            <select class="crm-status border border-[#E4E4E7] rounded-lg px-2 py-1 bg-white" data-id="${lead.id}">
+              ${statusOptions
+                .map(
+                  (option) =>
+                    `<option value="${option}" ${lead.status === option ? "selected" : ""}>${option.replace("_", " ")}</option>`
+                )
+                .join("")}
+            </select>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }
+
+      const selectors = document.querySelectorAll(".crm-status");
+      selectors.forEach((element) => {
+        element.addEventListener("change", async (event) => {
+          const target = event.target;
+          await updateStatus(target.dataset.id, target.value);
+        });
+      });
+    }
+
+    async function loadLeads() {
+      const hasAccess = await ensureAuth();
+      if (!hasAccess) return;
+
+      const response = await fetch("/api/crm/leads", { method: "POST" });
+      if (response.status === 401) {
+        window.location.href = "/crm-login";
+        return;
+      }
+      const payload = await response.json();
+      leads = payload.leads || [];
+      updateStats();
+      renderRows();
+    }
+
+    const logoutButton = document.getElementById("crm-logout");
+    if (logoutButton) {
+      logoutButton.addEventListener("click", async () => {
+        await fetch("/api/crm/logout", { method: "POST" });
+        window.location.href = "/crm-login";
+      });
+    }
+
+    loadLeads();
+
+    const blogFeedbackEl = document.getElementById("blog-feedback");
+    let blogPosts = [];
+
+    function renderBlogRows() {
+      const tbody = document.getElementById("blog-table-body");
+      tbody.innerHTML = "";
+
+      if (!blogPosts.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="px-4 py-8 text-center text-[#71717A]">No blog posts yet.</td></tr>';
+        return;
+      }
+
+      for (const post of blogPosts) {
+        const featuredLabel = post.featured ? "Yes" : "No";
+        const imgHtml = post.img
+          ? `<img src="${post.img}" alt="${post.title}" class="w-12 h-12 object-cover rounded-lg border border-[#E4E4E7]" />`
+          : "-";
+
+        const tr = document.createElement("tr");
+        tr.className = "border-b border-[#F4F4F5] align-top";
+        tr.innerHTML = `
+          <td class="px-4 py-3 font-medium">${post.title || "-"}</td>
+          <td class="px-4 py-3">${post.category || "-"}</td>
+          <td class="px-4 py-3">${post.date || "-"}</td>
+          <td class="px-4 py-3">${featuredLabel}</td>
+          <td class="px-4 py-3">${imgHtml}</td>
+          <td class="px-4 py-3">
+            <div class="flex items-center gap-2">
+                <button
+                  class="blog-edit px-3 py-2 rounded-lg border border-[#E4E4E7] text-sm font-medium text-[#09090B] hover:bg-[#FAFAFA]"
+                  data-slug="${post.slug}"
+                >
+                  Edit
+                </button>
+              <button
+                class="blog-delete px-3 py-2 rounded-lg border border-[#E4E4E7] text-sm font-medium text-[#09090B] hover:bg-[#FAFAFA]"
+                data-slug="${post.slug}"
+              >
+                Delete
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }
+
+        document.querySelectorAll(".blog-edit").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const slug = btn.dataset.slug;
+            if (!slug) return;
+
+            const res = await fetch("/api/crm/blog/get", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ slug }),
+            });
+
+            if (res.status === 401) {
+              window.location.href = "/crm-login";
+              return;
+            }
+
+            if (!res.ok) {
+              const payload = await res.json().catch(() => ({}));
+              blogFeedbackEl.textContent =
+                payload.message || "Unable to load post";
+              return;
+            }
+
+            const payload = await res.json();
+            const post = payload.post;
+            if (!post) return;
+
+            const titleEl = document.querySelector('#blog-form [name="title"]');
+            const slugEl = document.querySelector('#blog-form [name="slug"]');
+            const excerptEl = document.querySelector('#blog-form [name="excerpt"]');
+            const categoryEl = document.querySelector('#blog-form [name="category"]');
+            const dateEl = document.querySelector('#blog-form [name="date"]');
+            const readTimeEl = document.querySelector('#blog-form [name="readTime"]');
+            const featuredEl = document.querySelector('#blog-form [name="featured"]');
+            const coverImageUrlEl = document.querySelector('#blog-form [name="coverImageUrl"]');
+            const bodyEl = document.querySelector('#blog-form [name="body"]');
+            const removeCoverEl = document.querySelector('#blog-form [name="removeCoverImage"]');
+            const coverImageFileEl = document.querySelector('#blog-form [name="coverImage"]');
+
+            if (titleEl) titleEl.value = post.title || "";
+            if (slugEl) slugEl.value = post.slug || "";
+            if (excerptEl) excerptEl.value = post.excerpt || "";
+            if (categoryEl) categoryEl.value = post.category || "";
+            if (dateEl) dateEl.value = post.date || "";
+            if (readTimeEl) readTimeEl.value = post.readTime || "";
+            if (featuredEl) featuredEl.checked = Boolean(post.featured);
+
+            if (coverImageUrlEl) coverImageUrlEl.value = post.img || "";
+            if (removeCoverEl) removeCoverEl.checked = false;
+            if (coverImageFileEl) coverImageFileEl.value = "";
+            if (bodyEl) bodyEl.value = post.body || "";
+
+            blogFeedbackEl.textContent = `Loaded "${post.title || post.slug}" for editing.`;
+            // Scroll into view for better UX
+            const blogForm = document.getElementById("blog-form");
+            if (blogForm) blogForm.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        });
+
+      document.querySelectorAll(".blog-delete").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const slug = btn.dataset.slug;
+          if (!slug) return;
+
+          if (!confirm(`Delete blog post "${slug}"?`)) return;
+
+          const res = await fetch("/api/crm/blog/delete", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ slug }),
+          });
+
+          if (res.status === 401) {
+            window.location.href = "/crm-login";
+            return;
+          }
+
+          if (!res.ok) {
+            const payload = await res.json().catch(() => ({}));
+            blogFeedbackEl.textContent = payload.message || "Unable to delete post";
+            return;
+          }
+
+          blogFeedbackEl.textContent = "Post deleted.";
+          await loadBlogPosts();
+        });
+      });
+    }
+
+    async function loadBlogPosts() {
+      const hasAccess = await ensureAuth();
+      if (!hasAccess) return;
+
+      const res = await fetch("/api/crm/blog/list", { method: "POST" });
+      if (res.status === 401) {
+        window.location.href = "/crm-login";
+        return;
+      }
+
+      const payload = await res.json();
+      blogPosts = payload.posts || [];
+      renderBlogRows();
+    }
+
+    const blogForm = document.getElementById("blog-form");
+    if (blogForm && blogFeedbackEl) {
+      blogForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        blogFeedbackEl.textContent = "Saving...";
+
+        const formData = new FormData(blogForm);
+        const featured = blogForm.querySelector('input[name="featured"]')?.checked;
+        const removeCover = blogForm.querySelector(
+          'input[name="removeCoverImage"]',
+        )?.checked;
+        // Ensure featured is either "on" or omitted
+        if (featured) formData.set("featured", "on");
+        else formData.delete("featured");
+
+        if (removeCover) formData.set("removeCoverImage", "on");
+        else formData.delete("removeCoverImage");
+
+        const res = await fetch("/api/crm/blog/save", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (res.status === 401) {
+          window.location.href = "/crm-login";
+          return;
+        }
+
+        const payload = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          blogFeedbackEl.textContent = payload.message || "Unable to save post";
+          return;
+        }
+
+        blogFeedbackEl.textContent = "Post saved successfully.";
+        await loadBlogPosts();
+        blogForm.reset();
+      });
+    }
+
+    loadBlogPosts();
+
+    const socialForm = document.getElementById("social-form");
+    const socialFeedbackEl = document.getElementById("social-feedback");
+
+    async function loadSocialLinks() {
+      const hasAccess = await ensureAuth();
+      if (!hasAccess) return;
+
+      const res = await fetch("/api/crm/settings/get", { method: "POST" });
+      if (res.status === 401) {
+        window.location.href = "/crm-login";
+        return;
+      }
+
+      const payload = await res.json().catch(() => ({}));
+      const social = payload.settings?.social || {};
+
+      const linkedin = document.getElementById("social-linkedin");
+      const instagram = document.getElementById("social-instagram");
+      const youtube = document.getElementById("social-youtube");
+
+      if (linkedin) linkedin.value = social.linkedin || "";
+      if (instagram) instagram.value = social.instagram || "";
+      if (youtube) youtube.value = social.youtube || "";
+    }
+
+    if (socialForm && socialFeedbackEl) {
+      socialForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        socialFeedbackEl.textContent = "Saving...";
+
+        const linkedin = (document.getElementById("social-linkedin")?.value || "").trim();
+        const instagram = (document.getElementById("social-instagram")?.value || "").trim();
+        const youtube = (document.getElementById("social-youtube")?.value || "").trim();
+
+        const res = await fetch("/api/crm/settings/save", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            social: { linkedin, instagram, youtube },
+          }),
+        });
+
+        if (res.status === 401) {
+          window.location.href = "/crm-login";
+          return;
+        }
+
+        const payload = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          socialFeedbackEl.textContent = payload.message || "Unable to save social links";
+          return;
+        }
+
+        socialFeedbackEl.textContent = "Social links saved.";
+        await loadSocialLinks();
+      });
+    }
+
+    loadSocialLinks();
+
+    const homeForm = document.getElementById("home-sections-form");
+    const homeFeedbackEl = document.getElementById("home-sections-feedback");
+    const homeLoadDefaultsBtn = document.getElementById(
+      "home-sections-load-defaults",
+    );
+
+    let currentHomeSettings = null;
+
+    function getInputValue(id) {
+      return (document.getElementById(id)?.value || "").toString();
+    }
+
+    function setInputValue(id, value) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.value = value ?? "";
+    }
+
+    function setCheckboxValue(id, checked) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.checked = Boolean(checked);
+    }
+
+    function parseMultiline(text) {
+      return (text || "")
+        .split("\n")
+        .map((x) => x.trim())
+        .filter(Boolean);
+    }
+
+    async function loadHomeSections() {
+      const hasAccess = await ensureAuth();
+      if (!hasAccess) return;
+
+      const res = await fetch("/api/crm/home/settings/get", { method: "POST" });
+      if (res.status === 401) {
+        window.location.href = "/crm-login";
+        return;
+      }
+
+      const payload = await res.json().catch(() => ({}));
+      const settings = payload.settings || {};
+      currentHomeSettings = settings;
+
+      const hero = settings.hero || {};
+      setInputValue("hero-badge-text", hero.badgeText);
+      setInputValue("hero-video-url", hero.videoUrl || "");
+      setInputValue("hero-title-line-1", hero.titleLine1);
+      setInputValue("hero-title-line-2", hero.titleLine2);
+      setInputValue("hero-description", hero.description);
+      setInputValue("hero-cta-text", hero.ctaText);
+      setInputValue("hero-view-demo-text", hero.viewDemoText);
+      setInputValue("hero-view-demo-href", hero.viewDemoHref);
+      setCheckboxValue("remove-hero-video", false);
+      setCheckboxValue("remove-services-video", false);
+
+      const pressLogos = hero.pressLogos || [];
+      for (let i = 0; i < 3; i++) {
+        const logo = pressLogos[i] || {};
+        setInputValue(`press-${i}-text`, logo.text);
+        setInputValue(`press-${i}-icon`, logo.icon);
+        setInputValue(`press-${i}-fontStyle`, logo.fontStyle);
+      }
+
+      const solutions = settings.solutions || {};
+      // Back-compat: support both nested `header.*` and older flat keys.
+      setInputValue(
+        "solutions-badge-text",
+        solutions.header?.badgeText || solutions.headerBadgeText,
+      );
+      setInputValue(
+        "solutions-title-line-1",
+        solutions.header?.titleLine1 || solutions.headerTitleLine1,
+      );
+      setInputValue(
+        "solutions-title-line-2",
+        solutions.header?.titleLine2 || solutions.headerTitleLine2,
+      );
+      setInputValue(
+        "solutions-subtitle",
+        solutions.header?.subtitle || solutions.headerSubtitle,
+      );
+
+      const live = solutions.live || [];
+      for (let i = 0; i < 2; i++) {
+        const card = live[i] || {};
+        setInputValue(`live-${i}-title`, card.title);
+        setInputValue(`live-${i}-icon`, card.icon);
+        setInputValue(`live-${i}-description`, card.description);
+        setInputValue(`live-${i}-href`, card.href);
+        setInputValue(
+          `live-${i}-features`,
+          (card.features || []).join("\n"),
+        );
+      }
+
+      const soon = solutions.soon || [];
+      for (let i = 0; i < 5; i++) {
+        const card = soon[i] || {};
+        setInputValue(`soon-${i}-title`, card.title);
+        setInputValue(`soon-${i}-icon`, card.icon);
+        setInputValue(`soon-${i}-description`, card.description);
+      }
+
+      const services = settings.services || {};
+      setInputValue("services-video-url", services.dashboardVideoUrl || "");
+      setInputValue(
+        "services-operational-badge",
+        services.operationalBadgeText,
+      );
+      setInputValue("services-heading-1", services.headingLine1);
+      setInputValue("services-heading-2", services.headingLine2);
+      setInputValue("services-description", services.description);
+      setInputValue("services-explore-text", services.exploreDashboardText);
+      setInputValue("services-explore-href", services.exploreDashboardHref);
+      setInputValue("services-route-title", services.routeOptimizedTitle);
+      setInputValue(
+        "services-route-subtitle",
+        services.routeOptimizedSubtitle,
+      );
+      setInputValue("services-route-icon", services.routeOptimizedIcon);
+      setInputValue("services-active-title", services.activeFleetTitle);
+      setInputValue(
+        "services-active-subtitle",
+        services.activeFleetSubtitle,
+      );
+      setInputValue("services-active-icon", services.activeFleetIcon);
+      setInputValue("services-app-label", services.appLabel);
+
+      const stats = settings.stats || {};
+      setInputValue("stats-badge-text", stats.badgeText || "");
+      setInputValue("stats-title", stats.title || "");
+      setInputValue("stats-subtitle", stats.subtitle || "");
+      const statItems = stats.items || [];
+      for (let i = 0; i < 3; i++) {
+        const item = statItems[i] || {};
+        setInputValue(`stats-item-${i}-label`, item.label || "");
+        setInputValue(
+          `stats-item-${i}-value`,
+          item.value != null && item.value !== "" ? String(item.value) : "",
+        );
+        setInputValue(`stats-item-${i}-suffix`, item.suffix || "");
+        setInputValue(`stats-item-${i}-description`, item.description || "");
+      }
+
+      const core = settings.coreFeatures || {};
+      setInputValue("core-badge-text", core.badgeText || "");
+      setInputValue("core-title", core.title || "");
+      setInputValue("core-subtitle", core.subtitle || "");
+      const coreItems = core.items || [];
+      for (let i = 0; i < 6; i++) {
+        const item = coreItems[i] || {};
+        setInputValue(`core-item-${i}-id`, item.id || "");
+        setInputValue(`core-item-${i}-title`, item.title || "");
+        setInputValue(`core-item-${i}-description`, item.description || "");
+        setInputValue(`core-item-${i}-icon`, item.icon || "");
+        setInputValue(`core-item-${i}-colSpan`, item.colSpan || "");
+      }
+
+      const ben = settings.benefits || {};
+      setInputValue("benefits-badge-text", ben.badgeText || "");
+      setInputValue("benefits-title", ben.title || "");
+      setInputValue("benefits-subtitle", ben.subtitle || "");
+      setInputValue("benefits-cta-title", ben.ctaTitle || "");
+      setInputValue("benefits-cta-subtitle", ben.ctaSubtitle || "");
+      setInputValue("benefits-cta-button", ben.ctaButtonText || "");
+      const benItems = ben.items || [];
+      for (let i = 0; i < 3; i++) {
+        const item = benItems[i] || {};
+        setInputValue(`benefits-item-${i}-category`, item.category || "");
+        setInputValue(`benefits-item-${i}-title`, item.title || "");
+        setInputValue(`benefits-item-${i}-description`, item.description || "");
+        setInputValue(`benefits-item-${i}-metric`, item.metric || "");
+        setInputValue(`benefits-item-${i}-detail`, item.detail || "");
+      }
+
+      const testi = settings.testimonials || {};
+      setInputValue("testi-badge-text", testi.badgeText || "");
+      setInputValue("testi-title", testi.title || "");
+      setInputValue("testi-subtitle", testi.subtitle || "");
+      const testiItems = testi.items || [];
+      for (let i = 0; i < 3; i++) {
+        const item = testiItems[i] || {};
+        setInputValue(`testi-item-${i}-name`, item.name || "");
+        setInputValue(`testi-item-${i}-role`, item.role || "");
+        setInputValue(`testi-item-${i}-quote`, item.quote || "");
+        setInputValue(
+          `testi-item-${i}-rating`,
+          item.rating != null ? String(item.rating) : "5",
+        );
+      }
+      const cases = testi.caseStudies || [];
+      for (let i = 0; i < 2; i++) {
+        const c = cases[i] || {};
+        setInputValue(`case-${i}-title`, c.title || "");
+        setInputValue(`case-${i}-metric`, c.metric || "");
+        setInputValue(`case-${i}-detail`, c.detail || "");
+      }
+
+      const future = settings.future || {};
+      setInputValue("future-badge-text", future.badgeText || "");
+      setInputValue("future-title", future.title || "");
+      setInputValue("future-subtitle", future.subtitle || "");
+      const futureItems = future.items || [];
+      for (let i = 0; i < 3; i++) {
+        const item = futureItems[i] || {};
+        setInputValue(`future-item-${i}-phase`, item.phase || "");
+        setInputValue(`future-item-${i}-status`, item.status || "");
+        setInputValue(`future-item-${i}-title`, item.title || "");
+        setInputValue(
+          `future-item-${i}-description`,
+          item.description || "",
+        );
+        setInputValue(`future-item-${i}-icon`, item.icon || "");
+        setInputValue(`future-item-${i}-offset`, item.offset || "");
+        setInputValue(`future-item-${i}-image-url`, item.imageUrl || "");
+        setCheckboxValue(`future-item-${i}-status-live`, item.statusLive);
+      }
+    }
+
+    async function deleteIfLocalUrl(url) {
+      if (!url || typeof url !== "string") return;
+      if (!url.startsWith("/assets/home-media/")) return;
+      await fetch("/api/crm/home/media/delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url }),
+      }).catch(() => null);
+    }
+
+    async function handleSaveHomeSections() {
+      if (!currentHomeSettings) return;
+      if (homeFeedbackEl) homeFeedbackEl.textContent = "Saving...";
+
+      const heroOld = currentHomeSettings.hero || {};
+      const solutionsOld = currentHomeSettings.solutions || {};
+      const servicesOld = currentHomeSettings.services || {};
+
+      const heroVideoRemove = document.getElementById("remove-hero-video")
+        ?.checked;
+      const servicesVideoRemove = document.getElementById("remove-services-video")
+        ?.checked;
+
+      if (heroVideoRemove) await deleteIfLocalUrl(heroOld.videoUrl);
+      if (servicesVideoRemove)
+        await deleteIfLocalUrl(servicesOld.dashboardVideoUrl);
+
+      const hero = {
+        ...heroOld,
+        badgeText: getInputValue("hero-badge-text"),
+        videoUrl: heroVideoRemove ? "" : getInputValue("hero-video-url"),
+        titleLine1: getInputValue("hero-title-line-1"),
+        titleLine2: getInputValue("hero-title-line-2"),
+        description: getInputValue("hero-description"),
+        ctaText: getInputValue("hero-cta-text"),
+        viewDemoText: getInputValue("hero-view-demo-text"),
+        viewDemoHref: getInputValue("hero-view-demo-href"),
+        pressLogos: Array.from({ length: 3 }).map((_, i) => ({
+          text: getInputValue(`press-${i}-text`),
+          icon: getInputValue(`press-${i}-icon`),
+          fontStyle: getInputValue(`press-${i}-fontStyle`),
+        })),
+      };
+
+      const solutions = {
+        ...solutionsOld,
+        headerBadgeText: getInputValue("solutions-badge-text"),
+        headerTitleLine1: getInputValue("solutions-title-line-1"),
+        headerTitleLine2: getInputValue("solutions-title-line-2"),
+        headerSubtitle: getInputValue("solutions-subtitle"),
+        live: Array.from({ length: 2 }).map((_, i) => ({
+          title: getInputValue(`live-${i}-title`),
+          icon: getInputValue(`live-${i}-icon`),
+          description: getInputValue(`live-${i}-description`),
+          href: getInputValue(`live-${i}-href`),
+          features: parseMultiline(getInputValue(`live-${i}-features`)),
+        })),
+        soon: Array.from({ length: 5 }).map((_, i) => ({
+          title: getInputValue(`soon-${i}-title`),
+          icon: getInputValue(`soon-${i}-icon`),
+          description: getInputValue(`soon-${i}-description`),
+        })),
+      };
+
+      const services = {
+        ...servicesOld,
+        dashboardVideoUrl: servicesVideoRemove
+          ? ""
+          : getInputValue("services-video-url"),
+        operationalBadgeText: getInputValue("services-operational-badge"),
+        headingLine1: getInputValue("services-heading-1"),
+        headingLine2: getInputValue("services-heading-2"),
+        description: getInputValue("services-description"),
+        exploreDashboardText: getInputValue("services-explore-text"),
+        exploreDashboardHref: getInputValue("services-explore-href"),
+        routeOptimizedTitle: getInputValue("services-route-title"),
+        routeOptimizedSubtitle: getInputValue("services-route-subtitle"),
+        routeOptimizedIcon: getInputValue("services-route-icon"),
+        activeFleetTitle: getInputValue("services-active-title"),
+        activeFleetSubtitle: getInputValue("services-active-subtitle"),
+        activeFleetIcon: getInputValue("services-active-icon"),
+        appLabel: getInputValue("services-app-label"),
+      };
+
+      const stats = {
+        badgeText: getInputValue("stats-badge-text"),
+        title: getInputValue("stats-title"),
+        subtitle: getInputValue("stats-subtitle"),
+        items: Array.from({ length: 3 }).map((_, i) => ({
+          label: getInputValue(`stats-item-${i}-label`),
+          value: Number.parseFloat(getInputValue(`stats-item-${i}-value`)) || 0,
+          suffix: getInputValue(`stats-item-${i}-suffix`),
+          description: getInputValue(`stats-item-${i}-description`),
+        })),
+      };
+
+      const coreFeatures = {
+        badgeText: getInputValue("core-badge-text"),
+        title: getInputValue("core-title"),
+        subtitle: getInputValue("core-subtitle"),
+        items: Array.from({ length: 6 }).map((_, i) => ({
+          id: getInputValue(`core-item-${i}-id`),
+          title: getInputValue(`core-item-${i}-title`),
+          description: getInputValue(`core-item-${i}-description`),
+          icon: getInputValue(`core-item-${i}-icon`),
+          colSpan: getInputValue(`core-item-${i}-colSpan`),
+        })),
+      };
+
+      const benefits = {
+        badgeText: getInputValue("benefits-badge-text"),
+        title: getInputValue("benefits-title"),
+        subtitle: getInputValue("benefits-subtitle"),
+        ctaTitle: getInputValue("benefits-cta-title"),
+        ctaSubtitle: getInputValue("benefits-cta-subtitle"),
+        ctaButtonText: getInputValue("benefits-cta-button"),
+        items: Array.from({ length: 3 }).map((_, i) => ({
+          category: getInputValue(`benefits-item-${i}-category`),
+          title: getInputValue(`benefits-item-${i}-title`),
+          description: getInputValue(`benefits-item-${i}-description`),
+          metric: getInputValue(`benefits-item-${i}-metric`),
+          detail: getInputValue(`benefits-item-${i}-detail`),
+        })),
+      };
+
+      const ratingRaw = (id) =>
+        Math.min(
+          5,
+          Math.max(
+            1,
+            Math.round(Number.parseFloat(getInputValue(id)) || 5),
+          ),
+        );
+
+      const testimonials = {
+        badgeText: getInputValue("testi-badge-text"),
+        title: getInputValue("testi-title"),
+        subtitle: getInputValue("testi-subtitle"),
+        items: Array.from({ length: 3 }).map((_, i) => ({
+          name: getInputValue(`testi-item-${i}-name`),
+          role: getInputValue(`testi-item-${i}-role`),
+          quote: getInputValue(`testi-item-${i}-quote`),
+          rating: ratingRaw(`testi-item-${i}-rating`),
+        })),
+        caseStudies: Array.from({ length: 2 }).map((_, i) => ({
+          title: getInputValue(`case-${i}-title`),
+          metric: getInputValue(`case-${i}-metric`),
+          detail: getInputValue(`case-${i}-detail`),
+        })),
+      };
+
+      const future = {
+        badgeText: getInputValue("future-badge-text"),
+        title: getInputValue("future-title"),
+        subtitle: getInputValue("future-subtitle"),
+        items: Array.from({ length: 3 }).map((_, i) => ({
+          phase: getInputValue(`future-item-${i}-phase`),
+          status: getInputValue(`future-item-${i}-status`),
+          statusLive: Boolean(
+            document.getElementById(`future-item-${i}-status-live`)?.checked,
+          ),
+          title: getInputValue(`future-item-${i}-title`),
+          description: getInputValue(`future-item-${i}-description`),
+          icon: getInputValue(`future-item-${i}-icon`),
+          imageUrl: getInputValue(`future-item-${i}-image-url`),
+          offset: getInputValue(`future-item-${i}-offset`),
+        })),
+      };
+
+      const res = await fetch("/api/crm/home/settings/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          hero,
+          solutions,
+          services,
+          stats,
+          coreFeatures,
+          benefits,
+          testimonials,
+          future,
+        }),
+      });
+
+      if (res.status === 401) {
+        window.location.href = "/crm-login";
+        return;
+      }
+
+      const payload = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        if (homeFeedbackEl)
+          homeFeedbackEl.textContent =
+            payload.message || "Unable to save home sections";
+        return;
+      }
+
+      if (homeFeedbackEl) homeFeedbackEl.textContent = "Home sections saved.";
+      await loadHomeSections();
+    }
+
+    if (homeForm) {
+      homeForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await handleSaveHomeSections();
+      });
+    }
+
+    if (homeLoadDefaultsBtn) {
+      homeLoadDefaultsBtn.addEventListener("click", async () => {
+        await loadHomeSections();
+        if (homeFeedbackEl) homeFeedbackEl.textContent = "Reloaded from server.";
+      });
+    }
+
+    const heroVideoFile = document.getElementById("hero-video-file");
+    const heroVideoUrlEl = document.getElementById("hero-video-url");
+    const removeHeroVideoEl = document.getElementById("remove-hero-video");
+
+    if (heroVideoFile && heroVideoUrlEl) {
+      heroVideoFile.addEventListener("change", async () => {
+        const file = heroVideoFile.files?.[0];
+        if (!file) return;
+
+        if (homeFeedbackEl) homeFeedbackEl.textContent = "Uploading hero video...";
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("kind", "heroVideo");
+
+        const res = await fetch("/api/crm/home/media/upload", {
+          method: "POST",
+          body: formData,
+        });
+        const payload = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          if (homeFeedbackEl)
+            homeFeedbackEl.textContent =
+              payload.message || "Hero video upload failed";
+          return;
+        }
+
+        if (payload.url) {
+          heroVideoUrlEl.value = payload.url;
+          if (removeHeroVideoEl) removeHeroVideoEl.checked = false;
+        }
+        if (homeFeedbackEl) homeFeedbackEl.textContent = "Hero video uploaded.";
+      });
+    }
+
+    const servicesVideoFile = document.getElementById("services-video-file");
+    const servicesVideoUrlEl = document.getElementById("services-video-url");
+    const removeServicesVideoEl = document.getElementById("remove-services-video");
+
+    if (servicesVideoFile && servicesVideoUrlEl) {
+      servicesVideoFile.addEventListener("change", async () => {
+        const file = servicesVideoFile.files?.[0];
+        if (!file) return;
+
+        if (homeFeedbackEl)
+          homeFeedbackEl.textContent = "Uploading dashboard video...";
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("kind", "dashboardVideo");
+
+        const res = await fetch("/api/crm/home/media/upload", {
+          method: "POST",
+          body: formData,
+        });
+        const payload = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          if (homeFeedbackEl)
+            homeFeedbackEl.textContent =
+              payload.message || "Dashboard video upload failed";
+          return;
+        }
+
+        if (payload.url) {
+          servicesVideoUrlEl.value = payload.url;
+          if (removeServicesVideoEl) removeServicesVideoEl.checked = false;
+        }
+        if (homeFeedbackEl) homeFeedbackEl.textContent = "Dashboard video uploaded.";
+      });
+    }
+
+    loadHomeSections();
+  </script>
+</MainLayout>
+
+<style>
+  .cms-bg {
+    background:
+      radial-gradient(900px 420px at 12% -5%, rgba(99, 102, 241, 0.12), transparent 55%),
+      radial-gradient(700px 380px at 88% 10%, rgba(59, 130, 246, 0.14), transparent 50%),
+      linear-gradient(180deg, #e8eef9 0%, #f4f6fb 40%, #f0f4fa 100%);
+  }
+
+  #leads-manager,
+  #blog-manager,
+  #social-manager,
+  #home-manager {
+    scroll-margin-top: 5.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    #leads-manager,
+    #blog-manager,
+    #social-manager,
+    #home-manager {
+      scroll-margin-top: 6rem;
+    }
+  }
+
+  .cms-side-nav {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 0.65rem 0.75rem;
+    border-radius: 0.85rem;
+    text-decoration: none;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+
+  .cms-side-nav:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .cms-side-nav:focus-visible {
+    outline: 2px solid #60a5fa;
+    outline-offset: 2px;
+  }
+
+  .cms-side-nav-icon {
+    opacity: 0.75;
+    font-size: 0.7rem;
+    line-height: 1.4;
+    margin-top: 0.15rem;
+  }
+
+  .cms-mnav-chip {
+    flex-shrink: 0;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    color: #334155;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+    text-decoration: none;
+    transition:
+      border-color 0.15s ease,
+      color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  .cms-mnav-chip:hover {
+    border-color: #93c5fd;
+    color: #1d4ed8;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.12);
+  }
+
+  .cms-module-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .cms-module-icon {
+    display: flex;
+    height: 2.75rem;
+    width: 2.75rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.85rem;
+    font-size: 1.15rem;
+    line-height: 1;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.6) inset,
+      0 0 0 1px rgba(15, 23, 42, 0.04);
+  }
+
+  .cms-kpi {
+    position: relative;
+    border-radius: 1rem;
+    border: 1px solid #e2e8f0;
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+    padding: 1rem 1rem 1.1rem 1.1rem;
+    overflow: hidden;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+  }
+
+  .cms-kpi::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    border-radius: 1rem 0 0 1rem;
+  }
+
+  .cms-kpi--total::before {
+    background: linear-gradient(180deg, #3b82f6, #2563eb);
+  }
+
+  .cms-kpi--new::before {
+    background: linear-gradient(180deg, #f59e0b, #d97706);
+  }
+
+  .cms-kpi--progress::before {
+    background: linear-gradient(180deg, #8b5cf6, #7c3aed);
+  }
+
+  .cms-kpi--closed::before {
+    background: linear-gradient(180deg, #10b981, #059669);
+  }
+
+  .cms-kpi-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #64748b;
+  }
+
+  .cms-kpi-value {
+    font-size: 1.625rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #0f172a;
+    margin-top: 0.35rem;
+    line-height: 1.2;
+  }
+
+  .cms-table-shell {
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  }
+
+  .cms-table {
+    border-collapse: collapse;
+  }
+
+  .cms-table thead {
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .cms-table th {
+    text-align: left;
+    padding: 0.8rem 1rem;
+    font-weight: 600;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #475569;
+  }
+
+  .cms-table td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: top;
+  }
+
+  .cms-table tbody tr:hover {
+    background: rgba(248, 250, 252, 0.85);
+  }
+
+  .cms-header-chip {
+    border: 1px solid #dbeafe;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-radius: 9999px;
+    padding: 0.3rem 0.55rem;
+  }
+
+  .cms-card {
+    background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    border-color: #d9e2f2;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.7) inset,
+      0 12px 30px rgba(15, 23, 42, 0.06);
+  }
+
+  .cms-module {
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+  }
+
+  .cms-module:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.7) inset,
+      0 16px 34px rgba(15, 23, 42, 0.09);
+  }
+
+  .cms-card table thead {
+    background: #f2f6ff;
+  }
+
+  .cms-card input,
+  .cms-card textarea,
+  .cms-card select {
+    border-color: #d9e2f2 !important;
+    background: #ffffff;
+  }
+
+  .cms-card input:focus,
+  .cms-card textarea:focus,
+  .cms-card select:focus {
+    outline: none;
+    border-color: #93c5fd !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  }
+
+  .cms-card button[type="submit"] {
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.16);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cms-side-nav,
+    .cms-mnav-chip {
+      transition: none;
+    }
+  }
+</style>

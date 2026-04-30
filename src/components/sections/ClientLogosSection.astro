@@ -1,0 +1,29 @@
+---
+const clientLogos = [
+    {
+        img: "/assets/images/clients/clientLogo1.svg",
+    },
+    {
+        img: "/assets/images/clients/clientLogo2.svg",
+    },
+    {
+        img: "/assets/images/clients/clientLogo3.svg",
+    },
+    {
+        img: "/assets/images/clients/clientLogo4.svg",
+    },
+    {
+        img: "/assets/images/clients/clientLogo5.svg",
+    },
+];
+---
+
+<section
+    class="lg:max-w-[1200px] px-12 xl:px-0 w-full mx-auto pt-[100px] lg:pt-[200px]"
+>
+    <div
+        class="w-full flex flex-row justify-between items-center gap-12 max-w-[1200px] overflow-x-scroll no-scrollbar"
+    >
+        {clientLogos.map((logo) => <img loading="lazy" decoding="async" src={logo.img} alt="" />)}
+    </div>
+</section>

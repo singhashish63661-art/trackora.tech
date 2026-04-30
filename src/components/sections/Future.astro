@@ -1,0 +1,112 @@
+---
+import { Icon } from "astro-icon/components";
+import { getHomeSettings } from "../../lib/home-settings";
+
+const homeSettings = await getHomeSettings();
+const future = homeSettings.future;
+const roadmapItems = future.items;
+---
+
+<section
+    id="roadmap"
+    class="relative w-full py-20 lg:py-32 bg-[#FAFAFA] font-sans text-[#09090B] border-t border-[#E4E4E7] overflow-hidden"
+>
+    <div
+        class="absolute inset-0 z-0 opacity-20 pointer-events-none hidden md:block"
+    >
+        <div
+            class="absolute inset-0 bg-[linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] opacity-[0.05]"
+        >
+        </div>
+    </div>
+
+    <div class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10">
+        <div
+            class="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20 lg:mb-32 animate-fade-in-up"
+        >
+            <div class="lg:col-span-7">
+                <div
+                    class="flex items-center gap-2.5 px-3 py-1.5 border border-[#E4E4E7] bg-white rounded-full w-max mb-8 shadow-sm"
+                >
+                    <span
+                        class="text-[10px] font-bold tracking-[0.15em] uppercase text-[#52525B]"
+                        >{future.badgeText}</span
+                    >
+                </div>
+
+                <h2
+                    class="text-[40px] md:text-[56px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.04em] text-[#09090B]"
+                >
+                    {future.title}
+                </h2>
+            </div>
+
+            <div class="lg:col-span-5 flex flex-col justify-end lg:pb-3">
+                <p
+                    class="text-[16px] md:text-[17px] leading-[1.65] text-[#71717A] font-normal max-w-[480px]"
+                >
+                    {future.subtitle}
+                </p>
+            </div>
+        </div>
+
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-start"
+        >
+            {
+                roadmapItems.map((item, index) => (
+                    <div
+                        class={`group relative flex flex-col bg-white border border-[#E4E4E7] rounded-3xl p-3 shadow-[0_2px_10px_rgba(0,0,0,0.02)] transition-all duration-500 hover:border-[#D4D4D8] animate-fade-in-up ${item.offset}`}
+                        style={`animation-delay: ${0.1 * index}s;`}
+                    >
+                        <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#F8FAFC] border border-[#F1F5F9] mb-8">
+                            <div class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#000_1px,transparent_1px)] bg-[size:20px_20px]" />
+
+                            <img
+                                src={item.imageUrl}
+                                alt={item.title}
+                                class={`w-full h-full relative z-10 ${
+                                    item.title === "GPS Tracking & Fleet Software" ||
+                                    item.title === "Fuel Management"
+                                        ? "object-contain p-2 bg-white"
+                                        : "object-cover"
+                                }`}
+                                loading="lazy"
+                            />
+
+                            <div class="absolute top-4 left-4 z-20 w-10 h-10 rounded-xl bg-gradient-to-br from-slate-700 via-slate-800 to-[#09090B] flex items-center justify-center shadow-lg border border-white/10">
+                                <Icon
+                                    name={item.icon}
+                                    class="w-5 h-5 text-white/90"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="px-5 pb-8">
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="text-[11px] font-bold tracking-[0.2em] uppercase text-[#09090B]">
+                                    {item.phase}
+                                </span>
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class={`w-1.5 h-1.5 rounded-full ${item.statusLive ? "bg-blue-500 animate-pulse" : index === 1 ? "bg-blue-500 animate-pulse" : "bg-slate-200"}`}
+                                    />
+                                    <span class="text-[10px] font-bold tracking-[0.1em] uppercase text-[#71717A]">
+                                        {item.status}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <h3 class="text-[22px] font-bold tracking-tight text-[#09090B] mb-3">
+                                {item.title}
+                            </h3>
+                            <p class="text-[14px] lg:text-[15px] leading-[1.6] text-[#71717A] font-normal">
+                                {item.description}
+                            </p>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>

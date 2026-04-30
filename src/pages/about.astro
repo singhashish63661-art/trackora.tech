@@ -1,0 +1,302 @@
+---
+import { Icon } from "astro-icon/components";
+import MainLayout from "../layouts/main-layout.astro";
+import CtaCard from "../components/CTA.astro";
+
+const values = [
+  {
+    id: "01",
+    title: "Precision First",
+    description:
+      "In logistics, a 1% margin of error is a failure. We engineer for sub-millisecond accuracy across every data point, treating telemetry as exact science.",
+    icon: "mdi:target-variant",
+    offset: "lg:translate-y-24",
+  },
+  {
+    id: "02",
+    title: "Absolute Visibility",
+    description:
+      "Dark spots in a supply chain are liabilities. Our architectural mission is to illuminate every node, from port departure to final-mile delivery.",
+    icon: "mdi:eye-check-outline",
+    offset: "lg:translate-y-12",
+  },
+  {
+    id: "03",
+    title: "Safety as Standard",
+    description:
+      "We refuse to treat operator safety as a premium feature. It is the uncompromising foundation of our entire software and hardware stack.",
+    icon: "mdi:shield-cross-outline",
+    offset: "lg:translate-y-0",
+  },
+];
+
+const leaders = [
+  {
+    name: "Member1",
+    role: "Frontend Architect",
+    bio: "Specializing in minimal, high-performance web systems and structural interface architecture.",
+  },
+  {
+    name: "Member2",
+    role: "Operations Strategy",
+    bio: "Bridging human-centric psychology with scalable fleet safety and operational protocols.",
+  },
+];
+
+const aboutIllustration =
+  "https://cdn.dribbble.com/userupload/45315141/file/8ec9281656b7a5ce128ccc8184d7243d.png?resize=1504x1128&vertical=center";
+---
+
+<MainLayout
+    title="About Us | Trackora"
+    description="Learn more about Trackora, our mission to architect the next decade of autonomous fleet intelligence, and our global logistics infrastructure."
+>
+  <main
+    class="bg-[#FAFAFA] dark:bg-[#09090B] text-[#09090B] dark:text-white"
+  >
+    <section
+      class="relative w-full pt-24 pb-20 lg:pt-32 lg:pb-32 border-b border-[#E4E4E7] dark:border-white/10 overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 z-0 opacity-20 pointer-events-none hidden md:block"
+      >
+        <div
+          class="absolute inset-0 bg-[linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] opacity-[0.05]"
+        >
+        </div>
+      </div>
+
+      <div class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10">
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end animate-fade-in-up"
+        >
+          <div class="lg:col-span-7">
+            <div
+              class="flex items-center gap-2.5 px-3 py-1.5 border border-[#E4E4E7] dark:border-white/10 bg-white dark:bg-[#121214] rounded-full w-max mb-8 shadow-sm"
+            >
+              <span class="relative flex h-1.5 w-1.5 ml-1">
+                <span
+                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-400 opacity-75"
+                ></span>
+                <span
+                  class="relative inline-flex rounded-full h-1.5 w-1.5 bg-slate-600"
+                ></span>
+              </span>
+              <span
+                class="text-[10px] font-bold tracking-[0.15em] uppercase text-[#52525B] dark:text-[#C4C4CE]"
+                >Company Mission</span
+              >
+            </div>
+
+            <h1
+              class="text-[36px] md:text-[56px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.04em] text-[#09090B] dark:text-white"
+            >
+              Mastering the <br class="hidden sm:block" /> IoT & Telematics <br
+                class="hidden sm:block"
+              /> of connected transit.
+            </h1>
+          </div>
+
+          <div class="lg:col-span-5 flex flex-col justify-end lg:pb-3">
+            <p
+              class="text-[17px] md:text-[19px] leading-[1.65] text-[#71717A] dark:text-[#A1A1AA] font-normal max-w-[480px]"
+            >
+              Trackora was founded on a simple premise: Logistics should be as
+              predictable, transparent, and exact as the hardware it runs on.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="relative w-full py-20 lg:py-32 bg-white dark:bg-[#121214] border-b border-[#E4E4E7] dark:border-white/10"
+    >
+      <div class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10">
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start"
+        >
+          <div class="lg:col-span-5 flex flex-col animate-fade-in-up">
+            <h2
+              class="text-[28px] md:text-[36px] font-medium tracking-tight text-[#09090B] dark:text-white mb-8 leading-[1.1]"
+            >
+              Beyond simple tracking.
+            </h2>
+            <div
+              class="flex flex-col gap-6 text-[16px] md:text-[17px] leading-[1.7] text-[#71717A] dark:text-[#A1A1AA]"
+            >
+              <p>
+                Trackora begins with advanced GPS trackers to establish the
+                precise continuous locational baseline you need. But we don't
+                stop there. We allow fleets to seamlessly scale up operational
+                visibility by integrating IoT fuel sensors, driver monitoring
+                systems, and AI-driven ADAS video telematics into a single
+                dashboard.
+              </p>
+              <p>
+                Today, Trackora serves as a holistic fleet management ecosystem.
+                We process millions of sensory nodes every second to ensure that
+                transit is safe, fuel is optimized, and operations remain
+                completely transparent.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="lg:col-span-7 relative animate-fade-in-up lg:self-start"
+            style="animation-delay: 0.2s;"
+          >
+            <div
+              class="relative w-full aspect-[16/9] bg-[#060D1A] rounded-[2rem] border border-[#1A2B44] overflow-hidden"
+            >
+              <div class="relative w-full h-full overflow-hidden p-2 sm:p-3">
+                <img
+                  src="/assets/images/trackora-hero-concept.svg?v=5"
+                  alt="Trackora fleet intelligence concept visual"
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-contain object-center"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="relative w-full py-20 lg:py-32 bg-[#FAFAFA] dark:bg-[#09090B] border-b border-[#E4E4E7] dark:border-white/10"
+    >
+      <div class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10">
+        <div
+          class="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20 lg:mb-32 animate-fade-in-up"
+        >
+          <div class="lg:col-span-7">
+            <div
+              class="flex items-center gap-2.5 px-3 py-1.5 border border-[#E4E4E7] dark:border-white/10 bg-white dark:bg-[#121214] rounded-full w-max mb-8 shadow-sm"
+            >
+              <span
+                class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#52525B] dark:text-[#C4C4CE]"
+                >System Logic</span
+              >
+            </div>
+            <h2
+              class="text-[32px] md:text-[48px] lg:text-[56px] font-medium leading-[1.05] tracking-[-0.04em] text-[#09090B] dark:text-white"
+            >
+              Our Operating <br class="hidden sm:block" /> Principles.
+            </h2>
+          </div>
+          <div class="lg:col-span-5 flex flex-col justify-end lg:pb-3">
+            <p
+              class="text-[16px] md:text-[17px] leading-[1.65] text-[#71717A] dark:text-[#A1A1AA] font-normal max-w-[480px]"
+            >
+              The core architectural values that define every line of code we
+              write and every hardware sensor we integrate into the stack.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-start"
+        >
+          {
+            values.map((item, index) => (
+              <div
+                class={`group flex flex-col bg-white dark:bg-[#121214] border border-[#E4E4E7] dark:border-white/10 rounded-3xl p-8 lg:p-10 shadow-[0_2px_10px_rgba(0,0,0,0.02)] transition-all duration-500 hover:border-[#09090B] dark:border-white/10 animate-fade-in-up ${item.offset}`}
+                style={`animation-delay: ${0.1 * index}s;`}
+              >
+                <div class="flex justify-between items-start mb-16">
+                  <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-700 via-slate-800 to-[#09090B] flex items-center justify-center shadow-lg border border-white dark:border-white/10">
+                    <Icon
+                      name={item.icon}
+                      class="w-6 h-6 text-white dark:text-[#09090B]/90"
+                    />
+                  </div>
+                  <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#09090B] dark:text-white">
+                    RULE {item.id}
+                  </span>
+                </div>
+
+                <div class="mt-auto">
+                  <h3 class="text-[22px] font-bold tracking-tight text-[#09090B] dark:text-white mb-4">
+                    {item.title}
+                  </h3>
+                  <p class="text-[14px] lg:text-[15px] leading-[1.6] text-[#71717A] dark:text-[#A1A1AA] font-normal">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="relative w-full py-20 lg:py-32 bg-white dark:bg-[#121214] border-b border-[#E4E4E7] dark:border-white/10"
+    >
+      <div class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10">
+        <div
+          class="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20 lg:mb-24 animate-fade-in-up"
+        >
+          <div class="lg:col-span-7">
+            <h2
+              class="text-[32px] md:text-[48px] font-medium tracking-tight text-[#09090B] dark:text-white leading-[1.05]"
+            >
+              The Architects.
+            </h2>
+          </div>
+          <div class="lg:col-span-5 flex flex-col justify-end lg:pb-3">
+            <p
+              class="text-[16px] md:text-[17px] leading-[1.65] text-[#71717A] dark:text-[#A1A1AA] font-normal max-w-[480px]"
+            >
+              Our leadership team combines deep technical expertise in frontend
+              systems with human-centric psychology and operations.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#E4E4E7] dark:bg-white/10 border border-[#E4E4E7] dark:border-white/10 rounded-3xl overflow-hidden shadow-sm animate-fade-in-up"
+          style="animation-delay: 0.2s;"
+        >
+          {
+            leaders.map((person) => (
+              <div class="bg-white dark:bg-[#121214] p-10 lg:p-12 flex flex-col group hover:bg-[#FAFAFA] dark:bg-[#09090B] transition-colors duration-500">
+                <div class="flex items-center gap-6 mb-8">
+                  <div class="w-16 h-16 rounded-full bg-[#F1F5F9] border border-[#E2E8F0] dark:border-white/10 flex items-center justify-center overflow-hidden">
+                    <Icon name="mdi:account" class="w-8 h-8 text-slate-400" />
+                  </div>
+                  <div class="flex flex-col">
+                    <h3 class="text-[20px] font-bold tracking-tight text-[#09090B] dark:text-white">
+                      {person.name}
+                    </h3>
+                    <span class="text-[11px] font-bold tracking-widest uppercase text-[#71717A] dark:text-[#A1A1AA] mt-1">
+                      {person.role}
+                    </span>
+                  </div>
+                </div>
+
+                <p class="text-[15px] leading-[1.6] text-[#71717A] dark:text-[#A1A1AA] max-w-[380px]">
+                  {person.bio}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <CtaCard
+      badgeText="Connect"
+      title="Join the <br/> Mission."
+      description="Whether you are an enterprise logistics partner demanding operational excellence or engineering talent looking to scale infrastructure."
+      primaryBtnText="Contact Leadership"
+      primaryBtnHref="#contact"
+      illustrationUrl={aboutIllustration}
+      trustHighlight="Top 1%"
+      trustText="engineering talent."
+    />
+  </main>
+</MainLayout>
+

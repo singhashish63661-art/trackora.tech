@@ -1,0 +1,201 @@
+---
+import { Icon } from "astro-icon/components";
+import { getSiteSettings } from "../lib/site-settings";
+
+const siteSettings = await getSiteSettings();
+const social = siteSettings.social ?? {};
+const socialLinks = {
+  linkedin: social.linkedin || "https://www.linkedin.com/",
+  instagram: social.instagram || "https://www.instagram.com/",
+  youtube: social.youtube || "https://www.youtube.com/",
+};
+
+const currentYear = new Date().getFullYear();
+
+const footerLinks = [
+  {
+    title: "Platform",
+    links: [
+      { label: "Solutions", href: "/solutions" },
+      { label: "Products", href: "/products" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Contact Sales", href: "/contact" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Blog", href: "/blog" },
+      { label: "Contact", href: "/contact" },
+      { label: "CMS", href: "/crm" },
+      { label: "Website", href: "https://trackora.tech/" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Sales", href: "mailto:sales@trackora.tech" },
+      { label: "Support", href: "mailto:support@trackora.tech" },
+      { label: "Careers", href: "mailto:careers@trackora.tech" },
+      { label: "Call Us", href: "tel:+917206617045" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Service", href: "/terms" },
+    ],
+  },
+];
+---
+
+<footer
+  class="relative w-full pt-24 pb-12 bg-white font-sans text-[#09090B] border-t border-[#E4E4E7]"
+>
+  <div
+    class="absolute inset-0 z-0 opacity-10 pointer-events-none hidden md:block"
+  >
+    <div
+      class="absolute inset-0 bg-[linear-gradient(to_right,#000000_1px,transparent_1px)] bg-[size:12rem_100%] opacity-[0.05]"
+    >
+    </div>
+  </div>
+
+  <div class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10">
+    <div
+      class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 mb-20 lg:mb-32"
+    >
+      <div class="lg:col-span-4 flex flex-col items-start">
+        <a href="/" class="flex items-center group mb-8">
+          <img
+            src="/assets/logo.png"
+            alt="Trackora"
+            class="h-16 lg:h-20 w-auto transform transition-transform duration-500 group-hover:scale-105"
+          />
+        </a>
+
+        <p
+          class="text-[15px] leading-[1.6] text-[#71717A] font-normal max-w-[320px] mb-8"
+        >
+          Architecting the next decade of autonomous fleet intelligence and
+          global logistics infrastructure.
+        </p>
+
+        <div class="flex gap-4">
+          <a
+            href="https://trackora.tech/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-10 h-10 rounded-lg border border-[#E4E4E7] flex items-center justify-center hover:bg-[#09090B] hover:text-white transition-all"
+            aria-label="Trackora Website"
+          >
+            <Icon name="mdi:web" class="w-5 h-5" />
+          </a>
+          <a
+            href="mailto:support@trackora.tech"
+            class="w-10 h-10 rounded-lg border border-[#E4E4E7] flex items-center justify-center hover:bg-[#09090B] hover:text-white transition-all"
+            aria-label="Email Trackora"
+          >
+            <Icon name="mdi:email-outline" class="w-5 h-5" />
+          </a>
+          <a
+            href="tel:+917206617045"
+            class="w-10 h-10 rounded-lg border border-[#E4E4E7] flex items-center justify-center hover:bg-[#09090B] hover:text-white transition-all"
+            aria-label="Call Trackora"
+          >
+            <Icon name="mdi:phone-outline" class="w-5 h-5" />
+          </a>
+
+        </div>
+      </div>
+
+      <div
+        class="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-12"
+      >
+        {
+          footerLinks.map((group) => (
+            <div class="flex flex-col gap-6">
+              <h4 class="text-[11px] font-bold tracking-[0.2em] uppercase text-[#09090B]">
+                {group.title}
+              </h4>
+              <ul class="flex flex-col gap-4">
+                {group.links.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class="text-[14px] text-[#71717A] hover:text-[#09090B] transition-colors font-medium"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div
+      class="pt-12 border-t border-[#F1F5F9] flex flex-col md:flex-row justify-between items-center gap-8"
+    >
+      <div class="flex flex-col md:flex-row items-center gap-6">
+        <span class="text-[12px] text-[#71717A] font-medium">
+          © {currentYear} Trackora Infrastructure.
+        </span>
+        <div
+          class="flex items-center gap-2 px-3 py-1 bg-[#F8FAFC] border border-[#E2E8F0] rounded-full"
+        >
+          <div class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></div>
+          <span
+            class="text-[10px] font-bold tracking-widest text-[#64748B] uppercase"
+            >All Nodes Operational</span
+          >
+        </div>
+        <span class="text-[11px] text-[#71717A]">Typical support response: within 24 hours</span>
+      </div>
+
+      <div
+        class="flex items-center gap-6 text-[12px] font-medium text-[#71717A] flex-wrap justify-center"
+      >
+        <a href="/privacy" class="hover:text-[#09090B] transition-colors">Privacy Policy</a>
+        <a href="/terms" class="hover:text-[#09090B] transition-colors">Terms of Service</a>
+        <div class="flex items-center gap-2 text-[#09090B]">
+          <Icon name="mdi:web" class="w-4 h-4" />
+          <span>Region: Global (UTC)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <a
+            href={socialLinks.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-8 h-8 rounded-lg border border-[#E4E4E7] flex items-center justify-center hover:bg-[#09090B] hover:text-white transition-all"
+            aria-label="LinkedIn"
+          >
+            <Icon name="mdi:linkedin" class="w-4 h-4" />
+          </a>
+          <a
+            href={socialLinks.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-8 h-8 rounded-lg border border-[#E4E4E7] flex items-center justify-center hover:bg-[#09090B] hover:text-white transition-all"
+            aria-label="Instagram"
+          >
+            <Icon name="mdi:instagram" class="w-4 h-4" />
+          </a>
+          <a
+            href={socialLinks.youtube}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-8 h-8 rounded-lg border border-[#E4E4E7] flex items-center justify-center hover:bg-[#09090B] hover:text-white transition-all"
+            aria-label="YouTube"
+          >
+            <Icon name="mdi:youtube" class="w-4 h-4" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

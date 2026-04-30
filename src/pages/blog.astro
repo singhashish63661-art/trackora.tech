@@ -1,0 +1,297 @@
+---
+import { Icon } from "astro-icon/components";
+import MainLayout from "../layouts/main-layout.astro";
+import CtaCard from "../components/CTA.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog");
+
+// Featured first, then chronological
+const posts = allPosts.sort((a, b) => {
+    if (a.data.featured && !b.data.featured) return -1;
+    if (!a.data.featured && b.data.featured) return 1;
+    return 0;
+});
+
+const categories = [
+    "All Research",
+    ...Array.from(new Set(allPosts.map((p) => p.data.category))),
+];
+
+const POSTS_PER_PAGE = 5;
+
+// Serialize posts for the client-side script
+const postsJson = JSON.stringify(
+    posts.map((p, i) => ({
+        slug: p.slug,
+        category: p.data.category,
+        date: p.data.date,
+        title: p.data.title,
+        excerpt: p.data.excerpt,
+        img: p.data.img ?? null,
+        readTime: p.data.readTime,
+        featured: p.data.featured ?? false,
+        originalIndex: i,
+    })),
+);
+
+const ctaIllustration =
+    posts[0]?.data.img ??
+    "https://cdn.dribbble.com/userupload/45315141/file/8ec9281656b7a5ce128ccc8184d7243d.png?resize=1504x1128&vertical=center";
+---
+
+<MainLayout
+    title="Blog & Updates | Trackora"
+    description="Data-driven insights, architectural deep dives, and system changelogs directly from the engineering team."
+>
+    <main
+        class="bg-[#FAFAFA] dark:bg-[#09090B] text-[#09090B] dark:text-white"
+    >
+        <!-- ── PAGE HEADER ── -->
+        <section
+            class="relative w-full pt-24 pb-20 lg:pt-32 lg:pb-32 border-b border-[#E4E4E7] dark:border-white/10 overflow-hidden"
+        >
+            <div
+                class="absolute inset-0 z-0 opacity-20 pointer-events-none hidden md:block"
+            >
+                <div
+                    class="absolute inset-0 bg-[linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] opacity-[0.05]"
+                >
+                </div>
+            </div>
+            <div
+                class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10"
+            >
+                <div
+                    class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end animate-fade-in-up"
+                >
+                    <div class="lg:col-span-8">
+                        <div
+                            class="flex items-center gap-2.5 px-3 py-1.5 border border-[#E4E4E7] dark:border-white/10 bg-white dark:bg-[#121214] rounded-full w-max mb-8 shadow-sm"
+                        >
+                            <span
+                                class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#52525B] dark:text-[#C4C4CE]"
+                                >Knowledge Ledger</span
+                            >
+                        </div>
+                        <h1
+                            class="text-[36px] md:text-[56px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.04em] text-[#09090B] dark:text-white"
+                        >
+                            Operational <br class="hidden sm:block" /> Intelligence.
+                        </h1>
+                    </div>
+                    <div
+                        class="lg:col-span-4 flex flex-col justify-end lg:pb-3"
+                    >
+                        <p
+                            class="text-[17px] md:text-[19px] leading-[1.65] text-[#71717A] dark:text-[#A1A1AA] font-normal"
+                        >
+                            Data-driven insights, architectural deep dives, and
+                            system changelogs directly from the engineering
+                            team.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── STICKY CATEGORY NAV ── -->
+        <section
+            class="w-full bg-[#FAFAFA] dark:bg-[#09090B]/90 backdrop-blur-md border-b border-[#E4E4E7] dark:border-white/10 sticky top-0 z-40"
+        >
+            <div
+                class="max-w-[1440px] mx-auto px-6 lg:px-12 overflow-x-auto no-scrollbar"
+            >
+                <ul
+                    class="flex items-center gap-8 w-max h-16"
+                    id="category-nav"
+                >
+                    {
+                        categories.map((category, index) => (
+                            <li>
+                                <button
+                                    data-category={category}
+                                    class={`category-btn text-[12px] font-bold tracking-[0.1em] uppercase transition-colors flex items-center h-16 border-b-2 ${index === 0 ? "text-[#09090B] dark:text-white border-[#09090B] dark:border-white/10" : "text-[#A1A1AA] dark:text-[#71717A] border-transparent hover:text-[#09090B] dark:text-white"}`}
+                                >
+                                    {category}
+                                </button>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+        </section>
+
+        <!-- ── POSTS GRID ── -->
+        <section
+            class="relative w-full py-20 lg:py-32 bg-white dark:bg-[#121214]"
+        >
+            <div class="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
+                <div
+                    id="posts-grid"
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-10"
+                >
+                    <!-- Posts injected by JS -->
+                </div>
+
+                <!-- pagination -->
+                <div
+                    class="mt-20 flex items-center justify-between border-t border-[#E4E4E7] dark:border-white/10 pt-8"
+                >
+                    <button
+                        id="btn-prev"
+                        class="flex items-center gap-2 text-[13px] font-bold tracking-wide text-[#A1A1AA] dark:text-[#71717A] hover:text-[#09090B] dark:text-white disabled:opacity-30 transition-colors uppercase"
+                        disabled
+                    >
+                        <Icon name="mdi:arrow-left" class="w-4 h-4" /> Newer Nodes
+                    </button>
+                    <span
+                        id="page-label"
+                        class="text-[12px] font-mono font-medium text-[#71717A] dark:text-[#A1A1AA]"
+                        >PAGE 01 // 1</span
+                    >
+                    <button
+                        id="btn-next"
+                        class="flex items-center gap-2 text-[13px] font-bold tracking-wide text-[#09090B] dark:text-white hover:text-[#71717A] dark:text-[#A1A1AA] disabled:opacity-30 transition-colors uppercase"
+                    >
+                        Older Nodes <Icon
+                            name="mdi:arrow-right"
+                            class="w-4 h-4"
+                        />
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <CtaCard
+            badgeText="Intelligence Digest"
+            title="Subscribe to <br/> System Updates."
+            description="Receive raw architectural deep dives, changelogs, and predictive modeling research directly from our systems engineering team."
+            primaryBtnText="Join the Newsletter"
+            primaryBtnHref="mailto:support@trackora.tech?subject=Trackora%20Newsletter%20Subscription"
+            illustrationUrl={ctaIllustration}
+        />
+    </main>
+</MainLayout>
+
+<script is:inline define:vars={{ postsJson, POSTS_PER_PAGE }}>
+    const ALL_POSTS = JSON.parse(postsJson);
+    const PER_PAGE = POSTS_PER_PAGE;
+
+    let activeCategory = "All Research";
+    let currentPage = 1;
+
+    function getFiltered() {
+        if (activeCategory === "All Research") return ALL_POSTS;
+        return ALL_POSTS.filter((p) => p.category === activeCategory);
+    }
+
+    function totalPages(filtered) {
+        return Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+    }
+
+    function buildCard(post, index, isFirst) {
+        const imgHtml = post.img
+            ? `<img loading="lazy" decoding="async" src="${post.img}" alt="${post.title}" class="relative z-10 w-full h-full object-cover rounded-2xl lg:rounded-[1.5rem] filter mix-blend-multiply transition-transform duration-700 group-hover:scale-[1.03] shadow-sm border border-[#E4E4E7] dark:border-white/10/50" />`
+            : `<div class="relative z-10 w-full h-full rounded-2xl bg-zinc-200 flex items-center justify-center"><svg class="w-10 h-10 text-zinc-400" viewBox="0 0 24 24" fill="currentColor"><path d="M21,5H3A2,2 0 0,0 1,7V17A2,2 0 0,0 3,19H21A2,2 0 0,0 23,17V7A2,2 0 0,0 21,5M21,17H3V7H21V17M20,15H4V9H20V15Z"/></svg></div>`;
+
+        const imgPanel = `
+            <div class="relative bg-[#F8FAFC] dark:bg-[#18181A] p-4 lg:p-6 overflow-hidden flex items-center justify-center ${isFirst ? "lg:w-[55%] w-full aspect-video lg:aspect-auto border-b lg:border-b-0 lg:border-r border-[#E4E4E7] dark:border-white/10" : "w-full aspect-[4/3] border-b border-[#E4E4E7] dark:border-white/10"}">
+                <div class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#000_1px,transparent_1px)] bg-[size:15px_15px]"></div>
+                ${imgHtml}
+                <div class="absolute top-8 right-8 w-10 h-10 bg-white dark:bg-[#121214] rounded-full flex items-center justify-center shadow-lg opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-20 border border-[#E4E4E7] dark:border-white/10">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                </div>
+            </div>`;
+
+        const textPanel = `
+            <div class="flex flex-col p-8 lg:p-10 ${isFirst ? "lg:w-[45%] justify-center" : "flex-1 justify-between"}">
+                <div class="flex items-center justify-between mb-6">
+                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#A1A1AA] dark:text-[#71717A] border border-[#E4E4E7] dark:border-white/10 px-2.5 py-1 rounded-md group-hover:border-[#09090B] dark:border-white/10 group-hover:text-[#09090B] dark:text-white transition-colors">${post.category}</span>
+                    <span class="text-[11px] font-mono font-medium text-[#A1A1AA] dark:text-[#71717A]">${post.readTime}</span>
+                </div>
+                <div>
+                    <h3 class="font-bold tracking-tight text-[#09090B] dark:text-white mb-4 group-hover:text-[#71717A] dark:text-[#A1A1AA] transition-colors ${isFirst ? "text-[28px] md:text-[36px] leading-[1.1]" : "text-[22px] leading-[1.2]"}">${post.title}</h3>
+                    <p class="text-[15px] leading-[1.6] text-[#71717A] dark:text-[#A1A1AA]">${post.excerpt}</p>
+                </div>
+                <div class="mt-8 border-t border-[#F1F5F9] pt-6">
+                    <span class="text-[12px] font-bold tracking-widest text-[#09090B] dark:text-white uppercase">${post.date}</span>
+                </div>
+            </div>`;
+
+        const colClass = isFirst
+            ? "md:col-span-2 lg:col-span-8 lg:flex-row"
+            : "lg:col-span-4";
+
+        return `<a href="/blog/${post.slug}" class="group flex flex-col bg-white dark:bg-[#121214] border border-[#E4E4E7] dark:border-white/10 rounded-[2rem] overflow-hidden shadow-sm hover:border-[#09090B] dark:border-white/10 hover:shadow-xl transition-all duration-500 animate-fade-in-up ${colClass}" style="animation-delay:${0.08 * index}s">
+            ${imgPanel}${textPanel}
+        </a>`;
+    }
+
+    function render() {
+        const filtered = getFiltered();
+        const total = totalPages(filtered);
+        if (currentPage > total) currentPage = 1;
+
+        const start = (currentPage - 1) * PER_PAGE;
+        const slice = filtered.slice(start, start + PER_PAGE);
+
+        const grid = document.getElementById("posts-grid");
+        grid.innerHTML = slice.map((p, i) => buildCard(p, i, i === 0)).join("");
+
+        const padded = String(currentPage).padStart(2, "0");
+        const totalPad = String(total).padStart(2, "0");
+        document.getElementById("page-label").textContent =
+            `PAGE ${padded} // ${totalPad}`;
+
+        document.getElementById("btn-prev").disabled = currentPage <= 1;
+        document.getElementById("btn-next").disabled = currentPage >= total;
+    }
+
+    // Category clicks
+    document.querySelectorAll(".category-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            activeCategory = btn.dataset.category;
+            currentPage = 1;
+            document.querySelectorAll(".category-btn").forEach((b) => {
+                b.classList.remove(
+                    "text-[#09090B] dark:text-white",
+                    "border-[#09090B] dark:border-white/10",
+                );
+                b.classList.add(
+                    "text-[#A1A1AA] dark:text-[#71717A]",
+                    "border-transparent",
+                );
+            });
+            btn.classList.add(
+                "text-[#09090B] dark:text-white",
+                "border-[#09090B] dark:border-white/10",
+            );
+            btn.classList.remove(
+                "text-[#A1A1AA] dark:text-[#71717A]",
+                "border-transparent",
+            );
+            render();
+        });
+    });
+
+    // Pagination
+    document.getElementById("btn-prev").addEventListener("click", () => {
+        if (currentPage > 1) {
+            currentPage--;
+            render();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    });
+    document.getElementById("btn-next").addEventListener("click", () => {
+        const total = totalPages(getFiltered());
+        if (currentPage < total) {
+            currentPage++;
+            render();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    });
+
+    // Initial render
+    render();
+</script>

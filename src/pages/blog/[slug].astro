@@ -1,0 +1,191 @@
+---
+import { Icon } from "astro-icon/components";
+import MainLayout from "../../layouts/main-layout.astro";
+import { getCollection } from "astro:content";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog");
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<MainLayout
+    title={`${post.data.title} | Trackora`}
+    description={post.data.excerpt}
+>
+    <main class="bg-[#FAFAFA] dark:bg-[#09090B] font-sans text-[#09090B] dark:text-white">
+        <!-- ── HERO ── -->
+        <section
+            class="relative w-full pt-32 pb-16 lg:pt-48 lg:pb-24 border-b border-[#E4E4E7] dark:border-white/10 overflow-hidden"
+        >
+            <div
+                class="absolute inset-0 z-0 opacity-20 pointer-events-none hidden md:block"
+            >
+                <div
+                    class="absolute inset-0 bg-[linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] opacity-[0.05]"
+                >
+                </div>
+            </div>
+
+            <div
+                class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10"
+            >
+                <!-- back link -->
+                <a
+                    href="/blog"
+                    class="inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.2em] uppercase text-[#A1A1AA] dark:text-[#71717A] hover:text-[#09090B] dark:text-white transition-colors mb-12"
+                >
+                    <Icon name="mdi:arrow-left" class="w-4 h-4" /> Knowledge Ledger
+                </a>
+
+                <div
+                    class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end"
+                >
+                    <div class="lg:col-span-8">
+                        <div class="flex flex-wrap items-center gap-4 mb-8">
+                            <span
+                                class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#A1A1AA] dark:text-[#71717A] border border-[#E4E4E7] dark:border-white/10 bg-white dark:bg-[#121214] px-2.5 py-1 rounded-md"
+                            >
+                                {post.data.category}
+                            </span>
+                            <span
+                                class="text-[11px] font-mono font-medium text-[#A1A1AA] dark:text-[#71717A]"
+                                >{post.data.date}</span
+                            >
+                            <span
+                                class="text-[11px] font-mono font-medium text-[#A1A1AA] dark:text-[#71717A]"
+                                >{post.data.readTime} read</span
+                            >
+                        </div>
+                        <h1
+                            class="text-[36px] md:text-[52px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.04em] text-[#09090B] dark:text-white"
+                        >
+                            {post.data.title}
+                        </h1>
+                    </div>
+                    <div
+                        class="lg:col-span-4 flex flex-col justify-end lg:pb-3"
+                    >
+                        <p
+                            class="text-[17px] md:text-[19px] leading-[1.65] text-[#71717A] dark:text-[#A1A1AA] font-normal"
+                        >
+                            {post.data.excerpt}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── COVER IMAGE ── -->
+        {
+            post.data.img && (
+                <div class="w-full max-w-[1440px] mx-auto px-6 lg:px-12 pt-12">
+                    <div class="relative w-full aspect-[16/7] rounded-[2rem] overflow-hidden border border-[#E4E4E7] dark:border-white/10 bg-[#F8FAFC] dark:bg-[#18181A] shadow-sm">
+                        <div class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#000_1px,transparent_1px)] bg-[size:15px_15px]" />
+                        <img
+                            loading="lazy" decoding="async" src={post.data.img}
+                            alt={post.data.title}
+                            class="relative z-10 w-full h-full object-cover mix-blend-multiply"
+                        />
+                    </div>
+                </div>
+            )
+        }
+
+        <!-- ── ARTICLE BODY ── -->
+        <div class="w-full max-w-[1440px] mx-auto px-6 lg:px-12 py-16 lg:py-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                <!-- sidebar -->
+                <aside
+                    class="lg:col-span-3 hidden lg:flex flex-col gap-8 sticky top-28 self-start"
+                >
+                    <div>
+                        <span
+                            class="text-[9px] font-bold tracking-[0.25em] uppercase text-[#A1A1AA] dark:text-[#71717A] block mb-4"
+                            >Filed Under</span
+                        >
+                        <span
+                            class="text-[13px] font-bold tracking-wide text-[#09090B] dark:text-white border border-[#E4E4E7] dark:border-white/10 px-3 py-1.5 rounded-md"
+                        >
+                            {post.data.category}
+                        </span>
+                    </div>
+                    <div>
+                        <span
+                            class="text-[9px] font-bold tracking-[0.25em] uppercase text-[#A1A1AA] dark:text-[#71717A] block mb-2"
+                            >Published</span
+                        >
+                        <span class="text-[13px] font-bold text-[#09090B] dark:text-white"
+                            >{post.data.date}</span
+                        >
+                    </div>
+                    <div>
+                        <span
+                            class="text-[9px] font-bold tracking-[0.25em] uppercase text-[#A1A1AA] dark:text-[#71717A] block mb-2"
+                            >Read Time</span
+                        >
+                        <span class="text-[13px] font-bold text-[#09090B] dark:text-white"
+                            >{post.data.readTime}</span
+                        >
+                    </div>
+                    <div class="pt-6 border-t border-[#E4E4E7] dark:border-white/10">
+                        <a
+                            href="/blog"
+                            class="text-[12px] font-bold tracking-wide text-[#A1A1AA] dark:text-[#71717A] hover:text-[#09090B] dark:text-white transition-colors flex items-center gap-2 uppercase"
+                        >
+                            <Icon name="mdi:arrow-left" class="w-4 h-4" /> All Articles
+                        </a>
+                    </div>
+                </aside>
+
+                <!-- article -->
+                <article
+                    class="lg:col-span-9 prose prose-zinc prose-headings:font-semibold prose-headings:tracking-tight prose-h2:text-[28px] prose-h3:text-[20px] prose-p:text-[17px] prose-p:leading-[1.8] prose-p:text-[#52525B] dark:text-[#C4C4CE] prose-li:text-[#52525B] dark:text-[#C4C4CE] prose-li:text-[16px] prose-strong:text-[#09090B] dark:text-white prose-table:text-[14px] max-w-none"
+                >
+                    <Content />
+                </article>
+            </div>
+        </div>
+
+        <!-- ── FOOTER STRIP ── -->
+        <div class="border-t border-[#E4E4E7] dark:border-white/10">
+            <div
+                class="w-full max-w-[1440px] mx-auto px-6 lg:px-12 py-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8"
+            >
+                <div>
+                    <p
+                        class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#A1A1AA] dark:text-[#71717A] mb-3"
+                    >
+                        Continue Reading
+                    </p>
+                    <a
+                        href="/blog"
+                        class="text-[20px] font-bold tracking-tight text-[#09090B] dark:text-white hover:text-[#71717A] dark:text-[#A1A1AA] transition-colors flex items-center gap-3"
+                    >
+                        All Updates <Icon
+                            name="mdi:arrow-right"
+                            class="w-5 h-5"
+                        />
+                    </a>
+                </div>
+                <a
+                    href="#contact"
+                    class="inline-flex items-center gap-2 text-[13px] font-bold tracking-wide text-[#09090B] dark:text-white border-b-2 border-[#09090B] dark:border-white/10 pb-0.5 hover:opacity-60 transition-opacity"
+                >
+                    Request Consultation <Icon
+                        name="mdi:arrow-right"
+                        class="w-4 h-4"
+                    />
+                </a>
+            </div>
+        </div>
+    </main>
+</MainLayout>

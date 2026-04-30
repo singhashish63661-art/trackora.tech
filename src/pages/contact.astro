@@ -1,0 +1,329 @@
+---
+import { Icon } from "astro-icon/components";
+import MainLayout from "../layouts/main-layout.astro";
+import CtaCard from "../components/CTA.astro";
+
+const illustrationUrl =
+  "https://cdn.dribbble.com/userupload/45315141/file/8ec9281656b7a5ce128ccc8184d7243d.png?resize=1504x1128&vertical=center";
+
+const routingOptions = [
+  { label: "Sales", email: "sales@trackora.tech" },
+  { label: "Support", email: "support@trackora.tech" },
+  { label: "Careers", email: "careers@trackora.tech" },
+];
+
+const officeNodes = [
+  {
+    city: "Gurugram, Haryana",
+    type: "Sector 33, Subhash Chowk, Near Chokat Showroom",
+    info: "Pincode 122001, India",
+  },
+  {
+    city: "Call Us Directly",
+    type: "Mon – Sat, 9 AM to 7 PM",
+    info: "+91 72066 17045",
+  },
+];
+---
+
+<MainLayout
+    title="Contact Sales | Trackora"
+    description="Get in touch with Trackora's team to learn more about our fleet logistics platform and schedule a personalized demo."
+    ogImage="https://trackora.tech/assets/logo.png"
+>
+  <main
+    class="bg-[#FAFAFA] dark:bg-[#09090B] text-[#09090B] dark:text-white"
+  >
+    <section
+      class="relative w-full pt-24 pb-20 lg:pt-32 lg:pb-32 border-b border-[#E4E4E7] dark:border-white/10 overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 z-0 opacity-20 pointer-events-none hidden md:block"
+      >
+        <div
+          class="absolute inset-0 bg-[linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] opacity-[0.05]"
+        >
+        </div>
+      </div>
+
+      <div class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10">
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end animate-fade-in-up"
+        >
+          <div class="lg:col-span-7">
+            <div
+              class="flex items-center gap-2.5 px-3 py-1.5 border border-[#E4E4E7] dark:border-white/10 bg-white dark:bg-[#121214] rounded-full w-max mb-8 shadow-sm"
+            >
+              <span
+                class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#52525B] dark:text-[#C4C4CE]"
+                >Secure Transmission</span
+              >
+            </div>
+
+            <h1
+              class="text-[36px] md:text-[56px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.04em] text-[#09090B] dark:text-white"
+            >
+              Initiate a direct <br class="hidden sm:block" /> connection.
+            </h1>
+          </div>
+
+          <div class="lg:col-span-5 flex flex-col justify-end lg:pb-3">
+            <p
+              class="text-[17px] md:text-[19px] leading-[1.65] text-[#71717A] dark:text-[#A1A1AA] font-normal max-w-[480px]"
+            >
+              Connect with our engineering and operations specialists. We
+              typically respond to all business inquiries within 24 hours.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="relative w-full py-16 lg:py-24 border-b border-[#E4E4E7] bg-[#F8FAFF]">
+      <div class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+          <div class="lg:col-span-7 animate-fade-in-up">
+            <div class="rounded-[28px] border border-[#E2E8F0] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_18px_45px_rgba(15,23,42,0.08)]">
+              <div class="mb-8">
+                <p class="text-[11px] font-bold tracking-[0.18em] uppercase text-[#64748B]">
+                  Contact Form
+                </p>
+                <h2 class="text-[28px] sm:text-[34px] font-semibold tracking-tight text-[#0F172A] mt-2">
+                  Tell us about your fleet needs.
+                </h2>
+                <p class="text-[15px] text-[#64748B] mt-2">
+                  Share your requirements and we will get back with the right setup and plan.
+                </p>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+                <div class="rounded-lg border border-[#E2E8F0] bg-[#F8FAFC] px-3 py-2.5">
+                  <p class="text-[10px] uppercase tracking-[0.16em] text-[#64748B] font-bold">Response</p>
+                  <p class="text-[13px] font-semibold text-[#0F172A] mt-1">Within 24 hours</p>
+                </div>
+                <div class="rounded-lg border border-[#E2E8F0] bg-[#F8FAFC] px-3 py-2.5">
+                  <p class="text-[10px] uppercase tracking-[0.16em] text-[#64748B] font-bold">Coverage</p>
+                  <p class="text-[13px] font-semibold text-[#0F172A] mt-1">PAN India + global teams</p>
+                </div>
+                <div class="rounded-lg border border-[#E2E8F0] bg-[#F8FAFC] px-3 py-2.5">
+                  <p class="text-[10px] uppercase tracking-[0.16em] text-[#64748B] font-bold">Support</p>
+                  <p class="text-[13px] font-semibold text-[#0F172A] mt-1">Sales + engineering assist</p>
+                </div>
+              </div>
+
+              <form id="contact-form" class="space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="space-y-2">
+                    <label class="text-[12px] font-semibold text-[#334155]">First Name</label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      required
+                      class="w-full rounded-xl border border-[#CBD5E1] bg-white px-4 py-3 text-[15px] text-[#0F172A] outline-none transition focus:border-[#3B82F6] focus:ring-4 focus:ring-[#DBEAFE]"
+                      placeholder="First name"
+                    />
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-[12px] font-semibold text-[#334155]">Last Name</label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      required
+                      class="w-full rounded-xl border border-[#CBD5E1] bg-white px-4 py-3 text-[15px] text-[#0F172A] outline-none transition focus:border-[#3B82F6] focus:ring-4 focus:ring-[#DBEAFE]"
+                      placeholder="Last name"
+                    />
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="space-y-2">
+                    <label class="text-[12px] font-semibold text-[#334155]">Corporate Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      class="w-full rounded-xl border border-[#CBD5E1] bg-white px-4 py-3 text-[15px] text-[#0F172A] outline-none transition focus:border-[#3B82F6] focus:ring-4 focus:ring-[#DBEAFE]"
+                      placeholder="you@company.com"
+                    />
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-[12px] font-semibold text-[#334155]">Phone Number</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      class="w-full rounded-xl border border-[#CBD5E1] bg-white px-4 py-3 text-[15px] text-[#0F172A] outline-none transition focus:border-[#3B82F6] focus:ring-4 focus:ring-[#DBEAFE]"
+                      placeholder="+91 72066 17045"
+                    />
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="space-y-2">
+                    <label class="text-[12px] font-semibold text-[#334155]">Company Name</label>
+                    <input
+                      type="text"
+                      name="company"
+                      class="w-full rounded-xl border border-[#CBD5E1] bg-white px-4 py-3 text-[15px] text-[#0F172A] outline-none transition focus:border-[#3B82F6] focus:ring-4 focus:ring-[#DBEAFE]"
+                      placeholder="Trackora Logistics Pvt Ltd"
+                    />
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-[12px] font-semibold text-[#334155]">Fleet Size</label>
+                    <div class="relative">
+                      <select
+                        required
+                        name="fleetSize"
+                        class="w-full appearance-none rounded-xl border border-[#CBD5E1] bg-white px-4 py-3 text-[15px] text-[#0F172A] outline-none transition focus:border-[#3B82F6] focus:ring-4 focus:ring-[#DBEAFE]"
+                      >
+                        <option value="" disabled selected>Select scale...</option>
+                        <option value="1-50">1 - 50 Nodes</option>
+                        <option value="51-250">51 - 250 Nodes</option>
+                        <option value="251-1000">251 - 1,000 Nodes</option>
+                        <option value="1000+">1,000+ Nodes (Enterprise)</option>
+                      </select>
+                      <Icon
+                        name="mdi:chevron-down"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#94A3B8] pointer-events-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="text-[12px] font-semibold text-[#334155]">Message</label>
+                  <textarea
+                    required
+                    name="message"
+                    rows="5"
+                    class="w-full rounded-xl border border-[#CBD5E1] bg-white px-4 py-3 text-[15px] text-[#0F172A] outline-none transition focus:border-[#3B82F6] focus:ring-4 focus:ring-[#DBEAFE] resize-none"
+                    placeholder="What challenges are you solving for your fleet operations?"
+                  ></textarea>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-1">
+                  <button
+                    type="submit"
+                    id="contact-submit"
+                    class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0F172A] px-8 py-3.5 text-[14px] font-semibold text-white transition hover:bg-[#1E293B] disabled:cursor-not-allowed disabled:opacity-70"
+                  >
+                    Submit Request
+                    <Icon name="mdi:send-outline" class="w-4 h-4" />
+                  </button>
+                  <p class="text-[12px] text-[#64748B]">Average response time: within 24 hours</p>
+                </div>
+                <p id="contact-feedback" class="text-sm text-[#64748B]"></p>
+              </form>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 flex flex-col gap-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+            <div class="rounded-[24px] border border-[#E2E8F0] bg-white p-6 sm:p-7 shadow-[0_10px_30px_rgba(15,23,42,0.06)]">
+              <h3 class="text-[13px] font-bold tracking-[0.18em] uppercase text-[#0F172A] mb-5">
+                Direct Routing
+              </h3>
+              <ul class="space-y-4">
+                {
+                  routingOptions.map((route) => (
+                    <li class="rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] px-4 py-3">
+                      <p class="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#64748B]">{route.label}</p>
+                      <a
+                        href={`mailto:${route.email}`}
+                        class="text-[15px] font-semibold text-[#0F172A] hover:text-[#2563EB] transition-colors"
+                      >
+                        {route.email}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+
+            <div class="rounded-[24px] border border-[#E2E8F0] bg-white p-6 sm:p-7 shadow-[0_10px_30px_rgba(15,23,42,0.06)]">
+              <h3 class="text-[13px] font-bold tracking-[0.18em] uppercase text-[#0F172A] mb-5">
+                Office & Contact
+              </h3>
+              <div class="space-y-4">
+                {
+                  officeNodes.map((node) => (
+                    <div class="rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] px-4 py-3">
+                      <p class="text-[16px] font-bold tracking-tight text-[#0F172A]">{node.city}</p>
+                      <p class="text-[13px] text-[#64748B] mt-1">{node.type}</p>
+                      <p class="text-[13px] font-semibold text-[#0F172A] mt-0.5">{node.info}</p>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <CtaCard
+      badgeText="System Bypass"
+      title="Ready to deploy <br/> immediately?"
+      description="Bypass the architecture consultation and proceed directly to generating your API keys and initializing your staging environment."
+      primaryBtnText="Initialize Deployment"
+      primaryBtnHref="#deploy"
+      secondaryBtnText="Review Documentation"
+      secondaryBtnHref="#docs"
+      illustrationUrl={illustrationUrl}
+      trustHighlight="100ms"
+      trustText="average global latency."
+    />
+  </main>
+
+  <script>
+    // @ts-nocheck
+    const form = document.getElementById("contact-form");
+    const submit = document.getElementById("contact-submit");
+    const feedback = document.getElementById("contact-feedback");
+
+    if (form && submit && feedback) {
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        submit.setAttribute("disabled", "true");
+        feedback.textContent = "Submitting...";
+        window.trackEvent?.("contact_submit_start");
+
+        const formData = new FormData(form);
+        const firstName = String(formData.get("firstName") || "");
+        const lastName = String(formData.get("lastName") || "");
+        const email = String(formData.get("email") || "");
+        const phone = String(formData.get("phone") || "");
+        const company = String(formData.get("company") || "");
+        const fleetSize = String(formData.get("fleetSize") || "");
+        const message = String(formData.get("message") || "");
+
+        try {
+          const response = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: `${firstName} ${lastName}`.trim(),
+              email,
+              phone,
+              company,
+              subject: `Contact enquiry (${fleetSize})`,
+              message,
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error("Request failed");
+          }
+
+          form.reset();
+          feedback.textContent = "Request submitted successfully.";
+          window.trackEvent?.("contact_submit_success");
+        } catch (error) {
+          console.error(error);
+          feedback.textContent = "Unable to submit now. Please try again.";
+          window.trackEvent?.("contact_submit_failure");
+        } finally {
+          submit.removeAttribute("disabled");
+        }
+      });
+    }
+  </script>
+</MainLayout>

@@ -1,0 +1,141 @@
+---
+import { Icon } from "astro-icon/components";
+import { getHomeSettings } from "../../lib/home-settings";
+
+const homeSettings = await getHomeSettings();
+const benefitsSettings = homeSettings.benefits;
+const benefits = benefitsSettings.items;
+---
+
+<section
+    id="benefits"
+    class="relative w-full py-20 lg:py-32 bg-[#FAFAFA] dark:bg-[#09090B] font-sans text-[#09090B] dark:text-white border-t border-[#E4E4E7] dark:border-white/10 overflow-hidden"
+>
+    <div
+        class="absolute inset-0 z-0 opacity-20 pointer-events-none hidden md:block"
+    >
+        <div
+            class="absolute inset-0 bg-[linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] opacity-[0.05]"
+        >
+        </div>
+    </div>
+
+    <div class="relative w-full max-w-[1440px] mx-auto px-6 lg:px-12 z-10">
+        <div
+            class="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20 lg:mb-32 animate-fade-in-up"
+        >
+            <div class="lg:col-span-7">
+                <div
+                    class="flex items-center gap-2.5 px-3 py-1.5 border border-[#E4E4E7] dark:border-white/10 bg-white dark:bg-[#121214] rounded-full w-max mb-8 shadow-sm"
+                >
+                    <span
+                        class="text-[10px] font-bold tracking-[0.15em] uppercase text-[#52525B] dark:text-[#C4C4CE]"
+                        >{benefitsSettings.badgeText}</span
+                    >
+                </div>
+
+                <h2
+                    class="text-[32px] md:text-[48px] lg:text-[56px] font-medium leading-[1.05] tracking-[-0.04em] text-[#09090B] dark:text-white"
+                >
+                    {benefitsSettings.title}
+                </h2>
+            </div>
+
+            <div class="lg:col-span-5 flex flex-col justify-end lg:pb-3">
+                <p
+                    class="text-[16px] md:text-[17px] leading-[1.65] text-[#71717A] dark:text-[#A1A1AA] font-normal max-w-[480px]"
+                >
+                    {benefitsSettings.subtitle}
+                </p>
+            </div>
+        </div>
+
+        <div class="flex flex-col border-t border-[#E4E4E7] dark:border-white/10">
+            {
+                benefits.map((item, index) => (
+                    <div
+                        class="group relative grid grid-cols-1 lg:grid-cols-12 gap-8 py-12 border-b border-[#E4E4E7] dark:border-white/10 transition-all duration-500 hover:bg-white dark:bg-[#121214] animate-fade-in-up"
+                        style={`animation-delay: ${0.1 * index}s;`}
+                    >
+                        <div class="lg:col-span-3 flex flex-col gap-3">
+                            <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#A1A1AA] dark:text-[#71717A] group-hover:text-[#09090B] dark:text-white transition-colors">
+                                {item.category}
+                            </span>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-slate-800 to-[#09090B] flex items-center justify-center shadow-md group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
+                                    <Icon
+                                        name="mdi:check"
+                                        class="w-4 h-4 text-white dark:text-[#09090B]"
+                                    />
+                                </div>
+                                <span class="text-[13px] font-semibold text-[#09090B] dark:text-white">
+                                    Verified
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-6">
+                            <h3 class="text-[24px] lg:text-[28px] font-semibold tracking-tight text-[#09090B] dark:text-white mb-4">
+                                {item.title}
+                            </h3>
+                            <p class="text-[15px] lg:text-[16px] leading-[1.7] text-[#71717A] dark:text-[#A1A1AA] font-normal max-w-[500px]">
+                                {item.description}
+                            </p>
+                        </div>
+
+                        <div class="lg:col-span-3 flex lg:justify-end items-center">
+                            <div class="flex flex-col lg:items-end border-l-2 lg:border-l-0 lg:border-r-2 border-[#09090B] dark:border-white/10 pl-6 lg:pl-0 lg:pr-6">
+                                <span class="text-[28px] lg:text-[32px] font-mono font-bold tracking-tighter text-[#09090B] dark:text-white leading-none mb-2">
+                                    {item.metric}
+                                </span>
+                                <span class="text-[10px] font-bold tracking-[0.1em] uppercase text-[#A1A1AA] dark:text-[#71717A]">
+                                    {item.detail}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+
+        <div
+            class="relative mt-16 group w-max mx-auto animate-fade-in-up"
+            style="animation-delay: 0.4s;"
+        >
+            <div
+                class="absolute -inset-1 bg-gradient-to-r from-slate-500 via-slate-700 to-black rounded-3xl blur-md opacity-25 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"
+            >
+            </div>
+            <div
+                class="relative inline-flex flex-col sm:flex-row items-center gap-6 sm:gap-10 px-10 py-8 bg-[#09090B] dark:bg-[#121214] border border-white dark:border-white/10 rounded-3xl shadow-2xl leading-none"
+            >
+                <div class="flex flex-col text-center sm:text-left gap-2">
+                    <span
+                        class="text-[15px] font-semibold text-white dark:text-[#09090B] tracking-wide"
+                        >{benefitsSettings.ctaTitle}</span
+                    >
+                    <span class="text-[13px] text-zinc-400 font-medium"
+                        >{benefitsSettings.ctaSubtitle}</span
+                    >
+                </div>
+                <div class="h-10 w-px bg-white dark:bg-[#121214]/10 hidden sm:block relative">
+                    <div
+                        class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/30 to-transparent"
+                    >
+                    </div>
+                </div>
+                <a
+                    href="/contact"
+                    onclick="window.trackEvent?.('cta_click', { location: 'benefits_cta', target: '/contact' })"
+                    class="group/btn relative inline-flex items-center justify-center gap-3 bg-white dark:bg-[#121214] text-[#09090B] dark:text-white px-8 py-4 font-bold text-[13px] tracking-wide rounded-full overflow-hidden hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all duration-300"
+                >
+                    <span class="relative z-10">{benefitsSettings.ctaButtonText}</span>
+                    <Icon
+                        name="mdi:arrow-right"
+                        class="relative z-10 w-4 h-4 group-hover/btn:translate-x-1 transition-transform"
+                    />
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
