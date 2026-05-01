@@ -95,3 +95,4 @@ For career submissions, repeat the same flow for the career form and monitor log
 
 - If email form submissions fail, verify `GMAIL_USER` and `GMAIL_PASS` in `.env`.
 - If dependency install fails, remove `node_modules` and reinstall with `npm install`.
+# trackora.tech
