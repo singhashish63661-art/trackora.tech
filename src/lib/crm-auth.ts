@@ -41,10 +41,14 @@ function readFromDotEnv(key: string) {
 }
 
 function getEnvValue(key: "CRM_ADMIN_PASSWORD" | "CRM_SESSION_SECRET") {
-  const fromImportMeta = (import.meta as ImportMeta & { env?: Record<string, string> }).env?.[key] ?? "";
-  const fromProcess = process.env[key] ?? "";
-  const fromDotEnv = readFromDotEnv(key);
-  return (fromImportMeta || fromProcess || fromDotEnv).trim();
+  const fromProcess = (process.env[key] ?? "").trim();
+  if (fromProcess) return fromProcess;
+  const fromImportMeta = (
+    (import.meta as ImportMeta & { env?: Record<string, string> }).env?.[key] ??
+    ""
+  ).trim();
+  if (fromImportMeta) return fromImportMeta;
+  return readFromDotEnv(key).trim();
 }
 
 function getAdminPassword() {

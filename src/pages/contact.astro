@@ -310,8 +310,16 @@ const officeNodes = [
             }),
           });
 
+          const payload = await response.json().catch(() => ({}));
+
           if (!response.ok) {
-            throw new Error("Request failed");
+            const msg =
+              typeof payload.message === "string" && payload.message
+                ? payload.message
+                : "Unable to submit now. Please try again.";
+            feedback.textContent = msg;
+            window.trackEvent?.("contact_submit_failure");
+            return;
           }
 
           form.reset();

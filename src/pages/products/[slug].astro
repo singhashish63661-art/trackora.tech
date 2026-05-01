@@ -72,9 +72,9 @@ const ogImage = product?.data?.img
                 </a>
 
                 <div
-                    class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end"
+                    class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-start lg:items-end"
                 >
-                    <div class="lg:col-span-8">
+                    <div class="min-w-0 lg:col-span-8">
                         <div class="flex flex-wrap items-center gap-3 mb-8">
                             {
                                 product.data.category && (
@@ -98,17 +98,17 @@ const ogImage = product?.data?.img
                         </div>
 
                         <h1
-                            class="text-[36px] md:text-[52px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.04em] text-[#09090B] dark:text-white"
+                            class="text-[28px] sm:text-[36px] md:text-[52px] lg:text-[64px] font-medium leading-[1.08] sm:leading-[1.05] tracking-[-0.04em] text-[#09090B] dark:text-white break-words"
                         >
                             {product.data.title}
                         </h1>
                     </div>
 
                     <div
-                        class="lg:col-span-4 flex flex-col justify-end lg:pb-3"
+                        class="min-w-0 lg:col-span-4 flex flex-col justify-end lg:pb-3"
                     >
                         <p
-                            class="text-[17px] md:text-[19px] leading-[1.65] text-[#71717A] dark:text-[#A1A1AA] font-normal"
+                            class="text-[16px] md:text-[19px] leading-[1.65] text-[#71717A] dark:text-[#A1A1AA] font-normal break-words"
                         >
                             {product.data.excerpt}
                         </p>

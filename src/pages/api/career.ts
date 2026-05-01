@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import nodemailer from 'nodemailer';
 import { addLead } from '../../lib/crm-store';
+import { getGmailConfig } from '../../lib/server-env';
 
 export const POST: APIRoute = async ({ request }) => {
     const data = await request.formData();
@@ -16,16 +17,22 @@ export const POST: APIRoute = async ({ request }) => {
         });
     }
 
-    if (!import.meta.env.GMAIL_USER || !import.meta.env.GMAIL_PASS) {
-        return new Response(JSON.stringify({ message: 'Server configuration error' }), { status: 500 });
+    const gmail = getGmailConfig();
+    if (!gmail) {
+        return new Response(
+            JSON.stringify({
+                message:
+                    'Email is not configured. Add GMAIL_USER and GMAIL_PASS in the host environment.',
+            }),
+            { status: 503, headers: { 'Content-Type': 'application/json' } },
+        );
     }
 
-    // Gmail SMTP Configuration
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: import.meta.env.GMAIL_USER,
-            pass: import.meta.env.GMAIL_PASS,
+            user: gmail.user,
+            pass: gmail.pass,
         },
     });
 
@@ -46,9 +53,9 @@ export const POST: APIRoute = async ({ request }) => {
         const buffer = Buffer.from(arrayBuffer);
 
         await transporter.sendMail({
-            from: import.meta.env.GMAIL_USER, // Gmail requires 'from' to be the authenticated user
+            from: gmail.user,
             replyTo: String(email ?? ''),
-            to: import.meta.env.GMAIL_USER,
+            to: gmail.user,
             subject: `New Career Application: ${position} from ${name}`,
             text: `Applicant Name: ${name}\nEmail: ${email}\nPosition: ${position}\n\nPlease see attached resume.`,
             attachments: [{ filename: file.name || 'resume', content: buffer }]

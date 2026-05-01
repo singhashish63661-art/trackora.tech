@@ -21,10 +21,16 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     const password = body.password ?? "";
 
     if (!isAuthConfigured()) {
-      return new Response(JSON.stringify({ message: "CRM auth is not configured" }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      });
+      return new Response(
+        JSON.stringify({
+          message:
+            "CRM auth is not configured. Set CRM_ADMIN_PASSWORD (and optional CRM_SESSION_SECRET) in your host environment, e.g. Vercel → Settings → Environment Variables, then redeploy.",
+        }),
+        {
+          status: 503,
+          headers: { "Content-Type": "application/json" },
+        },
+      );
     }
 
     if (!isValidAdminPassword(password)) {
