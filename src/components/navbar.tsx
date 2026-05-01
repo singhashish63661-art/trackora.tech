@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
+import { trackEvent } from "../lib/analytics";
 
 interface NavbarProps {
   pathname?: string;
@@ -42,7 +43,7 @@ const Navbar = ({ pathname = "/" }: NavbarProps) => {
 
   return (
     <>
-      <header className="w-full px-4 sm:px-6 lg:px-16 py-4 lg:py-6 flex justify-between items-center z-[9998] sticky top-0 bg-[#FAFAFA]/90 backdrop-blur-md border-b border-[#E4E4E7] isolate">
+      <header className="w-full px-4 sm:px-6 lg:px-16 pt-[max(1rem,env(safe-area-inset-top))] pb-4 lg:py-6 flex justify-between items-center z-[9998] sticky top-0 bg-[#FAFAFA]/90 backdrop-blur-md border-b border-[#E4E4E7] isolate">
       <Logo />
 
       {/* DESKTOP NAV */}
@@ -65,7 +66,7 @@ const Navbar = ({ pathname = "/" }: NavbarProps) => {
       <div className="hidden lg:flex items-center gap-2.5">
         <a
           href="/contact"
-          onClick={() => (window as any).trackEvent?.("cta_click", { location: "navbar_desktop", target: "/contact" })}
+          onClick={() => trackEvent("cta_click", { location: "navbar_desktop", target: "/contact" })}
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#09090B] text-white font-semibold text-[12px] lg:text-[13px] tracking-wide hover:opacity-90 transition-opacity"
         >
           Book Demo <Icon icon="mdi:arrow-top-right" className="w-3 h-3 lg:w-4 lg:h-4" />
@@ -76,12 +77,12 @@ const Navbar = ({ pathname = "/" }: NavbarProps) => {
       <div className="lg:hidden flex items-center gap-2">
         <a
           href="/contact"
-          onClick={() => (window as any).trackEvent?.("cta_click", { location: "navbar_mobile", target: "/contact" })}
-          className="inline-flex items-center justify-center px-3 py-2 rounded-full bg-[#09090B] text-white text-[11px] font-semibold tracking-wide"
+          onClick={() => trackEvent("cta_click", { location: "navbar_mobile", target: "/contact" })}
+          className="inline-flex items-center justify-center min-h-[44px] px-4 py-2 rounded-full bg-[#09090B] text-white text-[11px] font-semibold tracking-wide"
         >
           Demo
         </a>
-        <button onClick={() => setOpen(true)} className="flex flex-col gap-1.5 p-2 z-50" aria-label="Open menu">
+        <button type="button" onClick={() => setOpen(true)} className="flex flex-col gap-1.5 justify-center min-w-[44px] min-h-[44px] p-2 z-50 rounded-lg" aria-label="Open menu" aria-expanded={open}>
           <span className="w-6 h-[2px] bg-[#09090B]" />
           <span className="w-4 h-[2px] bg-[#09090B] self-end" />
           <span className="w-6 h-[2px] bg-[#09090B]" />
@@ -104,11 +105,11 @@ const Navbar = ({ pathname = "/" }: NavbarProps) => {
               initial="closed"
               animate="opened"
               exit="closed"
-              className="fixed inset-y-0 right-0 w-full sm:w-[400px] bg-[#FAFAFA] z-[10000] flex flex-col shadow-2xl overflow-y-auto"
+              className="fixed inset-y-0 right-0 w-full sm:w-[400px] max-w-full bg-[#FAFAFA] z-[10000] flex flex-col shadow-2xl overflow-y-auto pb-[env(safe-area-inset-bottom)]"
             >
               <div className="flex items-center justify-between p-5 sm:p-6 lg:p-8 border-b border-gray-100">
                 <Logo />
-                <button onClick={() => setOpen(false)} className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-[#09090B] text-xl">
+                <button type="button" onClick={() => setOpen(false)} className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full bg-gray-100 text-[#09090B] text-xl" aria-label="Close menu">
                   <Icon icon="mdi:close" className="w-5 h-5" />
                 </button>
               </div>
@@ -140,7 +141,7 @@ const Navbar = ({ pathname = "/" }: NavbarProps) => {
                   href="/contact"
                   onClick={() => {
                     setOpen(false);
-                    (window as any).trackEvent?.("cta_click", { location: "menu_mobile", target: "/contact" });
+                    trackEvent("cta_click", { location: "menu_mobile", target: "/contact" });
                   }}
                   className="w-full py-4 flex items-center justify-center gap-2 bg-[#09090B] text-white font-semibold tracking-wide transition-opacity hover:opacity-90 rounded-xl"
                 >

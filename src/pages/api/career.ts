@@ -7,7 +7,14 @@ export const POST: APIRoute = async ({ request }) => {
     const name = data.get('name');
     const email = data.get('email');
     const position = data.get('position');
-    const file = data.get('resume') as File;
+    const file = data.get('resume');
+
+    if (!(file instanceof File) || file.size <= 0) {
+        return new Response(JSON.stringify({ message: 'Resume file is required' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' },
+        });
+    }
 
     if (!import.meta.env.GMAIL_USER || !import.meta.env.GMAIL_PASS) {
         return new Response(JSON.stringify({ message: 'Server configuration error' }), { status: 500 });
@@ -31,7 +38,7 @@ export const POST: APIRoute = async ({ request }) => {
             message: "Career application received",
             metadata: {
                 position: String(position ?? ""),
-                resumeFile: file?.name ?? "",
+                resumeFile: file.name ?? "",
             },
         });
 
@@ -40,11 +47,11 @@ export const POST: APIRoute = async ({ request }) => {
 
         await transporter.sendMail({
             from: import.meta.env.GMAIL_USER, // Gmail requires 'from' to be the authenticated user
-            replyTo: email as string,
+            replyTo: String(email ?? ''),
             to: import.meta.env.GMAIL_USER,
             subject: `New Career Application: ${position} from ${name}`,
             text: `Applicant Name: ${name}\nEmail: ${email}\nPosition: ${position}\n\nPlease see attached resume.`,
-            attachments: [{ filename: file.name, content: buffer }]
+            attachments: [{ filename: file.name || 'resume', content: buffer }]
         });
 
         return new Response(JSON.stringify({ message: 'Success' }), { status: 200 });

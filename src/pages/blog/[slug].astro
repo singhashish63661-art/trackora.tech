@@ -2,6 +2,11 @@
 import { Icon } from "astro-icon/components";
 import MainLayout from "../../layouts/main-layout.astro";
 import { getCollection } from "astro:content";
+import {
+    getCanonicalUrl,
+    toAbsoluteUrl,
+    tryParseArticleIso,
+} from "../../lib/seo-utils";
 
 export const prerender = true;
 
@@ -15,11 +20,57 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+
+const canonicalUrl = getCanonicalUrl(Astro.site, `/blog/${post.slug}`);
+const defaultOg = toAbsoluteUrl(Astro.site, "/assets/logo.png");
+const coverImage = post.data.img
+    ? toAbsoluteUrl(Astro.site, post.data.img)
+    : defaultOg;
+const publishedIso = tryParseArticleIso(post.data.date);
+
+const articleSchema = {
+    "@type": "BlogPosting",
+    "@id": `${canonicalUrl}#article`,
+    headline: post.data.title,
+    description: post.data.excerpt,
+    ...(publishedIso
+        ? { datePublished: publishedIso, dateModified: publishedIso }
+        : {}),
+    author: {
+        "@type": "Organization",
+        name: "Trackora",
+        url: "https://trackora.tech/",
+    },
+    publisher: {
+        "@id": "https://trackora.tech/#organization",
+    },
+    image: {
+        "@type": "ImageObject",
+        url: coverImage,
+    },
+    mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": canonicalUrl,
+    },
+    keywords: post.data.category,
+};
 ---
 
 <MainLayout
     title={`${post.data.title} | Trackora`}
     description={post.data.excerpt}
+    canonicalUrl={canonicalUrl}
+    ogImage={coverImage}
+    ogImageAlt={post.data.title}
+    ogType="article"
+    articleMeta={{
+        ...(publishedIso
+            ? { publishedTime: publishedIso, modifiedTime: publishedIso }
+            : {}),
+        section: post.data.category,
+        author: "Trackora",
+    }}
+    structuredData={articleSchema}
 >
     <main class="bg-[#FAFAFA] dark:bg-[#09090B] font-sans text-[#09090B] dark:text-white">
         <!-- ── HERO ── -->

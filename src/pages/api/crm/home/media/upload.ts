@@ -17,16 +17,20 @@ function sanitizeKind(kind: string): MediaKind | null {
   return null;
 }
 
-function guessExt(file: File) {
-  const nameExt = path.extname(file.name || "");
-  if (nameExt) return nameExt;
+const ALLOWED_EXT = new Set([".mp4", ".png", ".jpg", ".jpeg", ".webp"]);
+
+function guessExt(file: File): string | null {
+  const nameExt = path.extname(file.name || "").toLowerCase();
+  if (nameExt && ALLOWED_EXT.has(nameExt)) {
+    return nameExt === ".jpeg" ? ".jpg" : nameExt;
+  }
 
   if (file.type === "video/mp4") return ".mp4";
   if (file.type === "image/png") return ".png";
   if (file.type === "image/jpeg") return ".jpg";
   if (file.type === "image/webp") return ".webp";
 
-  return ".bin";
+  return null;
 }
 
 export const POST: APIRoute = async ({ request, cookies }) => {
@@ -55,6 +59,15 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     await fs.mkdir(uploadDir, { recursive: true });
 
     const ext = guessExt(file);
+    if (!ext) {
+      return new Response(
+        JSON.stringify({ message: "Only mp4, png, jpg, or webp uploads are allowed" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+    }
     const safeName = `${safeKind}-${Date.now()}-${randomUUID().slice(0, 8)}${ext}`;
     const filePath = path.join(uploadDir, safeName);
 

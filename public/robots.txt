@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /crm
+Disallow: /crm-login
 
-Sitemap: https://trackora.tech/sitemap.xml
+Sitemap: https://trackora.tech/sitemap-index.xml

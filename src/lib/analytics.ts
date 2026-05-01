@@ -4,6 +4,8 @@ declare global {
   interface Window {
     dataLayer?: Array<Record<string, unknown>>;
     trackEvent?: (name: string, payload?: TrackPayload) => void;
+    __trackoraDemoReady?: boolean;
+    openDemoWithFallback?: () => void;
   }
 }
 

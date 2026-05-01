@@ -20,10 +20,10 @@ export const DemoModal = () => {
             setIsOpen(true);
             trackEvent("demo_modal_open");
         };
-        (window as any).__trackoraDemoReady = true;
+        window.__trackoraDemoReady = true;
         window.addEventListener("openDemoModal", handleOpen);
         return () => {
-            (window as any).__trackoraDemoReady = false;
+            window.__trackoraDemoReady = false;
             window.removeEventListener("openDemoModal", handleOpen);
         };
     }, []);
@@ -74,7 +74,7 @@ export const DemoModal = () => {
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6">
+                <div className="fixed inset-0 z-[99999] flex items-end sm:items-center justify-center p-4 sm:p-6 pb-[max(1rem,env(safe-area-inset-bottom))]">
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -87,12 +87,14 @@ export const DemoModal = () => {
                         initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                        className="relative w-full max-w-[500px] bg-white rounded-2xl shadow-2xl overflow-hidden"
+                        className="relative w-full max-w-[500px] max-h-[min(90dvh,calc(100vh-2rem))] sm:max-h-[90dvh] bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col"
                     >
-                        <div className="p-6 sm:p-8">
+                        <div className="p-6 sm:p-8 overflow-y-auto overscroll-contain">
                             <button
+                                type="button"
                                 onClick={() => setIsOpen(false)}
-                                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                                className="absolute top-3 right-3 sm:top-4 sm:right-4 min-w-[44px] min-h-[44px] rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                                aria-label="Close"
                             >
                                 <Icon icon="mdi:close" className="w-4 h-4 text-gray-600" />
                             </button>
@@ -122,7 +124,7 @@ export const DemoModal = () => {
                                         placeholder="John Doe"
                                     />
                                 </div>
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-xs font-medium text-gray-700 uppercase tracking-widest mb-1.5">
                                             Company
@@ -180,7 +182,7 @@ export const DemoModal = () => {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full mt-6 bg-[#09090B] text-white py-4 rounded-lg text-sm font-semibold tracking-wide hover:bg-gray-800 transition-colors"
+                                    className="w-full mt-6 min-h-[48px] bg-[#09090B] text-white py-4 rounded-lg text-sm font-semibold tracking-wide hover:bg-gray-800 transition-colors disabled:opacity-60"
                                 >
                                     {isSubmitting ? "Submitting..." : "Book Demo"}
                                 </button>

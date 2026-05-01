@@ -2,31 +2,52 @@
 import Navbar from "../components/navbar.tsx";
 import Footer from "../components/footer.astro";
 import { DemoModal } from "../components/DemoModal.tsx";
+import { getCanonicalUrl, toAbsoluteUrl, jsonLdStringify } from "../lib/seo-utils";
 import "../styles/global.css";
 
 export interface LayoutProps {
   title: string;
   description?: string;
   ogImage?: string;
+  ogImageAlt?: string;
   canonicalUrl?: string;
   structuredData?: Record<string, unknown> | null;
+  /** Defaults to index, follow */
+  robots?: string;
+  ogType?: "website" | "article";
+  articleMeta?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    section?: string;
+    author?: string;
+  };
 }
 
 const {
   title,
   description = "Trackora provides safety products and services to transportation companies.",
-  ogImage = "https://trackora.tech/assets/logo.png",
+  ogImage = "/assets/logo.png",
+  ogImageAlt,
   canonicalUrl,
   structuredData = null,
+  robots = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  ogType = "website",
+  articleMeta,
 } = Astro.props as LayoutProps;
 
-const resolvedCanonical = canonicalUrl || Astro.url.toString();
+const site = Astro.site;
+const resolvedCanonical = canonicalUrl ?? getCanonicalUrl(site, Astro.url.pathname);
+const absoluteOgImage = toAbsoluteUrl(site, ogImage);
+const resolvedOgImageAlt =
+  ogImageAlt ?? (ogType === "article" ? title : "Trackora — fleet intelligence and safety platform");
+const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const baseSchemaGraph = [
   {
     "@type": "WebSite",
     "@id": "https://trackora.tech/#website",
     url: "https://trackora.tech/",
     name: "Trackora",
+    inLanguage: "en-US",
     description:
       "Trackora provides safety products and services to transportation companies.",
     publisher: {
@@ -38,6 +59,7 @@ const baseSchemaGraph = [
     "@id": "https://trackora.tech/#organization",
     name: "Trackora",
     url: "https://trackora.tech/",
+    inLanguage: "en-US",
     logo: {
       "@type": "ImageObject",
       url: "https://trackora.tech/assets/logo.png",
@@ -71,48 +93,76 @@ const schemaPayload = {
     ? [...baseSchemaGraph, structuredData]
     : baseSchemaGraph,
 };
+
+const schemaJson = jsonLdStringify(schemaPayload);
 ---
 
 <html lang="en">
   <head>
     <!-- Core Meta Tags -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <meta name="theme-color" content="#FAFAFA" />
     <meta name="color-scheme" content="light" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content="fleet logistics, GPS tracking, vehicle tracking, fleet management, logistics software, Trackora, transportation safety, real-time tracking, telematics" />
+    <meta
+      name="keywords"
+      content="fleet logistics, GPS tracking, vehicle tracking, fleet management, logistics software, Trackora, transportation safety, real-time tracking, telematics, ADAS, fleet safety"
+    />
     <meta name="author" content="Trackora Infrastructure" />
-    <meta name="robots" content="index, follow" />
-    <meta name="googlebot" content="index, follow" />
+    <meta name="creator" content="Trackora Infrastructure" />
+    <meta name="publisher" content="Trackora" />
+    <meta name="robots" content={robots} />
+    <meta name="googlebot" content={robots} />
+    {googleSiteVerification ? (
+      <meta name="google-site-verification" content={googleSiteVerification} />
+    ) : null}
 
-    <!-- Canonical URL -->
+    <!-- Canonical & locale hints -->
     <link rel="canonical" href={resolvedCanonical} />
+    <link rel="alternate" hreflang="en" href={resolvedCanonical} />
+    <link rel="alternate" hreflang="x-default" href={resolvedCanonical} />
 
-    <!-- Open Graph / Social Media -->
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Open Graph -->
     <meta property="og:site_name" content="Trackora" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={resolvedCanonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content="Trackora - Next-Gen Intel For Modern Fleet Logistics" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image" content={absoluteOgImage} />
+    <meta property="og:image:secure_url" content={absoluteOgImage} />
+    <meta property="og:image:alt" content={resolvedOgImageAlt} />
+    {articleMeta?.publishedTime ? (
+      <meta property="article:published_time" content={articleMeta.publishedTime} />
+    ) : null}
+    {articleMeta?.modifiedTime ? (
+      <meta property="article:modified_time" content={articleMeta.modifiedTime} />
+    ) : null}
+    {articleMeta?.section ? (
+      <meta property="article:section" content={articleMeta.section} />
+    ) : null}
+    {articleMeta?.author ? (
+      <meta property="article:author" content={articleMeta.author} />
+    ) : null}
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@TrackoraTech" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content="Trackora Logo" />
+    <meta name="twitter:image" content={absoluteOgImage} />
+    <meta name="twitter:image:alt" content={resolvedOgImageAlt} />
 
     <!-- Schema.org JSON-LD -->
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaPayload)}>
-    </script>
+    <script is:inline type="application/ld+json" set:html={schemaJson} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -121,7 +171,10 @@ const schemaPayload = {
       rel="stylesheet"
     />
   </head>
-  <body class="bg-[#FAFAFA] text-[#09090B]" style="font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;">
+  <body
+    class="bg-[#FAFAFA] text-[#09090B] min-h-[100dvh] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]"
+    style="font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;"
+  >
     <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100000] focus:bg-white focus:text-[#09090B] focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg">
       Skip to main content
     </a>
@@ -145,10 +198,11 @@ const schemaPayload = {
       }
     </script>
     <script>
-      // @ts-nocheck
+      import type { TrackPayload } from "../lib/analytics";
+
       window.dataLayer = window.dataLayer || [];
-      window.trackEvent = (name, payload = {}) => {
-        window.dataLayer.push({
+      window.trackEvent = (name: string, payload: TrackPayload = {}) => {
+        window.dataLayer!.push({
           event: name,
           page: window.location.pathname,
           ts: Date.now(),

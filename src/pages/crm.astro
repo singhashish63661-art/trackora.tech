@@ -5,6 +5,7 @@ import MainLayout from "../layouts/main-layout.astro";
 <MainLayout
   title="Trackora CMS Panel"
   description="Internal CMS panel to manage website content and incoming enquiries."
+  robots="noindex, nofollow"
 >
   <section class="min-h-screen cms-bg cms-dashboard-root w-full py-6 sm:py-8 lg:py-10">
     <div class="cms-shell w-full max-w-[1580px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -965,6 +966,7 @@ import MainLayout from "../layouts/main-layout.astro";
 
   <script>
     // @ts-nocheck
+    import { escapeHtml, sanitizeUrlForImg } from "../lib/html-escape";
     async function ensureAuth() {
       const response = await fetch("/api/crm/session", { method: "POST" });
       const payload = await response.json();
@@ -1030,16 +1032,16 @@ import MainLayout from "../layouts/main-layout.astro";
                 : "-";
 
         tr.innerHTML = `
-          <td class="px-4 py-3 capitalize">${lead.type}</td>
+          <td class="px-4 py-3 capitalize">${escapeHtml(String(lead.type || ""))}</td>
           <td class="px-4 py-3">
-            <div class="font-medium">${lead.name || "-"}</div>
-            <div class="text-xs text-[#71717A]">${new Date(lead.createdAt).toLocaleString()}</div>
+            <div class="font-medium">${escapeHtml(lead.name || "-")}</div>
+            <div class="text-xs text-[#71717A]">${escapeHtml(new Date(lead.createdAt).toLocaleString())}</div>
           </td>
-          <td class="px-4 py-3">${lead.email || "-"}</td>
-          <td class="px-4 py-3">${companyPhone}</td>
-          <td class="px-4 py-3 max-w-[280px]">${lead.message || lead.subject || "-"}</td>
+          <td class="px-4 py-3">${escapeHtml(lead.email || "-")}</td>
+          <td class="px-4 py-3">${escapeHtml(companyPhone)}</td>
+          <td class="px-4 py-3 max-w-[280px]">${escapeHtml(String(lead.message || lead.subject || "-"))}</td>
           <td class="px-4 py-3">
-            <select class="crm-status border border-[#E4E4E7] rounded-lg px-2 py-1 bg-white" data-id="${lead.id}">
+            <select class="crm-status border border-[#E4E4E7] rounded-lg px-2 py-1 bg-white" data-id="${escapeHtml(String(lead.id || ""))}">
               ${statusOptions
                 .map(
                   (option) =>
@@ -1100,29 +1102,30 @@ import MainLayout from "../layouts/main-layout.astro";
 
       for (const post of blogPosts) {
         const featuredLabel = post.featured ? "Yes" : "No";
-        const imgHtml = post.img
-          ? `<img src="${post.img}" alt="${post.title}" class="w-12 h-12 object-cover rounded-lg border border-[#E4E4E7]" />`
+        const safeImg = sanitizeUrlForImg(String(post.img || ""));
+        const imgHtml = safeImg
+          ? `<img src="${escapeHtml(safeImg)}" alt="${escapeHtml(String(post.title || ""))}" class="w-12 h-12 object-cover rounded-lg border border-[#E4E4E7]" />`
           : "-";
 
         const tr = document.createElement("tr");
         tr.className = "border-b border-[#F4F4F5] align-top";
         tr.innerHTML = `
-          <td class="px-4 py-3 font-medium">${post.title || "-"}</td>
-          <td class="px-4 py-3">${post.category || "-"}</td>
-          <td class="px-4 py-3">${post.date || "-"}</td>
-          <td class="px-4 py-3">${featuredLabel}</td>
+          <td class="px-4 py-3 font-medium">${escapeHtml(String(post.title || "-"))}</td>
+          <td class="px-4 py-3">${escapeHtml(String(post.category || "-"))}</td>
+          <td class="px-4 py-3">${escapeHtml(String(post.date || "-"))}</td>
+          <td class="px-4 py-3">${escapeHtml(featuredLabel)}</td>
           <td class="px-4 py-3">${imgHtml}</td>
           <td class="px-4 py-3">
             <div class="flex items-center gap-2">
                 <button
                   class="blog-edit px-3 py-2 rounded-lg border border-[#E4E4E7] text-sm font-medium text-[#09090B] hover:bg-[#FAFAFA]"
-                  data-slug="${post.slug}"
+                  data-slug="${escapeHtml(String(post.slug || ""))}"
                 >
                   Edit
                 </button>
               <button
                 class="blog-delete px-3 py-2 rounded-lg border border-[#E4E4E7] text-sm font-medium text-[#09090B] hover:bg-[#FAFAFA]"
-                data-slug="${post.slug}"
+                data-slug="${escapeHtml(String(post.slug || ""))}"
               >
                 Delete
               </button>

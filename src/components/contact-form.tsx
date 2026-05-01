@@ -7,11 +7,14 @@ const ContactForm = () => {
     e.preventDefault();
     setStatus('loading');
 
-    const formData = new FormData(e.currentTarget);
+    const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY;
+    if (!accessKey) {
+      setStatus('error');
+      return;
+    }
 
-    // Add Web3Forms Access Key
-    // You can get your Access Key from https://web3forms.com/
-    formData.append("access_key", "------------");
+    const formData = new FormData(e.currentTarget);
+    formData.append("access_key", accessKey);
 
     try {
       const res = await fetch('https://api.web3forms.com/submit', {

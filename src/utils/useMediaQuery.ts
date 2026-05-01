@@ -11,23 +11,13 @@ function useMediaQuery(query: string): boolean {
 
   const [matches, setMatches] = useState<boolean>(getMatches(query));
 
-  function handleChange() {
-    setMatches(getMatches(query));
-  }
-
   useEffect(() => {
     const matchMedia = window.matchMedia(query);
+    const onChange = () => setMatches(matchMedia.matches);
 
-    // Triggered at the first client-side load and if query changes
-    handleChange();
-
-    // Listen for media query changes.
-    matchMedia.addEventListener("change", handleChange);
-
-    return () => {
-      matchMedia.removeEventListener("change", handleChange);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setMatches(matchMedia.matches);
+    matchMedia.addEventListener("change", onChange);
+    return () => matchMedia.removeEventListener("change", onChange);
   }, [query]);
 
   return matches;

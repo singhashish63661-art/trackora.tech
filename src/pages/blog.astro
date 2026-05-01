@@ -175,6 +175,32 @@ const ctaIllustration =
 </MainLayout>
 
 <script is:inline define:vars={{ postsJson, POSTS_PER_PAGE }}>
+    function escapeHtml(text) {
+        return String(text ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+    }
+    function sanitizeUrlForImg(raw) {
+        const s = String(raw ?? "").trim();
+        if (!s) return "";
+        if (s.startsWith("/") && !s.startsWith("//")) return s;
+        try {
+            const u = new URL(s);
+            if (u.protocol === "https:" || u.protocol === "http:") return u.href;
+        } catch {}
+        return "";
+    }
+    function sanitizeSlugForPath(raw) {
+        const s = String(raw ?? "").trim();
+        if (!s || s.length > 200) return "";
+        if (/[<>"'`\\\s]/.test(s)) return "";
+        if (s.includes("..") || s.includes("/")) return "";
+        return s;
+    }
+
     const ALL_POSTS = JSON.parse(postsJson);
     const PER_PAGE = POSTS_PER_PAGE;
 
@@ -191,8 +217,9 @@ const ctaIllustration =
     }
 
     function buildCard(post, index, isFirst) {
-        const imgHtml = post.img
-            ? `<img loading="lazy" decoding="async" src="${post.img}" alt="${post.title}" class="relative z-10 w-full h-full object-cover rounded-2xl lg:rounded-[1.5rem] filter mix-blend-multiply transition-transform duration-700 group-hover:scale-[1.03] shadow-sm border border-[#E4E4E7] dark:border-white/10/50" />`
+        const safeImg = sanitizeUrlForImg(String(post.img || ""));
+        const imgHtml = safeImg
+            ? `<img loading="lazy" decoding="async" src="${escapeHtml(safeImg)}" alt="${escapeHtml(String(post.title || ""))}" class="relative z-10 w-full h-full object-cover rounded-2xl lg:rounded-[1.5rem] filter mix-blend-multiply transition-transform duration-700 group-hover:scale-[1.03] shadow-sm border border-[#E4E4E7] dark:border-white/10/50" />`
             : `<div class="relative z-10 w-full h-full rounded-2xl bg-zinc-200 flex items-center justify-center"><svg class="w-10 h-10 text-zinc-400" viewBox="0 0 24 24" fill="currentColor"><path d="M21,5H3A2,2 0 0,0 1,7V17A2,2 0 0,0 3,19H21A2,2 0 0,0 23,17V7A2,2 0 0,0 21,5M21,17H3V7H21V17M20,15H4V9H20V15Z"/></svg></div>`;
 
         const imgPanel = `
@@ -207,15 +234,15 @@ const ctaIllustration =
         const textPanel = `
             <div class="flex flex-col p-8 lg:p-10 ${isFirst ? "lg:w-[45%] justify-center" : "flex-1 justify-between"}">
                 <div class="flex items-center justify-between mb-6">
-                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#A1A1AA] dark:text-[#71717A] border border-[#E4E4E7] dark:border-white/10 px-2.5 py-1 rounded-md group-hover:border-[#09090B] dark:border-white/10 group-hover:text-[#09090B] dark:text-white transition-colors">${post.category}</span>
-                    <span class="text-[11px] font-mono font-medium text-[#A1A1AA] dark:text-[#71717A]">${post.readTime}</span>
+                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#A1A1AA] dark:text-[#71717A] border border-[#E4E4E7] dark:border-white/10 px-2.5 py-1 rounded-md group-hover:border-[#09090B] dark:border-white/10 group-hover:text-[#09090B] dark:text-white transition-colors">${escapeHtml(String(post.category || ""))}</span>
+                    <span class="text-[11px] font-mono font-medium text-[#A1A1AA] dark:text-[#71717A]">${escapeHtml(String(post.readTime || ""))}</span>
                 </div>
                 <div>
-                    <h3 class="font-bold tracking-tight text-[#09090B] dark:text-white mb-4 group-hover:text-[#71717A] dark:text-[#A1A1AA] transition-colors ${isFirst ? "text-[28px] md:text-[36px] leading-[1.1]" : "text-[22px] leading-[1.2]"}">${post.title}</h3>
-                    <p class="text-[15px] leading-[1.6] text-[#71717A] dark:text-[#A1A1AA]">${post.excerpt}</p>
+                    <h3 class="font-bold tracking-tight text-[#09090B] dark:text-white mb-4 group-hover:text-[#71717A] dark:text-[#A1A1AA] transition-colors ${isFirst ? "text-[28px] md:text-[36px] leading-[1.1]" : "text-[22px] leading-[1.2]"}">${escapeHtml(String(post.title || ""))}</h3>
+                    <p class="text-[15px] leading-[1.6] text-[#71717A] dark:text-[#A1A1AA]">${escapeHtml(String(post.excerpt || ""))}</p>
                 </div>
                 <div class="mt-8 border-t border-[#F1F5F9] pt-6">
-                    <span class="text-[12px] font-bold tracking-widest text-[#09090B] dark:text-white uppercase">${post.date}</span>
+                    <span class="text-[12px] font-bold tracking-widest text-[#09090B] dark:text-white uppercase">${escapeHtml(String(post.date || ""))}</span>
                 </div>
             </div>`;
 
@@ -223,7 +250,10 @@ const ctaIllustration =
             ? "md:col-span-2 lg:col-span-8 lg:flex-row"
             : "lg:col-span-4";
 
-        return `<a href="/blog/${post.slug}" class="group flex flex-col bg-white dark:bg-[#121214] border border-[#E4E4E7] dark:border-white/10 rounded-[2rem] overflow-hidden shadow-sm hover:border-[#09090B] dark:border-white/10 hover:shadow-xl transition-all duration-500 animate-fade-in-up ${colClass}" style="animation-delay:${0.08 * index}s">
+        const slug = sanitizeSlugForPath(String(post.slug || ""));
+        const href = slug ? `/blog/${slug}` : "/blog";
+
+        return `<a href="${escapeHtml(href)}" class="group flex flex-col bg-white dark:bg-[#121214] border border-[#E4E4E7] dark:border-white/10 rounded-[2rem] overflow-hidden shadow-sm hover:border-[#09090B] dark:border-white/10 hover:shadow-xl transition-all duration-500 animate-fade-in-up ${colClass}" style="animation-delay:${0.08 * index}s">
             ${imgPanel}${textPanel}
         </a>`;
     }

@@ -1,44 +1,52 @@
 ---
-// @ts-nocheck
 import { Icon } from "astro-icon/components";
 import MainLayout from "../../layouts/main-layout.astro";
 import { getCollection } from "astro:content";
-import CTA from "../../components/CTA.astro";
+import { getCanonicalUrl, toAbsoluteUrl } from "../../lib/seo-utils";
 
 const slug = Astro.params.slug;
 const products = await getCollection("products");
 const product = products.find((entry) => entry.slug === slug);
-const Content = product ? (await product.render()).Content : null;
+const rendered = product ? await product.render() : null;
+const Content = rendered?.Content;
 
-const ctaIllustration =
-    "https://cdn.dribbble.com/userupload/45315141/file/8ec9281656b7a5ce128ccc8184d7243d.png?resize=1504x1128&vertical=center";
+const canonicalUrl = product
+    ? getCanonicalUrl(Astro.site, `/products/${product.slug}`)
+    : getCanonicalUrl(Astro.site, `/products/${slug ?? ""}`);
+const ogImage = product?.data?.img
+    ? toAbsoluteUrl(Astro.site, product.data.img)
+    : toAbsoluteUrl(Astro.site, "/assets/logo.png");
 ---
 
 <MainLayout
     title={product ? `${product.data.title} | Trackora` : "Product Not Found | Trackora"}
     description={product?.data?.excerpt || "Requested product could not be found."}
+    canonicalUrl={canonicalUrl}
+    ogImage={ogImage}
+    ogImageAlt={product ? product.data.title : "Trackora"}
+    robots={product ? undefined : "noindex, follow"}
 >
     <main
         class="bg-[#FAFAFA] dark:bg-[#09090B] font-sans text-[#09090B] dark:text-white"
     >
-        {
-            !product ? (
-                <section class="w-full max-w-[960px] mx-auto px-6 lg:px-12 py-32">
+        {!product && (
+                <section class="w-full max-w-[960px] mx-auto px-4 sm:px-6 lg:px-12 py-20 sm:py-32">
                     <p class="text-xs uppercase tracking-[0.2em] text-[#71717A] mb-4">Products</p>
-                    <h1 class="text-[36px] md:text-[48px] font-semibold tracking-tight mb-4 text-[#09090B] dark:text-white">
+                    <h1 class="text-[28px] sm:text-[36px] md:text-[48px] font-semibold tracking-tight mb-4 text-[#09090B] dark:text-white">
                         Product not found
                     </h1>
-                    <p class="text-[17px] leading-[1.7] text-[#71717A] dark:text-[#A1A1AA] mb-8">
+                    <p class="text-[16px] sm:text-[17px] leading-[1.7] text-[#71717A] dark:text-[#A1A1AA] mb-8">
                         The requested product page is unavailable or may have moved.
                     </p>
                     <a
                         href="/products"
-                        class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#09090B] text-white text-sm font-semibold hover:opacity-90"
+                        class="inline-flex items-center justify-center min-h-[48px] gap-2 px-5 py-3 rounded-full bg-[#09090B] text-white text-sm font-semibold hover:opacity-90 w-full sm:w-auto"
                     >
                         Back to Products <Icon name="mdi:arrow-right" class="w-4 h-4" />
                     </a>
                 </section>
-            ) : (
+        )}
+        {product && Content && (
                 <>
         <!-- HERO -->
         <section
@@ -108,6 +116,34 @@ const ctaIllustration =
                 </div>
             </div>
         </section>
+
+        <!-- Mobile: key actions (desktop sidebar is lg+) -->
+        <div class="lg:hidden w-full max-w-[1440px] mx-auto px-4 sm:px-6 pb-8">
+            <div class="rounded-2xl border border-[#E4E4E7] dark:border-white/10 bg-white dark:bg-[#121214] p-4 sm:p-5 space-y-4">
+                <div class="flex flex-wrap gap-2">
+                    {product.data.category && (
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#71717A] border border-[#E4E4E7] dark:border-white/10 px-2.5 py-1 rounded-md">
+                            {product.data.category}
+                        </span>
+                    )}
+                    <span class={`text-[10px] font-bold tracking-[0.15em] uppercase px-2.5 py-1 rounded-md ${product.data.live ? "text-blue-600 bg-blue-50 border border-blue-200" : "text-[#71717A] bg-[#F4F4F5] dark:bg-white/5 border border-[#E4E4E7] dark:border-white/10"}`}>
+                        {product.data.live ? "Available now" : "Coming soon"}
+                    </span>
+                </div>
+                <a
+                    href="/contact"
+                    class="flex items-center justify-center min-h-[48px] w-full gap-2 px-5 py-3 bg-[#09090B] dark:bg-[#FAFAFA] text-white dark:text-[#09090B] text-[13px] font-bold rounded-full hover:opacity-90"
+                >
+                    Request demo <Icon name="mdi:arrow-right" class="w-4 h-4" />
+                </a>
+                <a
+                    href="/products"
+                    class="flex items-center justify-center gap-2 text-[12px] font-bold text-[#71717A] hover:text-[#09090B] dark:hover:text-white uppercase tracking-wide"
+                >
+                    <Icon name="mdi:arrow-left" class="w-4 h-4" /> All products
+                </a>
+            </div>
+        </div>
 
         <!-- COVER IMAGE -->
         {
@@ -240,7 +276,6 @@ const ctaIllustration =
             </div>
         </div>
                 </>
-            )
-        }
+        )}
     </main>
 </MainLayout>

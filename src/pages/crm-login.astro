@@ -5,6 +5,7 @@ import MainLayout from "../layouts/main-layout.astro";
 <MainLayout
   title="CMS Login | Trackora"
   description="Authenticate to access Trackora CMS panel."
+  robots="noindex, nofollow"
 >
   <section class="w-full max-w-[520px] mx-auto px-6 py-20">
     <div class="rounded-2xl border border-[#E4E4E7] bg-white p-8 md:p-10">
@@ -41,12 +42,11 @@ import MainLayout from "../layouts/main-layout.astro";
   </section>
 
   <script>
-    // @ts-nocheck
     const form = document.getElementById("crm-login-form");
     const button = document.getElementById("crm-login-submit");
     const feedback = document.getElementById("crm-login-feedback");
 
-    if (form && button && feedback) {
+    if (form instanceof HTMLFormElement && button instanceof HTMLButtonElement && feedback instanceof HTMLElement) {
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
         button.setAttribute("disabled", "true");

@@ -13,7 +13,15 @@ export const PATCH: APIRoute = async ({ request, cookies }) => {
     });
   }
 
-  const body = (await request.json()) as { id?: string; status?: LeadStatus };
+  let body: { id?: string; status?: LeadStatus };
+  try {
+    body = await request.json();
+  } catch {
+    return new Response(JSON.stringify({ message: "Invalid JSON body" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 
   if (!body.id) {
     return new Response(JSON.stringify({ message: "Lead id is required" }), {
